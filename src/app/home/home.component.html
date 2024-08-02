@@ -1,0 +1,30 @@
+<app-header/>
+<!--<nav class="navbar">
+  <div class="navbar-container">
+    <a class="navbar-brand" routerLink="/home">Nursery E-Commerce</a>
+    <div>
+      <button (click)="onCart()" class="cart-button">Cart</button>
+      <button (click)="onSignOut()" class="signout-button">Sign Out</button>
+    </div>
+  </div>
+</nav> -->
+<div class="container home-container">
+  <h1>Welcome to the Nursery E-Commerce Home Page!</h1>
+  <p>Explore our collection of plants and gardening supplies.</p>
+  <div class="products">
+    <div class="product-card" *ngFor="let product of products">
+      <img
+        [src]="product.image"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p class="price">${{ product.price }}</p>
+      <button (click)="addToCart(product)" class="buy-button">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+<app-footer/>
