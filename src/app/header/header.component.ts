@@ -3,13 +3,13 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
-  imports: [RouterLink],
+  //standalone: true,
+  //imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  
   constructor(private router: Router) { }
 
   onCart() {
@@ -20,8 +20,11 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  onProfile(){
+  onProfile() {
     this.router.navigate(['/profile']);
   }
 
+  onWishList() {
+    this.router.navigate(['/wishlist']);
+  }
 }

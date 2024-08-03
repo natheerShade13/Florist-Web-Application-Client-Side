@@ -1,0 +1,11 @@
+<app-header/>
+<div class="wishlist-container">
+    <h2>Wishlist</h2>
+    <div *ngIf="wishlist.length === 0">Your wishlist is empty.</div>
+    <div *ngFor="let plant of wishlist">
+      <div class="plant-item">
+        <span>{{ plant.name }}</span>
+        <button (click)="removeFromWishlist(plant)">Remove</button>
+      </div>
+    </div>
+  </div>

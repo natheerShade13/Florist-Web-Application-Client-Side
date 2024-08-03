@@ -1,0 +1,34 @@
+.wishlist-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .wishlist-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #28a745;
+  }
+  
+  .plant-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .plant-item button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .plant-item button:hover {
+    background-color: #c0392b;
+  }

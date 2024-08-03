@@ -7,8 +7,8 @@ import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule, NgFor, NgIf, HeaderComponent, FooterComponent],
+  //standalone: true,
+  //imports: [CommonModule, NgFor, NgIf, HeaderComponent, FooterComponent],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })

@@ -1,20 +1,22 @@
 <app-header/>
 <div class="profile-container">
-    <h2>User Profile</h2>
-    <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
-      </div>
-      <div class="form-group">
-        <label for="profileImage">Profile Image:</label>
-        <input type="file" id="profileImage" (change)="onFileChange($event)">
-      </div>
-      <button type="submit" class="save-button">Save</button>
-    </form>
+  <h2>User Profile</h2>
+  <div class="profile-image-container">
+    <img [src]="user.profileImageUrl" alt="Profile Image">
   </div>
-  <app-footer/>
+  <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div class="form-group">
+      <label for="profileImage">Profile Image:</label>
+      <input type="file" id="profileImage" (change)="onFileChange($event)">
+    </div>
+    <button type="submit" class="save-button">Save</button>
+  </form>
+</div>

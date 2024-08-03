@@ -6,18 +6,22 @@ import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [FormsModule, HeaderComponent, FooterComponent],
+  //standalone: true,
+  //imports: [FormsModule, HeaderComponent, FooterComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 
 export class ProfileComponent implements OnInit {
+  
   user = {
     name: '',
     email: '',
-    profileImage: null as File | null
+    profileImage: null as File | null,
+    profileImageUrl: '' // To display image preview
   };
+
+  myString = localStorage.getItem("username");
 
   constructor(private router: Router) { }
 
@@ -26,7 +30,8 @@ export class ProfileComponent implements OnInit {
     this.user = {
       name: 'Yuji Itadori',
       email: 'yuji.itadori@example.com',
-      profileImage: null
+      profileImage: null,
+      profileImageUrl: 'assets/profile-icon.jpg' // Default profile image
     };
   }
 
@@ -39,7 +44,7 @@ export class ProfileComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.user.profileImage = file;
-      // Optionally, handle file upload or preview
+      this.user.profileImageUrl = URL.createObjectURL(file); // Create URL for preview
     }
   }
 

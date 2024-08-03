@@ -1,68 +1,65 @@
-.auth-container {
-  width: 100%;
-  max-width: 400px;
+.registration-container {
+  width: 80%;
+  max-width: 500px;
   margin: 20px auto;
-}
-
-.auth-card {
+  padding: 20px;
   background-color: #fff;
-  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
 }
 
-.auth-card h2 {
+.registration-container h2 {
   margin-bottom: 20px;
-  color: #333;
+  font-size: 1.8em;
+  color: #28a745;
 }
 
 .form-group {
   margin-bottom: 15px;
-  text-align: left;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  font-weight: bold;
+  color: #333;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-.auth-button {
-  width: 100%;
-  padding: 10px 0;
+.register-button {
   background-color: #28a745;
   color: #fff;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1em;
 }
 
-.auth-button:hover {
+.register-button:hover {
   background-color: #218838;
 }
 
-p {
+.login-link {
   margin-top: 15px;
-  color: #777;
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
 }
 
-a {
+.login-link a {
   color: #007bff;
   text-decoration: none;
 }
 
-a:hover {
+.login-link a:hover {
   text-decoration: underline;
 }

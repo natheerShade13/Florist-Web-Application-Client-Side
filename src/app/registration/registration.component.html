@@ -1,41 +1,33 @@
-<div class="auth-page">
-  <div class="auth-container">
-    <div class="auth-card">
-      <h2>Register</h2>
-      <form (ngSubmit)="onRegister()">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            [(ngModel)]="username"
-            name="username"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            [(ngModel)]="email"
-            name="email"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            [(ngModel)]="password"
-            name="password"
-            required
-          />
-        </div>
-        <button type="submit" class="auth-button">Register</button>
-      </form>
-      <p>Already have an account? <a routerLink="/login">Login here</a></p>
+<div class="registration-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="user.firstName" required>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" [(ngModel)]="user.lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="mobileNumber">Mobile Number:</label>
+      <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="user.mobileNumber" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
+    </div>
+    <button type="submit" class="register-button">Register</button>
+  </form>
+  <p class="login-link">
+    Already have an account? <a routerLink="/login" routerLinkActive="active">Log in here</a>.
+  </p>
 </div>

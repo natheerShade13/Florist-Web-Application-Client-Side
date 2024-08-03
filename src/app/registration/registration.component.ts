@@ -1,25 +1,52 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { User } from './registration.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
-  standalone: true,
-  imports: [FormsModule, RouterLink],
+  //standalone: true,
+  //imports: [FormsModule, RouterLink],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
 
 export class RegistrationComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
 
-  constructor(private router: Router) { }
+  user = {
+    customerId: null,
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    mobileNumber: '',
+    dateOfBirth: null,
+  };
 
-  onRegister() {
+  confirmPassword: string = '';
+
+  constructor(private router: Router, private httpClient: HttpClient) { }
+
+  public registerCustomer(user: any): Observable<any> {
+    return this.httpClient.post<any>(`http://localhost:8080/customer/register`, user);
+  }
+
+  onSubmit() {
     // Handle registration logic here
-    alert('Registration successful');
-    this.router.navigate(['/login']);
+    if (this.user.password !== this.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    } else {
+      this.registerCustomer(this.user).subscribe(
+        (user: any) => {
+          alert('Registration successful!')
+          this.router.navigate(['/login'])
+        }, (error: HttpErrorResponse)  => {
+          alert(error.message);
+        }
+      )
+    }
   }
 }
