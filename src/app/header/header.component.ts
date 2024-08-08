@@ -27,4 +27,8 @@ export class HeaderComponent {
   onWishList() {
     this.router.navigate(['/wishlist']);
   }
+
+  onCatalog() {
+    this.router.navigate(['/catalog']);
+  }
 }

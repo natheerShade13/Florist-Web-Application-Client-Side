@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
     profileImageUrl: '' // To display image preview
   };
 
-  myString = localStorage.getItem("username");
+  //myString = localStorage.getItem("username");
 
   constructor(private router: Router) { }
 

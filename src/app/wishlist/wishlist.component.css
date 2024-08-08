@@ -1,34 +1,72 @@
 .wishlist-container {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
-  .wishlist-container h2 {
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    color: #28a745;
-  }
-  
-  .plant-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .plant-item button {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .plant-item button:hover {
-    background-color: #c0392b;
-  }
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.wishlist-container h2 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #28a745;
+}
+
+.empty-message {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.plant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.plant-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.plant-details {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.plant-details h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.plant-details p {
+  margin: 5px 0;
+  color: #777;
+}
+
+.price {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.remove-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
+}

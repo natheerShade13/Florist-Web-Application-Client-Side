@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CommonModule, NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../cart/cart.service';
-import { HeaderComponent } from "../header/header.component";
-import { FooterComponent } from "../footer/footer.component";
 import { WishlistService } from '../wishlist/wishlist.service';
 
 @Component({
-  selector: 'app-home',
-  //standalone: true,
-  //imports: [CommonModule, NgFor, RouterLink, HeaderComponent, FooterComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  selector: 'app-catalog',
+  templateUrl: './catalog.component.html',
+  styleUrl: './catalog.component.css'
 })
+export class CatalogComponent {
 
-export class HomeComponent implements OnInit {
   products = [
     { name: 'Plant 1', description: 'Beautiful indoor plant', price: 20, image: '../assets/plant1.jpg' },
     { name: 'Plant 2', description: 'Indoor Cheese', price: 500, image: '../assets/plant2.jpg' },

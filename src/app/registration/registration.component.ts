@@ -39,10 +39,11 @@ export class RegistrationComponent {
       alert('Passwords do not match!');
       return;
     } else {
-      this.registerCustomer(this.user).subscribe(
-        (user: any) => {
-          alert('Registration successful!')
-          this.router.navigate(['/login'])
+      this.registerCustomer(this.user).subscribe( // Use next:
+        (user: any) => { // Check if email or mobile number already exists in the back end and return response
+          console.log(user);
+          alert('Registration successful!');
+          this.router.navigate(['/login']);
         }, (error: HttpErrorResponse)  => {
           alert(error.message);
         }

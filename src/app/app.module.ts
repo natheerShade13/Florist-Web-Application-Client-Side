@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideHttpClient } from '@angular/common/http';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     WishlistComponent,
     CartComponent,
     ProfileComponent,
+    CatalogComponent,
     HeaderComponent,
     FooterComponent,
   ],
