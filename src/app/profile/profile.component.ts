@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
+import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,8 @@ import { FooterComponent } from "../footer/footer.component";
 })
 
 export class ProfileComponent implements OnInit {
+
+  
   
   user = {
     name: '',
@@ -23,13 +26,13 @@ export class ProfileComponent implements OnInit {
 
   //myString = localStorage.getItem("username");
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private customerService: CustomerService) { }
 
   ngOnInit(): void {
     // Fetch user details from a service or local storage
     this.user = {
-      name: 'Yuji Itadori',
-      email: 'yuji.itadori@example.com',
+      name: this.customerService.customer.firstName + ' ' + this.customerService.customer.lastName,
+      email: this.customerService.customer.email,
       profileImage: null,
       profileImageUrl: 'assets/profile-icon.jpg' // Default profile image
     };
