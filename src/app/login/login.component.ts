@@ -52,7 +52,7 @@ export class LoginComponent {
           //this.form.form.reset;
         }
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         alert('Incorrect details');
         //this.form.form.reset;
       }
