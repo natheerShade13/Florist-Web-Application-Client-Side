@@ -9,8 +9,8 @@ import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-home',
-  //standalone: true,
-  //imports: [CommonModule, NgFor, RouterLink, HeaderComponent, FooterComponent],
+  standalone: true,
+  imports: [CommonModule, NgFor, RouterLink, HeaderComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

@@ -7,8 +7,8 @@ import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-profile',
-  //standalone: true,
-  //imports: [FormsModule, HeaderComponent, FooterComponent],
+  standalone: true,
+  imports: [FormsModule, HeaderComponent, FooterComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

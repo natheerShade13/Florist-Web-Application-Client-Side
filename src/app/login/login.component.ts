@@ -5,11 +5,12 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { Observable } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
 import { Customer } from '../customer/customer.model';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  //standalone: true,
-  //imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive, CommonModule, NgIf],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   //providers: [provideHttpClient()]
@@ -29,15 +30,15 @@ export class LoginComponent {
   onLogin() {
 
     if (this.form().form.invalid) {
-      return;
+      return
     }
 
     this.email = this.form().form.value.email;
     this.password = this.form().form.value.password;
 
     this.customerservice.verifyCustomer(this.email, this.password).subscribe({
-      next: (data: Customer) => { //Added boolean recently
-        if (data.email === this.email && data.password === this.password) {
+      next: (data: Customer) => {
+        if (data) {
           this.customerservice.customer = data;
           //localStorage.setItem('username', this.username)
           //this.saveUsername = this.username;
@@ -52,8 +53,8 @@ export class LoginComponent {
           //this.form.form.reset;
         }
       },
-      error: () => {
-        alert('Incorrect details');
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
         //this.form.form.reset;
       }
     }

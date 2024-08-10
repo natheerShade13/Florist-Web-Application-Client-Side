@@ -17,16 +17,16 @@ import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    RegistrationComponent,
-    WishlistComponent,
-    CartComponent,
-    ProfileComponent,
-    CatalogComponent,
-    HeaderComponent,
-    FooterComponent,
+    //AppComponent,
+    //HomeComponent,
+    //LoginComponent,
+    //RegistrationComponent,
+    //WishlistComponent,
+    //CartComponent,
+    //ProfileComponent,
+    //CatalogComponent,
+    //HeaderComponent,
+    //FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +37,6 @@ import { CatalogComponent } from './catalog/catalog.component';
     RouterLinkActive,
   ],
   providers: [provideHttpClient(), LoginComponent],
-  bootstrap: [AppComponent]
+  //bootstrap: [AppComponent]
 })
 export class AppModule { }
