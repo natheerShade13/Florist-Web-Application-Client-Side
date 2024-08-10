@@ -15,7 +15,7 @@ import { CustomerService } from '../customer/customer.service';
 
 export class ProfileComponent implements OnInit {
 
-  
+  constructor(private router: Router, private customerService: CustomerService) { }
   
   user = {
     name: '',
@@ -26,13 +26,11 @@ export class ProfileComponent implements OnInit {
 
   //myString = localStorage.getItem("username");
 
-  constructor(private router: Router, private customerService: CustomerService) { }
-
   ngOnInit(): void {
     // Fetch user details from a service or local storage
     this.user = {
-      name: this.customerService.customer.firstName + ' ' + this.customerService.customer.lastName,
-      email: this.customerService.customer.email,
+      name: 'test', //this.customerService.customer.firstName + ' ' + this.customerService.customer.lastName,
+      email: 'test@gmail.com', //this.customerService.customer.email,
       profileImage: null,
       profileImageUrl: 'assets/profile-icon.jpg' // Default profile image
     };

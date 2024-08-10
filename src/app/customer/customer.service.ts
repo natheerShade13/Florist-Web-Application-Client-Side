@@ -12,8 +12,12 @@ export class CustomerService {
     private httpClient = inject(HttpClient);
     //private URL = `http://localhost:8080/customer/"
 
-    public verifyCustomer(email: string, password: string): Observable<Customer> { // Return user object
-        return this.httpClient.get<Customer>(`http://localhost:8080/customer/login/${email}/${password}`);
+    // public verifyCustomer(email: string, password: string): Observable<Customer> { // Return user object
+    //     return this.httpClient.get<Customer>(`http://localhost:8080/customer/login/${email}/${password}`);
+    // }
+
+    public verifyCustomer(email: string, password: string): Observable<boolean> { // Return user object
+        return this.httpClient.get<boolean>(`http://localhost:8080/customer/login/${email}/${password}`);
     }
 
     public registerCustomer(customer: Customer): Observable<Customer> {
