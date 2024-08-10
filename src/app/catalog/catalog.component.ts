@@ -2,9 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../cart/cart.service';
 import { WishlistService } from '../wishlist/wishlist.service';
+import { HeaderComponent } from '../header/header.component';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-catalog',
+  standalone: true,
+  imports: [HeaderComponent, CommonModule, NgFor],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.css'
 })

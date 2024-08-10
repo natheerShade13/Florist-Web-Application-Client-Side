@@ -9,8 +9,8 @@ import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-registration',
-  //standalone: true,
-  //imports: [FormsModule, RouterLink],
+  standalone: true,
+  imports: [FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
