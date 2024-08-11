@@ -15,6 +15,7 @@ import { FooterComponent } from "../footer/footer.component";
 
 
 export class CartComponent implements OnInit {
+  
   cartItems: any[] = [];
 
   constructor(private cartService: CartService, private router: Router) { }
@@ -29,7 +30,7 @@ export class CartComponent implements OnInit {
   }
 
   getTotalPrice() {
-    return this.cartItems.reduce((total, item) => total + item.price, 0);
+    return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
   }
 
   goToHome() {

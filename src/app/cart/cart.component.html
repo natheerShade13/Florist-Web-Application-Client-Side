@@ -8,7 +8,8 @@
       <div class="cart-item-details">
         <h3>{{ item.name }}</h3>
         <p>{{ item.description }}</p>
-        <p class="price">${{ item.price }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p class="price">Total Price: ${{ item.totalPrice }}</p>
         <button (click)="removeFromCart(item)">Remove</button>
       </div>
     </div>
@@ -16,5 +17,4 @@
       <p>Total: ${{ getTotalPrice() }}</p>
     </div>
   </div>
-  <!--<button (click)="goToHome()" class="home-button">Back to Home</button>*/-->
 </div>
