@@ -36,4 +36,12 @@ export class CartComponent implements OnInit {
   goToHome() {
     this.router.navigate(['/home']);
   }
+
+  checkout() {
+    if (this.cartItems.length > 0) {
+      this.router.navigate(['/checkout']); // Redirects to the checkout page
+    } else {
+      alert('Your cart is empty.');
+    }
+  }
 }

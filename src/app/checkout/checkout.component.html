@@ -1,0 +1,42 @@
+<app-header/>
+<div class="checkout-container">
+    <h2>Checkout</h2>
+  
+    <div class="order-review">
+      <h3>Order Review</h3>
+      <div *ngFor="let item of cartItems" class="checkout-item">
+        <img [src]="item.image" alt="{{ item.name }}" class="checkout-item-image" />
+        <div class="checkout-item-details">
+          <h4>{{ item.name }}</h4>
+          <p>Quantity: {{ item.quantity }}</p>
+          <p class="price">Total Price: ${{ item.totalPrice }}</p>
+        </div>
+      </div>
+      <div class="order-total">
+        <p>Total: ${{ totalAmount }}</p>
+      </div>
+    </div>
+  
+    <div class="shipping-info">
+      <h3>Shipping Information</h3>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="shippingInfo.name" name="name" required />
+  
+        <label for="address">Address:</label>
+        <input type="text" id="address" [(ngModel)]="shippingInfo.address" name="address" required />
+  
+        <label for="city">City:</label>
+        <input type="text" id="city" [(ngModel)]="shippingInfo.city" name="city" required />
+  
+        <label for="state">State:</label>
+        <input type="text" id="state" [(ngModel)]="shippingInfo.state" name="state" required />
+  
+        <label for="zip">ZIP Code:</label>
+        <input type="text" id="zip" [(ngModel)]="shippingInfo.zip" name="zip" required />
+      </form>
+    </div>
+  
+    <button (click)="completePurchase()" class="complete-purchase-button">Complete Purchase</button>
+  </div>
+  

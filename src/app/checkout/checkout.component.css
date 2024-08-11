@@ -1,0 +1,79 @@
+.checkout-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .order-review, .shipping-info {
+    margin-bottom: 20px;
+  }
+  
+  .checkout-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .checkout-item-image {
+    width: 80px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+  
+  .checkout-item-details h4 {
+    margin: 0;
+    font-size: 1.1em;
+  }
+  
+  .checkout-item-details p {
+    margin: 5px 0;
+  }
+  
+  .order-total {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .shipping-info h3 {
+    margin-bottom: 15px;
+  }
+  
+  .shipping-info form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    gap: 10px;
+  }
+  
+  .shipping-info label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .shipping-info input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .complete-purchase-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+  }
+  
+  .complete-purchase-button:hover {
+    background-color: #218838;
+  }

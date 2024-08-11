@@ -31,4 +31,8 @@ export class HeaderComponent {
   onCatalog() {
     this.router.navigate(['/catalog']);
   }
+
+  onHome() {
+    this.router.navigate(['/home']);
+  }
 }

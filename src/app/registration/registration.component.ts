@@ -20,7 +20,7 @@ export class RegistrationComponent {
   constructor(private router: Router, private httpClient: HttpClient, private customerService: CustomerService) { }
 
   form = new FormGroup({
-    firstName: new FormControl('', {
+    firstName: new FormControl('', {    // this.customerService.customer.firstName
       validators: [Validators.required]
     }),
     lastName: new FormControl('', {

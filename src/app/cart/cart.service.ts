@@ -37,9 +37,10 @@ export class CartService {
   getCartItems() {
     return this.cartItems;
   }
+
+  clearCart() {
+    this.cartItems = [];
+  }
+
 }
-
-
-
-
-               
+           

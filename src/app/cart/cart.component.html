@@ -1,20 +1,26 @@
 <app-header/>
 <div class="cart-container">
   <h2>Your Cart</h2>
-  <div *ngIf="cartItems.length === 0">Your cart is empty.</div>
-  <div *ngIf="cartItems.length > 0">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image" />
-      <div class="cart-item-details">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description }}</p>
-        <p>Quantity: {{ item.quantity }}</p>
-        <p class="price">Total Price: ${{ item.totalPrice }}</p>
-        <button (click)="removeFromCart(item)">Remove</button>
+  @if (cartItems.length === 0) {
+    <div >Your cart is empty.</div>
+    <button (click)="checkout()" class="checkout-button">Checkout</button>
+  }
+  @else {
+    <div *ngIf="cartItems.length > 0">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image" />
+        <div class="cart-item-details">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+          <p class="price">Total Price: ${{ item.totalPrice }}</p>
+          <button (click)="removeFromCart(item)">Remove</button>
+        </div>
       </div>
+      <div class="cart-total">
+        <p>Total: ${{ getTotalPrice() }}</p>
+      </div>
+      <button (click)="checkout()" class="checkout-button">Checkout</button>
     </div>
-    <div class="cart-total">
-      <p>Total: ${{ getTotalPrice() }}</p>
-    </div>
-  </div>
+  }
 </div>

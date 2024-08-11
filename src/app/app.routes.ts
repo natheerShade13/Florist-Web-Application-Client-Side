@@ -10,6 +10,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { UpdateProfileComponent } from './profile/update-profile/update-profile.component.';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { AddAddressComponent } from './profile/add-address/add-address.compnent';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'cart', component: CartComponent },
+  {path: 'checkout', component: CheckoutComponent},
   //{ path: 'profile', component: ProfileComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
