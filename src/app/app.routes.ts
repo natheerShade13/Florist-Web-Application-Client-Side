@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { UpdateProfileComponent } from './profile/update-profile/update-profile.component.';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -22,7 +23,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, children: [
     { path: '', redirectTo: 'update-profile', pathMatch: 'full' },
     { path: 'update-profile', component: UpdateProfileComponent },
-    //{ path: 'change-password', component: ChangePasswordComponent },
+    { path: 'change-password', component: ChangePasswordComponent },
     //{ path: 'add-address', component: AddAddressComponent },
   ]},
   // Other routes
