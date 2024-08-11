@@ -4,6 +4,6 @@ export interface Customer {
     lastName: string | undefined | null,
     email: string | undefined | null,
     password: string | undefined | null,
-    mobileNumber: string| null,
-    dateOfBirth: string | null
+    mobileNumber: string| undefined | null ,
+    dateOfBirth: string | undefined | null
 };

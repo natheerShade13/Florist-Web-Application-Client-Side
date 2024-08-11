@@ -1,11 +1,25 @@
 import { Component } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
-    selector: 'app-add-address',
-    standalone: true,
-    imports: [],
-    templateUrl: './add-address.component.html',
-    styleUrls: ['../profile.component.css','./add-address.component.css']
+  selector: 'app-add-address',
+  standalone: true,
+  imports: [ReactiveFormsModule],
+  templateUrl: './add-address.component.html',
+  styleUrls: ['../profile.component.css', './add-address.component.css']
+})
+
+export class AddAddressComponent {
+
+  form = new FormGroup({
+    password: new FormControl('', {
+      validators: []
+    }),
+    confirmPassword: new FormControl('', {
+      validators: []
+    })
   })
+
   
-  export class AddAddressComponent{}
+
+}

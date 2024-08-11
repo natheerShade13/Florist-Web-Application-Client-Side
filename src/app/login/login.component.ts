@@ -49,6 +49,13 @@ export class LoginComponent {
     const subscription = this.customerservice.verifyCustomer(this.email, this.password).subscribe({
       next: (data: boolean) => {
         if (data) {
+          
+          this.customerservice.getCustomer(this.email).subscribe({
+            next: (customer: Customer) => {
+              this.customerservice.customer = customer;
+            }
+          });
+
           //this.customerservice.customer = data;
           //localStorage.setItem('username', this.username)
           //this.saveUsername = this.username;
