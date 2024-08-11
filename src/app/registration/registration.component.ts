@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from '../customer/customer.model';
@@ -21,32 +21,36 @@ export class RegistrationComponent {
 
   form = new FormGroup({
     firstName: new FormControl('', {
-      validators: []
+      validators: [Validators.required]
     }),
     lastName: new FormControl('', {
-      validators: []
+      validators: [Validators.required]
     }),
     email: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.email]
     }),
     password: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     }),
     confirmPassword: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     }),
   })
 
   onSubmit() {
 
+    if (this.form.invalid) {
+      return;
+    }
+
     const customer: Customer = {
-      customerId: '',
+      customerId: null,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email,
       password: this.form.value.password,
-      mobileNumber: '',
-      dateOfBirth: ''
+      mobileNumber: null,
+      dateOfBirth: null
     };
 
     const confirmPassword = this.form.value.confirmPassword;

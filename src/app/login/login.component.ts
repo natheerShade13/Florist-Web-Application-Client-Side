@@ -26,10 +26,17 @@ export class LoginComponent {
 
   email = '';
   password = '';
+  empty = false;
 
   //saveEmail: string = '';
 
   onLogin() {
+
+    // if (this.password === '') {
+    //   this.empty = true;
+    // } else{
+    //   this.empty = false
+    // }
 
     if (this.form().invalid) { // Check with the previous
       return
