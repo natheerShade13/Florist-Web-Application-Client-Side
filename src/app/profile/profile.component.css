@@ -1,56 +1,78 @@
 .profile-container {
-  width: 60%; /* Reduced width */
-  max-width: 600px; /* Maximum width */
+  display: flex;
+  max-width: 1000px;
   margin: 20px auto;
-  padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  text-align: left; /* Align text to the left */
+  overflow: hidden;
 }
 
-.profile-container h2 {
-  margin-bottom: 20px;
-  font-size: 1.8em; /* Adjust font size */
-  color: #28a745; /* Match header color */
+.sidebar {
+  width: 250px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-right: 1px solid #ddd;
 }
 
-.form-group {
-  margin-bottom: 20px; /* Increased space between form groups */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
+.sidebar ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.sidebar ul li a.active {
+  color: #28a745;
   font-weight: bold;
-  color: #333; /* Darker label color for better readability */
 }
 
-.form-group input {
-  width: 100%;
-  padding: 12px; /* Increased padding for a better input feel */
-  border: 1px solid #ccc; /* Lighter border color */
+.profile-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #28a745;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container form input, .form-container form select {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.save-button {
+.form-container form button {
+  padding: 10px 20px;
   background-color: #28a745;
   color: #fff;
   border: none;
-  padding: 12px 24px; /* Adjust padding for a larger button */
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1em; /* Larger font size for better readability */
 }
 
-.save-button:hover {
+.form-container form button:hover {
   background-color: #218838;
-}
-
-.profile-container img {
-  display: block;
-  max-width: 150px; /* Restrict maximum image width */
-  margin: 0 auto 20px auto; /* Center image horizontally */
-  border-radius: 50%; /* Circular profile image */
 }
