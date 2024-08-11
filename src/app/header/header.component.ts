@@ -16,6 +16,10 @@ export class HeaderComponent {
     this.router.navigate(['/cart']);
   }
 
+  onOrder() {
+    this.router.navigate(['/order']);
+  }
+
   onSignOut() {
     this.router.navigate(['/login']);
   }

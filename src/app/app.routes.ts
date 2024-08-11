@@ -11,23 +11,27 @@ import { UpdateProfileComponent } from './profile/update-profile/update-profile.
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { AddAddressComponent } from './profile/add-address/add-address.compnent';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderComponent } from './orders/order.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'catalog', component: CatalogComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'cart', component: CartComponent },
-  {path: 'checkout', component: CheckoutComponent},
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'order', component: OrderComponent},
   //{ path: 'profile', component: ProfileComponent },
-  { path: 'catalog', component: CatalogComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
-  { path: 'profile', component: ProfileComponent, children: [
-    { path: '', redirectTo: 'update-profile', pathMatch: 'full' },
-    { path: 'update-profile', component: UpdateProfileComponent },
-    { path: 'change-password', component: ChangePasswordComponent },
-    { path: 'add-address', component: AddAddressComponent },
-  ]},
+  {
+    path: 'profile', component: ProfileComponent, children: [
+      { path: '', redirectTo: 'update-profile', pathMatch: 'full' },
+      { path: 'update-profile', component: UpdateProfileComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'add-address', component: AddAddressComponent },
+    ]
+  },
   // Other routes
 ];

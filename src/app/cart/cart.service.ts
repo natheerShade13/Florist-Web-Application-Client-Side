@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CartService {
   private cartItems: any[] = [];
+  private shippingInfo: any = {};
 
   addToCart(item: any) {
     const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
@@ -40,6 +41,14 @@ export class CartService {
 
   clearCart() {
     this.cartItems = [];
+  }
+
+  setShippingInfo(info: any) {
+    this.shippingInfo = info;
+  }
+
+  getShippingInfo() {
+    return this.shippingInfo;
   }
 
 }

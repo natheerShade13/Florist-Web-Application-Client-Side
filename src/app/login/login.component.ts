@@ -42,38 +42,38 @@ export class LoginComponent {
       return
     }
 
-      this.email = this.form().form.value.email;
-      this.password = this.form().form.value.password;
+    this.email = this.form().form.value.email;
+    this.password = this.form().form.value.password;
 
-      // Using validation which returns boolean
-      const subscription = this.customerservice.verifyCustomer(this.email, this.password).subscribe({
-        next: (data: boolean) => {
-          if (data) {
-            //this.customerservice.customer = data;
-            //localStorage.setItem('username', this.username)
-            //this.saveUsername = this.username;
-            //console.log(this.saveUsername);
-            // Handle login logic here
-            alert('Login successful');
-            //console.log(data)
-            this.router.navigate(['/home']);
-            //} else {
-            //  alert('Login failed')
-            //console.log(data)
-            //this.form.form.reset;
-          } else {
-            alert('Incorrect details')
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
+    // Using validation which returns boolean
+    const subscription = this.customerservice.verifyCustomer(this.email, this.password).subscribe({
+      next: (data: boolean) => {
+        if (data) {
+          //this.customerservice.customer = data;
+          //localStorage.setItem('username', this.username)
+          //this.saveUsername = this.username;
+          //console.log(this.saveUsername);
+          // Handle login logic here
+          alert('Login successful');
+          //console.log(data)
+          this.router.navigate(['/home']);
+          //} else {
+          //  alert('Login failed')
+          //console.log(data)
           //this.form.form.reset;
+        } else {
+          alert('Incorrect details')
         }
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+        //this.form.form.reset;
       }
-      )
-      this.destroyRef.onDestroy(() => {
-        subscription.unsubscribe();
-      });
-    
+    }
+    )
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+
   }
 }

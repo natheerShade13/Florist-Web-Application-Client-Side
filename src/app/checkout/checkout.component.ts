@@ -37,10 +37,15 @@ export class CheckoutComponent {
     }
 
     completePurchase() {
-        // Implement payment processing and order submission logic here
+        console.log('Processing payment...');
 
-        alert('Purchase completed successfully!');
-        this.cartService.clearCart(); // Clear the cart after purchase
-        this.router.navigate(['/home']); // Redirect to home or order confirmation page
+        // Save shipping info
+        this.cartService.setShippingInfo(this.shippingInfo);
+
+        // Redirect to order confirmation page
+        this.router.navigate(['/order']);
+
+        // Clear the cart
+        //this.cartService.clearCart();
     }
 }
