@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { CustomerService } from '../customer/customer.service';
@@ -8,7 +8,7 @@ import { CustomerService } from '../customer/customer.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, HeaderComponent, FooterComponent],
+  imports: [FormsModule, HeaderComponent, FooterComponent,RouterLink,RouterOutlet],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
