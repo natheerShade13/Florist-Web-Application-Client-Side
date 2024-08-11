@@ -30,7 +30,7 @@ export class CatalogComponent {
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
-    alert(`${product.name} has been added to your cart.`);
+    //alert(`${product.name} has been added to your cart.`);
   }
 
   addToWishlist(product: any) {

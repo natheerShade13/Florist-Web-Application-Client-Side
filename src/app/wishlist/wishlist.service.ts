@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class WishlistService {
+
   private wishlistSource = new BehaviorSubject<any[]>([]);
   wishlist$ = this.wishlistSource.asObservable();
 
@@ -15,9 +16,17 @@ export class WishlistService {
 
   addToWishlist(plant: any) {
     const currentWishlist = this.wishlistSource.value;
-    currentWishlist.push(plant);
-    this.wishlistSource.next(currentWishlist);
-    localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
+
+    // Check if the plant is already in the wishlist
+    const existingProduct = currentWishlist.find(item => item.name === plant.name);
+
+    if (!existingProduct) {
+      currentWishlist.push(plant);
+      this.wishlistSource.next(currentWishlist);
+      localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
+    } else {
+      alert('This product is already in your wishlist.');
+    }
   }
 
   removeFromWishlist(plant: any) {
