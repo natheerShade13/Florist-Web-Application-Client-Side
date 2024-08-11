@@ -7,7 +7,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CatalogComponent } from './catalog/catalog.component';
-import { UpdateProfileComponent } from './profile/update-profile/update-profile';
+import { UpdateProfileComponent } from './profile/update-profile/update-profile.component.';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -18,7 +18,6 @@ export const routes: Routes = [
   //{ path: 'profile', component: ProfileComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-
 
   { path: 'profile', component: ProfileComponent, children: [
     { path: '', redirectTo: 'update-profile', pathMatch: 'full' },

@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
     selector: 'app-profile',
     standalone: true,
     imports: [],
-    templateUrl: './update-profile.html',
+    templateUrl: './update-profile.component.html',
     styleUrl: '../profile.component.css'
   })
   
