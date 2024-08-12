@@ -11,15 +11,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 export class AddAddressComponent {
 
-  form = new FormGroup({
-    password: new FormControl('', {
-      validators: []
-    }),
-    confirmPassword: new FormControl('', {
-      validators: []
-    })
-  })
-
   
+
+
 
 }
