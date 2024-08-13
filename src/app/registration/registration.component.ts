@@ -57,7 +57,7 @@ export class RegistrationComponent {
 
     // Handle registration logic here
     if (customer.password !== confirmPassword) {
-      alert('Passwords do not match!');
+      //alert('Passwords do not match!');
       return;
     } else {
       this.customerService.registerCustomer(customer).subscribe({ // Use next:
