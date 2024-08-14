@@ -2,7 +2,7 @@
   <h2>Register</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="form-group">
-      <label for="firstName">First Name:</label>
+      <label for="firstName">Last Name:</label>
       <input type="text" id="firstName" formControlName="firstName" required>
       @if (form.controls.firstName.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
         <p>Enter First Name</p>
