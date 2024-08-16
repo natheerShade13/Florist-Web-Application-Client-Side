@@ -1,96 +1,109 @@
-* {
+/* General Reset */
+body, h1, h2, h3, p, ul {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  color: #333;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
-
-.container {
-  width: 80%;
+.homepage {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.navbar {
-  background: #4CAF50;
+/* Header Styling */
+.header {
+  background-color: #2e7d32;
   color: #fff;
-  padding: 1rem 0;
+  padding: 20px;
+  text-align: center;
 }
 
-.navbar h1 {
+.header .logo h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.header nav ul {
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.header nav ul li {
   display: inline;
-  margin-left: 1rem;
+  margin: 0 15px;
 }
 
-.navbar nav ul {
-  list-style: none;
-  display: inline;
-  float: right;
-  margin-right: 1rem;
-}
-
-.navbar nav ul li {
-  display: inline;
-  margin: 0 1rem;
-}
-
-.navbar nav ul li a {
+.header nav ul li a {
   color: #fff;
   text-decoration: none;
+  font-weight: bold;
 }
 
-.navbar nav ul li a:hover {
-  text-decoration: underline;
-}
-
+/* Hero Section */
 .hero {
-  background: #f4f4f4;
-  color: #333;
-  height: 400px;
+  height: 500px;
+  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.hero-overlay {
+  background-color: rgba(46, 125, 50, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  border-radius: 10px;
-}
-
-.hero h2 {
-  font-size: 2.5rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.hero .btn {
-  background: #4CAF50;
   color: #fff;
-  padding: 0.5rem 1.5rem;
+  z-index: 1;
+}
+
+.hero-content h2 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
   text-decoration: none;
+  font-size: 18px;
   border-radius: 5px;
 }
 
-.hero .btn:hover {
-  background: #45a049;
+.btn:hover {
+  background-color: #388e3c;
 }
 
-.features, .featured-products, .testimonials {
-  padding: 2rem 0;
+/* Featured Products */
+.featured-products {
+  padding: 50px 20px;
   text-align: center;
+  background-color: #f0f4c3;
 }
 
-.features h2, .featured-products h2, .testimonials h2 {
-  margin-bottom: 1rem;
-}
-
-.feature-item {
-  margin-bottom: 1.5rem;
+.featured-products h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #33691e;
 }
 
 .product-grid {
@@ -99,56 +112,73 @@ body {
   flex-wrap: wrap;
 }
 
-.product-item {
-  background: #f4f4f4;
-  padding: 1rem;
-  margin: 0.5rem;
-  width: 30%;
-  text-align: center;
+.product {
+  background-color: #ffffff;
+  padding: 20px;
   border-radius: 10px;
+  text-align: center;
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.product-item img {
-  max-width: 100%;
+.product img {
+  width: 100%;
   height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
-.product-item h3 {
-  margin: 1rem 0;
+.product h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.product-item p {
-  margin-bottom: 1rem;
+.product p {
+  font-size: 18px;
+  color: #2e7d32;
 }
 
-.product-item .btn {
-  background: #4CAF50;
-  color: #fff;
-  padding: 0.5rem 1rem;
+/* About Section */
+.about {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #e8f5e9;
+}
+
+.about h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #33691e;
+}
+
+.about p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.about .btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
   text-decoration: none;
+  font-size: 18px;
   border-radius: 5px;
 }
 
-.product-item .btn:hover {
-  background: #45a049;
+.about .btn:hover {
+  background-color: #388e3c;
 }
 
-.testimonial-item {
-  background: #f4f4f4;
-  padding: 1rem;
-  margin: 1rem auto;
-  width: 50%;
-  border-radius: 10px;
-}
-
-.testimonial-item p {
-  font-style: italic;
-}
-
+/* Footer */
 footer {
-  background: #333;
-  color: #fff;
+  background-color: #2e7d32;
+  color: white;
   text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+footer p {
+  margin: 0;
 }

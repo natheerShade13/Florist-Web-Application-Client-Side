@@ -12,37 +12,35 @@ import { HeaderComponent } from "../header/header.component";
     styleUrls: ['./order.component.css']
 })
 
-export class OrderComponent implements OnInit{
+export class OrderComponent implements OnInit {
 
-    cartItems: any[] = [];
-    totalAmount: number = 0;
-    shippingInfo: any = {};
+    // cartItems: any[] = [];
+    // totalAmount: number = 0;
+    // shippingInfo: any = {};
 
-    constructor(private cartService: CartService, private router: Router) { }
+    // constructor(private cartService: CartService, private router: Router) { }
+
+    // ngOnInit(): void {
+    //     // Retrieve the last order details
+    //     const lastOrder = this.cartService.getLastOrder();
+
+    //     if (lastOrder) {
+    //         this.cartItems = lastOrder.cartItems;
+    //         this.totalAmount = lastOrder.totalAmount;
+    //         this.shippingInfo = lastOrder.shippingInfo;
+    //     } else {
+    //         // Handle case where there is no last order (e.g., user navigated to this page directly)
+    //         //alert("No previous orders found.");
+    //         //this.router.navigate(['/home']);
+    //     }
+    // }
+
+    orders: any[] = [];
+
+    constructor(private cartService: CartService) { }
 
     ngOnInit(): void {
-        // Fetch the cart items and total amount from the CartService
-        this.cartItems = this.cartService.getCartItems();
-        this.totalAmount = this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
-        this.shippingInfo = this.cartService.getShippingInfo();
-
-        // Simulating shipping info retrieval (you might get this from a service or state management)
-        // For example:
-        // this.shippingInfo = {
-        //     name: 'John Doe',
-        //     address: '123 Green St',
-        //     city: 'Gardenville',
-        //     state: 'CA',
-        //     zip: '90210',
-        // };
-
-        // If no cart items, redirect to home
-        //if (this.cartItems.length === 0) {
-        //    this.router.navigate(['/home']);
-        //}
-        
-        // Clear the cart
-        this.cartService.clearCart();
+        this.orders = this.cartService.getOrders();
     }
 
 }

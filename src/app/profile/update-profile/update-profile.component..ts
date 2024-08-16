@@ -17,6 +17,9 @@ export class UpdateProfileComponent {
 
   private destroyRef = inject(DestroyRef);
 
+  customer: Customer = this.customerservice.customer;
+
+  
   form = new FormGroup({
     firstName: new FormControl(this.customerservice.customer.firstName, {
       validators: []
