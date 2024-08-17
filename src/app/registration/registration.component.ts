@@ -19,6 +19,8 @@ export class RegistrationComponent {
 
   constructor(private router: Router, private httpClient: HttpClient, private customerService: CustomerService) { }
 
+  customerEmail: string | undefined | null;
+
   form = new FormGroup({
     firstName: new FormControl('', {    // this.customerService.customer.firstName
       validators: [Validators.required]
@@ -60,13 +62,24 @@ export class RegistrationComponent {
       //alert('Passwords do not match!');
       return;
     } else {
-      this.customerService.registerCustomer(customer).subscribe({ // Use next:
-        next: (customer: Customer) => { // Check if email or mobile number already exists in the back end and return response
-          console.log(customer);
-          alert('Registration successful!');
-          this.router.navigate(['/login']);
-        }, error: (error: HttpErrorResponse) => {
-          alert('Something went wrong');
+
+      this.customerService.getCustomer(this.form.value.email).subscribe({
+        next: (customer: Customer) => {
+          if (customer) {
+            //alert('Email already taken');
+            this.customerEmail = customer.email;
+            return;
+          } else {
+            this.customerService.registerCustomer(customer).subscribe({ // Use next:
+              next: (customer: Customer) => { // Check if email or mobile number already exists in the back end and return response
+                console.log(customer);
+                alert('Registration successful!');
+                this.router.navigate(['/login']);
+              }, error: (error: HttpErrorResponse) => {
+                alert('Something went wrong');
+              }
+            })
+          }
         }
       })
     }

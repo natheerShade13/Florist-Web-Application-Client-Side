@@ -56,7 +56,6 @@ export class LoginComponent {
               localStorage.setItem('customer', JSON.stringify(customer));
             }
           });
-
           //this.customerservice.customer = data;
           //localStorage.setItem('username', this.username)
           //this.saveUsername = this.username;

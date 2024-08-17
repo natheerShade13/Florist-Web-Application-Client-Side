@@ -18,7 +18,7 @@ export class CustomerService implements OnInit {
     private httpClient = inject(HttpClient);
     //private URL = `http://localhost:8080/customer/"
 
-    public getCustomer(email: string): Observable<Customer> { // Return user object
+    public getCustomer(email: string | undefined | null): Observable<Customer> { // Return user object
         return this.httpClient.get<Customer>(`http://localhost:8080/customer/login/${email}`);
     }
 

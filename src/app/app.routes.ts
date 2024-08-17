@@ -12,7 +12,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 import { AddAddressComponent } from './profile/add-address/add-address.compnent';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './orders/order.component';
-import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },

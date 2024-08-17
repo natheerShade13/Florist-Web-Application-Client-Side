@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ProductService } from './product.service'; 
 import { Product } from './product.model'; 
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { HeaderComponent } from "../header/header.component";
-import { FooterComponent } from "../footer/footer.component";
+import { HeaderComponent } from "../../header/header.component";
+import { FooterComponent } from "../../footer/footer.component";
 import { RouterLink } from '@angular/router';
 
 @Component({
