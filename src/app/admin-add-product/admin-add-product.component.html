@@ -1,0 +1,120 @@
+<div class="admin-container">
+    <h2>{{ isEditMode ? 'Edit Flower' : 'Add Flower' }}</h2>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="admin-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <div class="input-wrapper">
+          <input
+            id="name"
+            formControlName="name"
+            class="form-control"
+            placeholder="Enter flower name"
+          />
+          <span *ngIf="productForm.controls['name'].invalid && productForm.controls['name'].touched" class="error-msg">Name is required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <div class="input-wrapper">
+          <textarea
+            id="description"
+            formControlName="description"
+            class="form-control"
+            placeholder="Enter flower description"
+          ></textarea>
+          <span *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched" class="error-msg">Description is required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <div class="input-wrapper">
+          <input
+            id="price"
+            type="number"
+            formControlName="price"
+            class="form-control"
+            placeholder="Enter flower price"
+          />
+          <span *ngIf="productForm.controls['price'].invalid && productForm.controls['price'].touched" class="error-msg">Price is required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="imageUrl">Image URL:</label>
+        <div class="input-wrapper">
+          <input
+            id="imageUrl"
+            formControlName="imageUrl"
+            class="form-control"
+            placeholder="Enter image URL"
+          />
+          <span *ngIf="productForm.controls['imageUrl'].invalid && productForm.controls['imageUrl'].touched" class="error-msg">Image URL is required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="stockQuantity">Stock Quantity:</label>
+        <div class="input-wrapper">
+          <input
+            id="stockQuantity"
+            type="number"
+            formControlName="stockQuantity"
+            class="form-control"
+            placeholder="Enter stock quantity"
+          />
+          <span *ngIf="productForm.controls['stockQuantity'].invalid && productForm.controls['stockQuantity'].touched" class="error-msg">Stock Quantity is required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <div class="input-wrapper">
+          <input
+            id="category"
+            formControlName="category"
+            class="form-control"
+            placeholder="Enter flower category"
+          />
+          <span *ngIf="productForm.controls['category'].invalid && productForm.controls['category'].touched" class="error-msg">Category is required</span>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+        <i class="fas fa-plus-circle"></i> {{ isEditMode ? 'Update Flower' : 'Add Flower' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditMode">
+        <i class="fas fa-times-circle"></i> Cancel Edit
+      </button>
+    </form>
+  
+    <h2>Manage Flowers</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock Quantity</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>{{ product.stockQuantity }}</td>
+          <td>{{ product.category }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="onEditProduct(product)">Edit</button>
+            <button class="btn btn-danger" (click)="onDeleteProduct(product.stockQuantity)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
