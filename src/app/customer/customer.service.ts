@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 export class CustomerService {
 
     customer!: Customer;
+    
     private httpClient = inject(HttpClient);
     //private URL = `http://localhost:8080/customer/"
 
