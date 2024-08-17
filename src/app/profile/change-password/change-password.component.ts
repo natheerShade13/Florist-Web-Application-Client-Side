@@ -16,7 +16,7 @@ export class ChangePasswordComponent {
 
   constructor(private customerService: CustomerService) { }
 
-  // customer = this.customerService.getCustomerLocal();
+  // customer: Customer | null = this.customerService.getCustomerLocal();
 
   form = new FormGroup({
     password: new FormControl('', {

@@ -27,7 +27,7 @@ export class CustomerService implements OnInit {
     }
 
     public registerCustomer(customer: Customer): Observable<Customer> {
-        return this.httpClient.post<Customer>(`http://localhost:8080/customer/registerB`, customer);
+        return this.httpClient.post<Customer>(`http://localhost:8080/customer/register`, customer);
     }
 
     public updateCustomer(customer: Customer): Observable<Customer> {
