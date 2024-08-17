@@ -13,11 +13,12 @@ import { Customer } from "../../customer/customer.model";
 
 export class UpdateProfileComponent {
 
-  constructor(private customerservice: CustomerService) { }
+  constructor(private customerService: CustomerService) { }
 
   private destroyRef = inject(DestroyRef);
 
   // customer: Customer = this.customerservice.customer;
+  // customer = this.customerService.getCustomerLocal();
 
   getCustomer(): Customer | null {
     const storedCustomer = localStorage.getItem('customer');
@@ -31,19 +32,19 @@ export class UpdateProfileComponent {
   }
 
   form = new FormGroup({
-    firstName: new FormControl(this.getCustomer()!.firstName, {
+    firstName: new FormControl(this.getCustomer()?.firstName || '', {
       validators: []
     }),
-    lastName: new FormControl(this.getCustomer()?.lastName, {
+    lastName: new FormControl(this.getCustomer()?.lastName || '', {
       validators: []
     }),
-    email: new FormControl(this.getCustomer()?.email, {
+    email: new FormControl(this.getCustomer()?.email || '', {
       validators: []
     }),
-    dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth, {
+    dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth || '', {
       validators: []
     }),
-    mobileNumber: new FormControl(this.getCustomer()?.mobileNumber, {
+    mobileNumber: new FormControl(this.getCustomer()?.mobileNumber || '', {
       validators: []
     }),
   });
@@ -55,16 +56,16 @@ export class UpdateProfileComponent {
     }
 
     const customer: Customer = {
-      customerId: this.getCustomer()?.customerId,
+      customerId: this.getCustomer()?.customerId ?? null,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email,
-      password: this.getCustomer()?.password,
+      password: this.getCustomer()?.password ?? null,
       mobileNumber: this.form.value.mobileNumber,
       dateOfBirth: this.form.value.dateOfBirth
     }
 
-    const subscription = this.customerservice.updateCustomer(customer).subscribe({
+    const subscription = this.customerService.updateCustomer(customer).subscribe({
       next: (customer: Customer) => {
         //this.customerservice.customer = customer;
         localStorage.setItem('customer', JSON.stringify(customer));
