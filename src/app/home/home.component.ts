@@ -17,20 +17,13 @@ import { CustomerService } from '../customer/customer.service';
 
 export class HomeComponent implements OnInit {
 
-  products = [
-    { name: 'Plant 1', description: 'Beautiful indoor plant', price: 20, image: '../assets/plant1.jpg' },
-    { name: 'Plant 2', description: 'Indoor Cheese', price: 500, image: '../assets/plant2.jpg' },
-    { name: 'Plant 3', description: 'Succulent plant', price: 15, image: '../assets/plant3.jpg' },
-    { name: 'Plant 4', description: 'Bonzai', price: 50, image: '../assets/plant4.jpg' },
-    { name: 'Plant 5', description: 'Succulent unique', price: 40, image: '../assets/plant6.jpg' },
-    // Add more products as needed
-  ];
-
   constructor(private router: Router, private cartService: CartService, private wishlistService: WishlistService
     , private customerService: CustomerService) { }
 
   ngOnInit(): void {
-    console.log(this.customerService.customer)
+    //console.log(this.customerService.customer);
+    //console.log(this.customerService.customerLocal);
+    console.log('test');
   }
 
   addToCart(product: any) {

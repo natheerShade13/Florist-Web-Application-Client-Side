@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class CartService {
   private cartItems: any[] = [];
   private shippingInfo: any = {};
+  private orders: any[] = []; // Array to store multiple orders
 
   addToCart(item: any) {
     const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
@@ -49,6 +50,22 @@ export class CartService {
 
   getShippingInfo() {
     return this.shippingInfo;
+  }
+
+  completeOrder() {
+    const order = {
+      items: [...this.cartItems],
+      shippingInfo: this.shippingInfo,
+      totalAmount: this.cartItems.reduce((total, item) => total + item.totalPrice, 0),
+      orderDate: new Date()
+    };
+    this.orders.push(order);
+    this.clearCart();
+    return order;
+  }
+
+  getOrders() {
+    return this.orders;
   }
 
 }

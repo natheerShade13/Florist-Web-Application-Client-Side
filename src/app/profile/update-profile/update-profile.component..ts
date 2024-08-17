@@ -13,24 +13,38 @@ import { Customer } from "../../customer/customer.model";
 
 export class UpdateProfileComponent {
 
-  constructor(private customerservice: CustomerService) { }
+  constructor(private customerService: CustomerService) { }
 
   private destroyRef = inject(DestroyRef);
 
+  // customer: Customer = this.customerservice.customer;
+  // customer = this.customerService.getCustomerLocal();
+
+  getCustomer(): Customer | null {
+    const storedCustomer = localStorage.getItem('customer');
+    if (storedCustomer) {
+      // Parse the JSON string to a Customer object
+      const customer: Customer = JSON.parse(storedCustomer);
+      //console.log(customer);
+      return(customer)
+    }
+    return null;
+  }
+
   form = new FormGroup({
-    firstName: new FormControl(this.customerservice.customer.firstName, {
+    firstName: new FormControl(this.getCustomer()?.firstName || '', {
       validators: []
     }),
-    lastName: new FormControl(this.customerservice.customer.lastName, {
+    lastName: new FormControl(this.getCustomer()?.lastName || '', {
       validators: []
     }),
-    email: new FormControl(this.customerservice.customer.email, {
+    email: new FormControl(this.getCustomer()?.email || '', {
       validators: []
     }),
-    dateOfBirth: new FormControl(this.customerservice.customer.dateOfBirth, {
+    dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth || '', {
       validators: []
     }),
-    mobileNumber: new FormControl(this.customerservice.customer.mobileNumber, {
+    mobileNumber: new FormControl(this.getCustomer()?.mobileNumber || '', {
       validators: []
     }),
   });
@@ -42,18 +56,19 @@ export class UpdateProfileComponent {
     }
 
     const customer: Customer = {
-      customerId: this.customerservice.customer.customerId,
+      customerId: this.getCustomer()?.customerId ?? null,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email,
-      password: this.customerservice.customer.password,
+      password: this.getCustomer()?.password ?? null,
       mobileNumber: this.form.value.mobileNumber,
       dateOfBirth: this.form.value.dateOfBirth
     }
 
-    const subscription = this.customerservice.updateCustomer(customer).subscribe({
+    const subscription = this.customerService.updateCustomer(customer).subscribe({
       next: (customer: Customer) => {
-        this.customerservice.customer =customer;
+        //this.customerservice.customer = customer;
+        localStorage.setItem('customer', JSON.stringify(customer));
         alert('Successful Update');
       },
       error: () => {

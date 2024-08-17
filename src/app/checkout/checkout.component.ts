@@ -42,10 +42,12 @@ export class CheckoutComponent {
         // Save shipping info
         this.cartService.setShippingInfo(this.shippingInfo);
 
+        // Save the order details before clearing the cart
+        this.cartService.completeOrder();
+
+        alert('Purchase successful')
+
         // Redirect to order confirmation page
         this.router.navigate(['/order']);
-
-        // Clear the cart
-        //this.cartService.clearCart();
     }
 }

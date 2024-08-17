@@ -16,6 +16,8 @@ export class ChangePasswordComponent {
 
   constructor(private customerService: CustomerService) { }
 
+  // customer = this.customerService.getCustomerLocal();
+
   form = new FormGroup({
     password: new FormControl('', {
       validators: []
@@ -32,13 +34,13 @@ export class ChangePasswordComponent {
     }
 
     const customer: Customer = {
-      customerId: this.customerService.customer.customerId,
-      firstName: this.customerService.customer.firstName,
-      lastName: this.customerService.customer.lastName,
-      email: this.customerService.customer.email,
+      customerId: this.customerService.getCustomerLocal()?.customerId ?? null,
+      firstName: this.customerService.getCustomerLocal()?.firstName ?? null,
+      lastName: this.customerService.getCustomerLocal()?.lastName ?? null,
+      email: this.customerService.getCustomerLocal()?.email ?? null,
       password: this.form.value.password,
-      mobileNumber: this.customerService.customer.mobileNumber,
-      dateOfBirth: this.customerService.customer.dateOfBirth
+      mobileNumber: this.customerService.getCustomerLocal()?.mobileNumber ?? null,
+      dateOfBirth: this.customerService.getCustomerLocal()?.dateOfBirth ?? null
     }
 
     const confirmPassword = this.form.value.confirmPassword;
@@ -50,6 +52,7 @@ export class ChangePasswordComponent {
       this.customerService.updateCustomer(customer).subscribe({
         next: (customer: Customer) => {
           //console.log(customer);
+          localStorage.setItem('customer', JSON.stringify(customer));
           alert('Changed password successfully');
         }, error: (error: HttpErrorResponse) => {
           alert('Something went wrong');
