@@ -37,7 +37,7 @@
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" maxlength="12" required>
     </div>
-    @if (form.value.password !== form.value.confirmPassword) {
+    @if (form.value.password !== form.value.confirmPassword && form.controls.confirmPassword.touched) {
       <p>Passwords do not match</p>
     }
     <button type="submit" class="register-button">Register</button>
