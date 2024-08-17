@@ -52,7 +52,7 @@ export class LoginComponent {
           
           this.customerservice.getCustomer(this.email).subscribe({
             next: (customer: Customer) => {
-              this.customerservice.customer = customer;
+              //this.customerservice.customer = customer;
               localStorage.setItem('customer', JSON.stringify(customer));
             }
           });

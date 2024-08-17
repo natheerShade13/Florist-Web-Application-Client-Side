@@ -66,7 +66,7 @@ export class UpdateProfileComponent {
 
     const subscription = this.customerservice.updateCustomer(customer).subscribe({
       next: (customer: Customer) => {
-        this.customerservice.customer = customer;
+        //this.customerservice.customer = customer;
         localStorage.setItem('customer', JSON.stringify(customer));
         alert('Successful Update');
       },

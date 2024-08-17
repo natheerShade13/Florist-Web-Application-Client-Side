@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit {
     , private customerService: CustomerService) { }
 
   ngOnInit(): void {
-    console.log(this.customerService.customer)
+    //console.log(this.customerService.customer);
+    //console.log(this.customerService.customerLocal);
+    console.log('test');
   }
 
   addToCart(product: any) {
