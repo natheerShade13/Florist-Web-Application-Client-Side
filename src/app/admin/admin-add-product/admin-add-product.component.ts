@@ -47,36 +47,14 @@ export class AdminAddProductComponent implements OnInit {
   }
 
   private loadProducts(): void {
-    // Simulate loading products with dummy data
-    this.products = [
-      {
-        id: 1,
-        name: 'Rose',
-        description: 'A beautiful red rose.',
-        price: 10,
-        imageUrl: 'https://example.com/rose.jpg',
-        stockQuantity: 50,
-        category: 'Flowers'
+    this.productService.getProducts().subscribe(
+      (products: Product[]) => {
+        this.products = products;
       },
-      {
-        id: 2,
-        name: 'Tulip',
-        description: 'A vibrant tulip flower.',
-        price: 7,
-        imageUrl: 'https://example.com/tulip.jpg',
-        stockQuantity: 30,
-        category: 'Flowers'
-      },
-      {
-        id: 3,
-        name: 'Lily',
-        description: 'A fragrant white lily.',
-        price: 15,
-        imageUrl: 'https://example.com/lily.jpg',
-        stockQuantity: 20,
-        category: 'Flowers'
+      error => {
+        console.error('Error loading products:', error);
       }
-    ];
+    );
   }
 
   onSubmit(): void {
@@ -84,34 +62,56 @@ export class AdminAddProductComponent implements OnInit {
       const product: Product = this.productForm.value;
 
       if (this.isEditMode && this.currentProductId !== null) {
-        // Simulate updating a product
-        const index = this.products.findIndex(p => p.id === this.currentProductId);
-        if (index > -1) {
-          this.products[index] = { ...product, id: this.currentProductId };
-        }
-        console.log('Product updated:', this.products[index]);
-        this.resetForm();
+        // Update product
+        this.productService.updateProduct({ ...product, productId: this.currentProductId }).subscribe(
+          (updatedProduct: Product) => {
+            const index = this.products.findIndex(p => p.productId === this.currentProductId);
+            if (index > -1) {
+              this.products[index] = updatedProduct;
+            }
+            console.log('Product updated:', updatedProduct);
+            this.resetForm();
+          },
+          error => {
+            console.error('Error updating product:', error);
+          }
+        );
       } else {
-        // Simulate adding a product
-        const newProduct: Product = { ...product, id: this.products.length + 1 };
-        this.products.push(newProduct);
-        console.log('Product added:', newProduct);
-        this.resetForm();
+        // Add product
+        this.productService.createProduct(product).subscribe(
+          (newProduct: Product) => {
+            this.products.push(newProduct);
+            console.log('Product added:', newProduct);
+            this.resetForm();
+          },
+          error => {
+            console.error('Error adding product:', error);
+          }
+        );
       }
     }
   }
 
   onEditProduct(product: Product): void {
     this.isEditMode = true;
-    // this.currentProductId = product.id;
+    this.currentProductId = product.productId;  // Set current product ID
     this.productForm.patchValue(product);
   }
 
-  onDeleteProduct(id: number): void {
-    // Simulate deleting a product
-    this.products = this.products.filter(product => product.id !== id);
-    console.log('Product deleted');
+  onDeleteProduct(productId: number | null): void {
+    if (productId !== null) {
+      this.productService.deleteProduct(productId).subscribe(
+        success => {
+          this.products = this.products.filter(product => product.productId !== productId);
+          console.log('Product deleted');
+        },
+        error => {
+          console.error('Error deleting product:', error);
+        }
+      );
+    }
   }
+  
 
   resetForm(): void {
     this.productForm.reset();

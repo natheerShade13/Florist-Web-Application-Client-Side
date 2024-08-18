@@ -12,8 +12,8 @@ export class ProductService {
   private apiUrl = 'http://localhost:8080/products'; // Ensure this matches the Spring Boot API
 
   // Create Product
-  addProduct(product: Product): Observable<Product> {
-    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product);
+  createProduct(product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product); // Fixed URL
   }
 
   // Read Product by ID
