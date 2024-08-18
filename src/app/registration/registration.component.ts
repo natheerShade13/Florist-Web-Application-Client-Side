@@ -64,10 +64,10 @@ export class RegistrationComponent {
     } else {
 
       this.customerService.getCustomer(this.form.value.email).subscribe({
-        next: (customer: Customer) => {
-          if (customer) {
+        next: (customerExist: Customer) => {
+          if (customerExist) {
             //alert('Email already taken');
-            this.customerEmail = customer.email;
+            this.customerEmail = customerExist.email;
             return;
           } else {
             this.customerService.registerCustomer(customer).subscribe({ // Use next:
