@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from './product.model'; // Ensure this path is correct
@@ -7,27 +7,32 @@ import { Product } from './product.model'; // Ensure this path is correct
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:8080/product';
 
-  constructor(private http: HttpClient) { }
+  private httpClient = inject(HttpClient);
+  private apiUrl = 'http://localhost:8080/products'; // Ensure this matches the Spring Boot API
 
   // Create Product
-  addProduct(product: Product): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, product);
+  addProduct(product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product);
   }
 
-  // Read Products
+  // Read Product by ID
+  getProduct(id: number): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.apiUrl}/read/${id}`);
+  }
+
+  // Read All Products
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/all`);
+    return this.httpClient.get<Product[]>(`${this.apiUrl}/getAll`);
   }
 
   // Update Product
-  updateProduct(id: number, product: Product): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${id}`, product);
+  updateProduct(product: Product): Observable<Product> {
+    return this.httpClient.put<Product>(`${this.apiUrl}/update`, product);
   }
 
   // Delete Product
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${id}`);
+  deleteProduct(id: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.apiUrl}/delete/${id}`);
   }
 }
