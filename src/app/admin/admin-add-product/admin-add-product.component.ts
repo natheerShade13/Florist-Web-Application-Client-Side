@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './product.service'; 
 import { Product } from './product.model'; 
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../header/header.component";
 import { FooterComponent } from "../../footer/footer.component";
 import { RouterLink } from '@angular/router';
@@ -14,8 +14,6 @@ import { RouterLink } from '@angular/router';
     CommonModule, 
     ReactiveFormsModule, 
     RouterLink, 
-    NgFor, 
-    NgIf, 
     HeaderComponent, 
     FooterComponent
   ],
@@ -25,8 +23,8 @@ import { RouterLink } from '@angular/router';
 export class AdminAddProductComponent implements OnInit {
   productForm!: FormGroup;
   products: Product[] = [];
-  isEditMode = false;  // To track whether we are in edit mode
-  currentProductId: number | null = null;  // To track the ID of the product being edited
+  isEditMode = false;
+  currentProductId: number | null = null;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {}
 
@@ -47,36 +45,14 @@ export class AdminAddProductComponent implements OnInit {
   }
 
   private loadProducts(): void {
-    // Simulate loading products with dummy data
-    this.products = [
-      {
-        id: 1,
-        name: 'Rose',
-        description: 'A beautiful red rose.',
-        price: 10,
-        imageUrl: 'https://example.com/rose.jpg',
-        stockQuantity: 50,
-        category: 'Flowers'
+    this.productService.getProducts().subscribe(
+      (products: Product[]) => {
+        this.products = products;
       },
-      {
-        id: 2,
-        name: 'Tulip',
-        description: 'A vibrant tulip flower.',
-        price: 7,
-        imageUrl: 'https://example.com/tulip.jpg',
-        stockQuantity: 30,
-        category: 'Flowers'
-      },
-      {
-        id: 3,
-        name: 'Lily',
-        description: 'A fragrant white lily.',
-        price: 15,
-        imageUrl: 'https://example.com/lily.jpg',
-        stockQuantity: 20,
-        category: 'Flowers'
+      error => {
+        console.error('Error loading products:', error);
       }
-    ];
+    );
   }
 
   onSubmit(): void {
@@ -84,33 +60,57 @@ export class AdminAddProductComponent implements OnInit {
       const product: Product = this.productForm.value;
 
       if (this.isEditMode && this.currentProductId !== null) {
-        // Simulate updating a product
-        const index = this.products.findIndex(p => p.id === this.currentProductId);
-        if (index > -1) {
-          this.products[index] = { ...product, id: this.currentProductId };
-        }
-        console.log('Product updated:', this.products[index]);
-        this.resetForm();
+        // Update product
+        this.productService.updateProduct({ ...product, productId: this.currentProductId }).subscribe(
+          (updatedProduct: Product) => {
+            const index = this.products.findIndex(p => p.productId === this.currentProductId);
+            if (index > -1) {
+              this.products[index] = updatedProduct;
+            }
+            this.resetForm();
+            window.alert('Product updated successfully!');
+          },
+          error => {
+            console.error('Error updating product:', error);
+            window.alert('Failed to update product. Please try again.');
+          }
+        );
       } else {
-        // Simulate adding a product
-        const newProduct: Product = { ...product, id: this.products.length + 1 };
-        this.products.push(newProduct);
-        console.log('Product added:', newProduct);
-        this.resetForm();
+        // Add product
+        this.productService.createProduct(product).subscribe(
+          (newProduct: Product) => {
+            this.products.push(newProduct);
+            this.resetForm();
+            window.alert('Product added successfully!');
+          },
+          error => {
+            console.error('Error adding product:', error);
+            window.alert('Failed to add product. Please try again.');
+          }
+        );
       }
     }
   }
 
   onEditProduct(product: Product): void {
     this.isEditMode = true;
-    // this.currentProductId = product.id;
+    this.currentProductId = product.productId;
     this.productForm.patchValue(product);
   }
 
-  onDeleteProduct(id: number): void {
-    // Simulate deleting a product
-    this.products = this.products.filter(product => product.id !== id);
-    console.log('Product deleted');
+  onDeleteProduct(productId: number | null): void {
+    if (productId !== null) {
+      this.productService.deleteProduct(productId).subscribe(
+        () => {
+          this.products = this.products.filter(product => product.productId !== productId);
+          window.alert('Product deleted successfully!');
+        },
+        error => {
+          console.error('Error deleting product:', error);
+          window.alert('Failed to delete product. Please try again.');
+        }
+      );
+    }
   }
 
   resetForm(): void {
