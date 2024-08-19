@@ -7,8 +7,7 @@ import { CustomerService } from '../customer/customer.service';
   providedIn: 'root'
 })
 export class WishlistService {
-
-  private wishlistSource = new BehaviorSubject<any[]>([]);
+  private wishlistSource = new BehaviorSubject<Product[]>([]);
   wishlist$ = this.wishlistSource.asObservable();
   private customerId: number | null | undefined = null;
 
