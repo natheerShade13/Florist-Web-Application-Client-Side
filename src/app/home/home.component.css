@@ -43,7 +43,7 @@ body, h1, h2, h3, p, ul {
 /* Hero Section */
 .hero {
   height: 500px;
-  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
+  background-image: url('https://images.pexels.com/photos/165537/pexels-photo-165537.jpeg?auto=compress&cs=tinysrgb&w=600');
   background-size: cover;
   background-position: center;
   display: flex;
