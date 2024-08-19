@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from './product.model'; // Ensure this path is correct
+import { Product } from './product.model'; 
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,11 @@ import { Product } from './product.model'; // Ensure this path is correct
 export class ProductService {
 
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/products'; // Ensure this matches the Spring Boot API
+  private apiUrl = 'http://localhost:8080/products'; 
 
-  // Create Product
+  // Create
   createProduct(product: Product): Observable<Product> {
-    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product); // Fixed URL
+    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product); 
   }
 
   // Read Product by ID
@@ -21,17 +21,17 @@ export class ProductService {
     return this.httpClient.get<Product>(`${this.apiUrl}/read/${id}`);
   }
 
-  // Read All Products
+  // Read All
   getProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(`${this.apiUrl}/getAll`);
   }
 
-  // Update Product
+  // Update 
   updateProduct(product: Product): Observable<Product> {
     return this.httpClient.put<Product>(`${this.apiUrl}/update`, product);
   }
 
-  // Delete Product
+  // Delete 
   deleteProduct(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.apiUrl}/delete/${id}`);
   }

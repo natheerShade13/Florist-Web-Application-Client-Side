@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './product.service'; 
 import { Product } from './product.model'; 
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../header/header.component";
 import { FooterComponent } from "../../footer/footer.component";
 import { RouterLink } from '@angular/router';
@@ -14,8 +14,6 @@ import { RouterLink } from '@angular/router';
     CommonModule, 
     ReactiveFormsModule, 
     RouterLink, 
-    NgFor, 
-    NgIf, 
     HeaderComponent, 
     FooterComponent
   ],
@@ -25,8 +23,8 @@ import { RouterLink } from '@angular/router';
 export class AdminAddProductComponent implements OnInit {
   productForm!: FormGroup;
   products: Product[] = [];
-  isEditMode = false;  // To track whether we are in edit mode
-  currentProductId: number | null = null;  // To track the ID of the product being edited
+  isEditMode = false;
+  currentProductId: number | null = null;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {}
 
@@ -69,11 +67,12 @@ export class AdminAddProductComponent implements OnInit {
             if (index > -1) {
               this.products[index] = updatedProduct;
             }
-            console.log('Product updated:', updatedProduct);
             this.resetForm();
+            window.alert('Product updated successfully!');
           },
           error => {
             console.error('Error updating product:', error);
+            window.alert('Failed to update product. Please try again.');
           }
         );
       } else {
@@ -81,11 +80,12 @@ export class AdminAddProductComponent implements OnInit {
         this.productService.createProduct(product).subscribe(
           (newProduct: Product) => {
             this.products.push(newProduct);
-            console.log('Product added:', newProduct);
             this.resetForm();
+            window.alert('Product added successfully!');
           },
           error => {
             console.error('Error adding product:', error);
+            window.alert('Failed to add product. Please try again.');
           }
         );
       }
@@ -94,24 +94,24 @@ export class AdminAddProductComponent implements OnInit {
 
   onEditProduct(product: Product): void {
     this.isEditMode = true;
-    this.currentProductId = product.productId;  // Set current product ID
+    this.currentProductId = product.productId;
     this.productForm.patchValue(product);
   }
 
   onDeleteProduct(productId: number | null): void {
     if (productId !== null) {
       this.productService.deleteProduct(productId).subscribe(
-        success => {
+        () => {
           this.products = this.products.filter(product => product.productId !== productId);
-          console.log('Product deleted');
+          window.alert('Product deleted successfully!');
         },
         error => {
           console.error('Error deleting product:', error);
+          window.alert('Failed to delete product. Please try again.');
         }
       );
     }
   }
-  
 
   resetForm(): void {
     this.productForm.reset();
