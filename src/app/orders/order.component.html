@@ -11,7 +11,7 @@
       <h3>Order placed on {{ order.orderDate | date: "longDate" }}</h3>
 
       <div *ngFor="let item of order.items" class="order-item">
-        <img [src]="item.image" alt="{{ item.name }}" class="order-item-image" />
+        <img [src]="item.imageUrl" alt="{{ item.name }}" class="order-item-image" />
         <div class="order-item-details">
           <h4>{{ item.name }}</h4>
           <p>Quantity: {{ item.quantity }}</p>

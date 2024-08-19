@@ -8,7 +8,7 @@
   @else {
     <div *ngIf="cartItems.length > 0">
       <div class="cart-item" *ngFor="let item of cartItems">
-        <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image" />
+        <img [src]="item.imageUrl" alt="{{ item.name }}" class="cart-item-image" />
         <div class="cart-item-details">
           <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
