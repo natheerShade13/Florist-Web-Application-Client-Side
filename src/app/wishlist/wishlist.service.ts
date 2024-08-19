@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CustomerService } from '../customer/customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,35 +10,70 @@ export class WishlistService {
 
   private wishlistSource = new BehaviorSubject<any[]>([]);
   wishlist$ = this.wishlistSource.asObservable();
+  private customerId: number | null | undefined = null;
 
-  constructor() {
-    const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    this.wishlistSource.next(savedWishlist);
-  }
+  constructor(
+    private customerService: CustomerService,
+    private httpClient: HttpClient
+  ) {
+    const customer = this.customerService.getCustomerLocal();
 
-  addToWishlist(plant: any) {
-    const currentWishlist = this.wishlistSource.value;
-
-    // Check if the plant is already in the wishlist
-    const existingProduct = currentWishlist.find(item => item.name === plant.name);
-
-    if (!existingProduct) {
-      currentWishlist.push(plant);
-      this.wishlistSource.next(currentWishlist);
-      localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
-    } else {
-      alert('This product is already in your wishlist.');
+    if (customer) {
+      this.customerId = customer.customerId;
+      this.loadWishlistFromServer();
     }
   }
 
-  removeFromWishlist(plant: any) {
-    const currentWishlist = this.wishlistSource.value.filter(p => p !== plant);
-    this.wishlistSource.next(currentWishlist);
-    localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
+  public loadWishlistFromServer() {
+    if (this.customerId) {
+      this.httpClient.get<any[]>(`http://localhost:8080/api/wishlist/customer/${this.customerId}/products`)
+        .subscribe(wishlist => {
+          this.wishlistSource.next(wishlist);
+        });
+    }
+  }
+
+  addToWishlist(product: any) {
+    if (this.customerId) {
+      const currentWishlist = this.wishlistSource.value;
+      const existingProduct = currentWishlist.find(item => item.productId === product.productId);
+
+      if (!existingProduct) {
+        currentWishlist.push(product);
+        this.wishlistSource.next(currentWishlist);
+
+        // Save to server
+        this.httpClient.post(`http://localhost:8080/wishlist/${this.customerId}/add`, product)
+          .subscribe(() => {
+            localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
+          });
+      } else {
+        alert('This product is already in your wishlist.');
+      }
+    }
+  }
+
+  removeFromWishlist(product: any) {
+    if (this.customerId) {
+      const currentWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
+      this.wishlistSource.next(currentWishlist);
+
+      // Save to server
+      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/remove/${product.productId}`)
+        .subscribe(() => {
+          localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
+        });
+    }
   }
 
   clearWishlist() {
-    this.wishlistSource.next([]);
-    localStorage.setItem('wishlist', JSON.stringify([]));
+    if (this.customerId) {
+      this.wishlistSource.next([]);
+      localStorage.removeItem(`wishlist_${this.customerId}`);
+
+      // Clear from server
+      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
+        .subscribe();
+    }
   }
 }
