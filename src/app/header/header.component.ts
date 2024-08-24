@@ -21,7 +21,11 @@ export class HeaderComponent {
   }
 
   onSignOut() {
-    this.router.navigate(['/login']);
+    localStorage.removeItem('customer');
+    this.router.navigate(['/login']).then(() => {
+      // Reload the page
+      window.location.reload();
+    });
   }
 
   onProfile() {
