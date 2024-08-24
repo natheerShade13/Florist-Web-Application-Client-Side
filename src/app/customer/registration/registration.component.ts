@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Customer } from '../customer/customer.model';
+import { Customer } from '../customer.model';
 import { DatePipe } from '@angular/common';
-import { CustomerService } from '../customer/customer.service';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-registration',

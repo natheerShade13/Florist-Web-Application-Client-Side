@@ -3,8 +3,8 @@ import { Component, DestroyRef, inject, viewChild, ViewChild } from '@angular/co
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { CustomerService } from '../customer/customer.service';
-import { Customer } from '../customer/customer.model';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../customer.model';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
