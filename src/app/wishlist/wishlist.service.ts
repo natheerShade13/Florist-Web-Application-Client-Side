@@ -50,7 +50,7 @@ export class WishlistService {
             error: (error: HttpErrorResponse) => {
               alert(error.message);
             }
-          })
+          });
       } else {
         alert('This product is already in your wishlist.');
       }
@@ -64,8 +64,10 @@ export class WishlistService {
 
       // Save to server
       this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/removeProduct/${product.productId}`)
-        .subscribe(() => {
-          //localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
+        .subscribe({
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
         });
     }
   }
