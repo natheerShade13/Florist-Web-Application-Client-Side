@@ -8,7 +8,7 @@ import { Product } from '../catalog/product.model';
   providedIn: 'root'
 })
 export class WishlistService {
-  
+
   private wishlistSource = new BehaviorSubject<Product[]>([]);
   wishlist$ = this.wishlistSource.asObservable();
   private customerId: number | null | undefined = null;
@@ -41,12 +41,13 @@ export class WishlistService {
       const existingProduct = currentWishlist.find(item => item.productId === product.productId);
 
       if (!existingProduct) {
-        currentWishlist.push(product);
-        this.wishlistSource.next(currentWishlist);
-
         // Save to server
-        this.httpClient.post(`http://localhost:8080/wishlist/${customerId}/addProduct`, product)
+        this.httpClient.post<any>(`http://localhost:8080/wishlist/${customerId}/addProduct`, product)
           .subscribe({
+            next: () => {
+              currentWishlist.push(product);
+              this.wishlistSource.next(currentWishlist);
+            },
             error: (error: HttpErrorResponse) => {
               alert(error.message);
             }
@@ -59,12 +60,15 @@ export class WishlistService {
 
   removeFromWishlist(product: Product) {
     if (this.customerId) {
-      const currentWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
-      this.wishlistSource.next(currentWishlist);
+      const customerId = this.customerId;
 
       // Save to server
-      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/removeProduct/${product.productId}`)
+      this.httpClient.delete<boolean>(`http://localhost:8080/wishlist/${customerId}/removeProduct/${product.productId}`)
         .subscribe({
+          next: () => {
+            const currentWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
+            this.wishlistSource.next(currentWishlist);
+          },
           error: (error: HttpErrorResponse) => {
             alert(error.message);
           }
@@ -72,14 +76,14 @@ export class WishlistService {
     }
   }
 
-  clearWishlist() {
-    if (this.customerId) {
-      this.wishlistSource.next([]);
-      localStorage.removeItem(`wishlist_${this.customerId}`);
+  // clearWishlist() {
+  //   if (this.customerId) {
+  //     this.wishlistSource.next([]);
+  //     localStorage.removeItem(`wishlist_${this.customerId}`);
 
-      // Clear from server
-      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
-        .subscribe();
-    }
-  }
+  //     // Clear from server
+  //     this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
+  //       .subscribe();
+  //   }
+  // }
 }
