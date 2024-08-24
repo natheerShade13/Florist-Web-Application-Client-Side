@@ -63,7 +63,10 @@ export class LoginComponent {
           // Handle login logic here
           alert('Login successful');
           //console.log(data)
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']).then(() => {
+            // Reload the page
+            window.location.reload();
+          });
           //} else {
           //  alert('Login failed')
           //console.log(data)

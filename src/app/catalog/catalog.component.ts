@@ -33,7 +33,7 @@ export class CatalogComponent {
     //alert(`${product.name} has been added to your cart.`);
   }
 
-  addToWishlist(product: any) {
+  addToWishlist(product: Product) {
     this.wishlistService.addToWishlist(product);
   }
 

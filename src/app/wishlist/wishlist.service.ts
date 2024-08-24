@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
@@ -8,6 +8,7 @@ import { Product } from '../catalog/product.model';
   providedIn: 'root'
 })
 export class WishlistService {
+  
   private wishlistSource = new BehaviorSubject<Product[]>([]);
   wishlist$ = this.wishlistSource.asObservable();
   private customerId: number | null | undefined = null;
@@ -26,15 +27,16 @@ export class WishlistService {
 
   public loadWishlistFromServer() {
     if (this.customerId) {
-      this.httpClient.get<any[]>(`http://localhost:8080/api/wishlist/customer/${this.customerId}/products`)
+      this.httpClient.get<Product[]>(`http://localhost:8080/wishlist/customer/${this.customerId}/products`)
         .subscribe(wishlist => {
           this.wishlistSource.next(wishlist);
         });
     }
   }
 
-  addToWishlist(product: any) {
+  addToWishlist(product: Product) {
     if (this.customerId) {
+      const customerId = this.customerId;
       const currentWishlist = this.wishlistSource.value;
       const existingProduct = currentWishlist.find(item => item.productId === product.productId);
 
@@ -43,25 +45,27 @@ export class WishlistService {
         this.wishlistSource.next(currentWishlist);
 
         // Save to server
-        this.httpClient.post(`http://localhost:8080/wishlist/${this.customerId}/add`, product)
-          .subscribe(() => {
-            localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
-          });
+        this.httpClient.post(`http://localhost:8080/wishlist/${customerId}/addProduct`, product)
+          .subscribe({
+            error: (error: HttpErrorResponse) => {
+              alert(error.message);
+            }
+          })
       } else {
         alert('This product is already in your wishlist.');
       }
     }
   }
 
-  removeFromWishlist(product: any) {
+  removeFromWishlist(product: Product) {
     if (this.customerId) {
       const currentWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
       this.wishlistSource.next(currentWishlist);
 
       // Save to server
-      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/remove/${product.productId}`)
+      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/removeProduct/${product.productId}`)
         .subscribe(() => {
-          localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
+          //localStorage.setItem(`wishlist_${this.customerId}`, JSON.stringify(currentWishlist));
         });
     }
   }
