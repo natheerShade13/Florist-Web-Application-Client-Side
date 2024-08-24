@@ -5,7 +5,7 @@
     <div class="order-review">
       <h3>Order Review</h3>
       <div *ngFor="let item of cartItems" class="checkout-item">
-        <img [src]="item.image" alt="{{ item.name }}" class="checkout-item-image" />
+        <img [src]="item.imageUrl" alt="{{ item.name }}" class="checkout-item-image" />
         <div class="checkout-item-details">
           <h4>{{ item.name }}</h4>
           <p>Quantity: {{ item.quantity }}</p>
