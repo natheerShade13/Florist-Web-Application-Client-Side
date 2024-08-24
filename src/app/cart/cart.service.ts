@@ -1,15 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CartProduct } from './cart.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems: any[] = [];
+  private cartItems: CartProduct[] = [];
   private shippingInfo: any = {};
   private orders: any[] = []; // Array to store multiple orders
 
+  constructor(private httpClient: HttpClient){}
+
+
+
   addToCart(item: any) {
-    const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
+    const existingItem = this.cartItems.find(cartItem => cartItem.product.name === item.name);
 
     if (existingItem) {
       // If the item already exists in the cart, increment the quantity and update the price
@@ -22,7 +28,7 @@ export class CartService {
   }
 
   removeFromCart(item: any) {
-    const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
+    const existingItem = this.cartItems.find(cartItem => cartItem.product.name === item.name);
 
     if (existingItem) {
       if (existingItem.quantity > 1) {
@@ -31,7 +37,7 @@ export class CartService {
         existingItem.totalPrice = existingItem.quantity * item.price;
       } else {
         // Remove the item entirely if the quantity is 1
-        this.cartItems = this.cartItems.filter(cartItem => cartItem.name !== item.name);
+        this.cartItems = this.cartItems.filter(cartItem => cartItem.product.name !== item.name);
       }
     }
   }
