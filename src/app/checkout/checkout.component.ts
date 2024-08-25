@@ -28,8 +28,8 @@ export class CheckoutComponent {
     constructor(private cartService: CartService, private router: Router) { }
 
     ngOnInit(): void {
-        this.cartItems = this.cartService.getCartItems();
-        this.calculateTotal();
+        // this.cartItems = this.cartService.getCartItems();
+        // this.calculateTotal();
     }
 
     calculateTotal() {
