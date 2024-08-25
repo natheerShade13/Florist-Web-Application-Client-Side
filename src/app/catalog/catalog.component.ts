@@ -28,7 +28,7 @@ export class CatalogComponent {
     });
   }
 
-  addToCart(product: any) {
+  addToCart(product: Product) {
     this.cartService.addToCart(product);
     //alert(`${product.name} has been added to your cart.`);
   }
