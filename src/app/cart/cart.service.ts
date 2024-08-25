@@ -78,7 +78,7 @@ export class CartService {
     return this.cartProductSubject.value.reduce((total, item) => total + item.totalPrice, 0);
   }
 
-  removeFromCart(item: any) {
+  removeFromCart(product: Product) {
     // const existingItem = this.cartItems.find(cartItem => cartItem.product.name === item.name);
 
     // if (existingItem) {
@@ -91,6 +91,32 @@ export class CartService {
     //     this.cartItems = this.cartItems.filter(cartItem => cartItem.product.name !== item.name);
     //   }
     // }
+
+    if (this.customerId) {
+      const customerId = this.customerId;
+      const currentCart = this.cartProductSubject.value;
+      const existingProduct = currentCart.find(item => item.product.productId === product.productId);
+
+      this.httpClient.delete<boolean>(`http://localhost:8080/cart/delete/customerId/${customerId}/productId/${product.productId}`)
+        .subscribe({
+          next: (cart: boolean) => {
+            if (cart) {
+              if (existingProduct) {
+                existingProduct.quantity -= 1;
+                existingProduct.totalPrice = existingProduct.quantity * product.price;
+              }
+             }else{
+              const removeProduct = this.cartProductSubject.value.filter((item) => item.product.productId !== product.productId)
+              this.cartProductSubject.next(removeProduct);
+             }
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error);
+          }
+        })
+
+    }
+
   }
 
   clearCart() {

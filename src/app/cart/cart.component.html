@@ -14,7 +14,7 @@
           <p>{{ item.product.description }}</p>
           <p>Quantity: {{ item.quantity }}</p>
           <p class="price">Total Price: ${{ item.totalPrice }}</p>
-          <button (click)="removeFromCart(item)">Remove</button>
+          <button (click)="removeFromCart(item.product)">Remove</button>
         </div>
       </div>
       <div class="cart-total">

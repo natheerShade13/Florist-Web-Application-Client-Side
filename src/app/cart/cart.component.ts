@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { CartProduct } from './cart.model';
+import { Product } from '../catalog/product.model';
 
 @Component({
   selector: 'app-cart',
@@ -27,8 +28,8 @@ export class CartComponent implements OnInit {
     })
   }
 
-  removeFromCart(item: any) {
-    // this.cartService.removeFromCart(item);
+  removeFromCart(product: Product) {
+     this.cartService.removeFromCart(product);
     // this.cartItems = this.cartService.getCartItems();
   }
 
