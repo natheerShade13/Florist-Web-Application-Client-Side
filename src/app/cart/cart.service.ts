@@ -13,6 +13,7 @@ export class CartService {
   private cartProductSubject = new BehaviorSubject<CartProduct[]>([]);
   cartProduct$ = this.cartProductSubject.asObservable();
   private customerId: number | null | undefined = null;
+  //count = 0;
 
   private shippingInfo: any = {};
   private orders: any[] = []; // Array to store multiple orders
@@ -29,6 +30,10 @@ export class CartService {
     if (this.customerId) {
       this.httpClient.get<CartProduct[]>(`http://localhost:8080/cart/customer/${this.customerId}`)
         .subscribe(cartProducts => {
+          // Calculate the total price for each cart product
+          cartProducts.forEach(cartProduct => {
+            cartProduct.totalPrice = cartProduct.quantity * cartProduct.product.price;
+          });
           this.cartProductSubject.next(cartProducts);
         });
     }
@@ -54,17 +59,23 @@ export class CartService {
         .subscribe({
           next: (cartProduct: CartProduct) => {
             if (existingProduct) {
-              
-            }else{
+              existingProduct.quantity += 1;
+              existingProduct.totalPrice = existingProduct.quantity * product.price;
+            } else {
+              cartProduct.totalPrice = product.price;
               currentCart.push(cartProduct);
-              this.cartProductSubject.next(currentCart);
             }
+            this.cartProductSubject.next([...currentCart]);
           },
           error: (error: HttpErrorResponse) => {
             alert(error);
           }
         });
     }
+  }
+
+  getTotalCartPrice(): number {
+    return this.cartProductSubject.value.reduce((total, item) => total + item.totalPrice, 0);
   }
 
   removeFromCart(item: any) {
