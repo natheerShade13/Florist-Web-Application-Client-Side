@@ -63,7 +63,7 @@ export class LoginComponent {
                 if (success) {
                   console.log('Navigation to /home successful');
                   // There is no need to reload the page here
-                  // window.location.reload();
+                   window.location.reload();
                 } else {
                   console.log('Navigation to /home failed');
                 }
@@ -75,7 +75,7 @@ export class LoginComponent {
             }
           });
         } else {
-          alert('Incorrect details');
+          alert('Incorrect details'); // Use an alternatice to alert
         }
       },
       error: (error: HttpErrorResponse) => {
