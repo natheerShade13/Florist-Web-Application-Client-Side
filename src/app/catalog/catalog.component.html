@@ -13,7 +13,7 @@
   <p>Explore our collection of plants and gardening supplies.</p>
   <div class="products">
     <div class="product-card" *ngFor="let product of products">
-      <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+      <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
       <p class="price">${{ product.price }}</p>

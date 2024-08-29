@@ -1,9 +1,9 @@
-<app-header/>
+<app-header></app-header>
 <div class="wishlist-container">
   <h2>Wishlist</h2>
   <div *ngIf="wishlist.length === 0" class="empty-message">Your wishlist is empty.</div>
   <div *ngFor="let item of wishlist" class="plant-item">
-    <img [src]="item.image" alt="{{ item.name }}" class="plant-image"/>
+    <img [src]="item.imageUrl" alt="{{ item.name }}" class="plant-image"/>
     <div class="plant-details">
       <h3>{{ item.name }}</h3>
       <p>{{ item.description }}</p>

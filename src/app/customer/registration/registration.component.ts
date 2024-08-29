@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Customer } from '../customer/customer.model';
+import { Customer } from '../customer.model';
 import { DatePipe } from '@angular/common';
-import { CustomerService } from '../customer/customer.service';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-registration',
@@ -18,6 +18,8 @@ import { CustomerService } from '../customer/customer.service';
 export class RegistrationComponent {
 
   constructor(private router: Router, private httpClient: HttpClient, private customerService: CustomerService) { }
+
+  customerEmail: string | undefined | null;
 
   form = new FormGroup({
     firstName: new FormControl('', {    // this.customerService.customer.firstName
@@ -60,13 +62,24 @@ export class RegistrationComponent {
       //alert('Passwords do not match!');
       return;
     } else {
-      this.customerService.registerCustomer(customer).subscribe({ // Use next:
-        next: (customer: Customer) => { // Check if email or mobile number already exists in the back end and return response
-          console.log(customer);
-          alert('Registration successful!');
-          this.router.navigate(['/login']);
-        }, error: (error: HttpErrorResponse) => {
-          alert('Something went wrong');
+
+      this.customerService.getCustomer(this.form.value.email).subscribe({
+        next: (customerExist: Customer) => {
+          if (customerExist) {
+            //alert('Email already taken');
+            this.customerEmail = customerExist.email;
+            return;
+          } else {
+            this.customerService.registerCustomer(customer).subscribe({ // Use next:
+              next: (customer: Customer) => { // Check if email or mobile number already exists in the back end and return response
+                console.log(customer);
+                alert('Registration successful!');
+                this.router.navigate(['/login']);
+              }, error: (error: HttpErrorResponse) => {
+                alert('Something went wrong');
+              }
+            })
+          }
         }
       })
     }

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CustomerService } from "../../customer/customer.service";
 import { Customer } from "../../customer/customer.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -16,12 +16,14 @@ export class ChangePasswordComponent {
 
   constructor(private customerService: CustomerService) { }
 
+   customerPassword = this.customerService.getCustomerLocal()?.password;
+
   form = new FormGroup({
     password: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     }),
     confirmPassword: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     })
   });
 
@@ -31,14 +33,25 @@ export class ChangePasswordComponent {
       return;
     }
 
+    if (this.form.value.password !== this.form.value.confirmPassword) {
+      //alert('Passwords do not match!');
+      return;
+    }
+
+    if (this.form.value.password === this.customerService.getCustomerLocal()?.password
+      && this.form.value.confirmPassword === this.customerService.getCustomerLocal()?.password) {
+        alert('Can not use the same password'); // Use alternative to delete
+        return;
+    }
+
     const customer: Customer = {
-      customerId: this.customerService.customer.customerId,
-      firstName: this.customerService.customer.firstName,
-      lastName: this.customerService.customer.lastName,
-      email: this.customerService.customer.email,
+      customerId: this.customerService.getCustomerLocal()?.customerId ?? null,
+      firstName: this.customerService.getCustomerLocal()?.firstName ?? null,
+      lastName: this.customerService.getCustomerLocal()?.lastName ?? null,
+      email: this.customerService.getCustomerLocal()?.email ?? null,
       password: this.form.value.password,
-      mobileNumber: this.customerService.customer.mobileNumber,
-      dateOfBirth: this.customerService.customer.dateOfBirth
+      mobileNumber: this.customerService.getCustomerLocal()?.mobileNumber ?? null,
+      dateOfBirth: this.customerService.getCustomerLocal()?.dateOfBirth ?? null
     }
 
     const confirmPassword = this.form.value.confirmPassword;
@@ -50,6 +63,7 @@ export class ChangePasswordComponent {
       this.customerService.updateCustomer(customer).subscribe({
         next: (customer: Customer) => {
           //console.log(customer);
+          localStorage.setItem('customer', JSON.stringify(customer));
           alert('Changed password successfully');
         }, error: (error: HttpErrorResponse) => {
           alert('Something went wrong');

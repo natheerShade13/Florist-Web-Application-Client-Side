@@ -1,30 +1,36 @@
-<app-header/>
+<app-header />
 <div class="order-confirmation-container">
-    <h2>Order Confirmation</h2>
-    <div class="order-details">
-      <h3>Order Summary</h3>
-      <div *ngFor="let item of cartItems" class="order-item">
-        <img [src]="item.image" alt="{{ item.name }}" class="order-item-image" />
+  <h2>Order History</h2>
+
+  <div *ngIf="orders.length === 0">
+    <p>No previous orders found.</p>
+  </div>
+
+  <div *ngIf="orders.length > 0">
+    <div *ngFor="let order of orders" class="order-summary">
+      <h3>Order placed on {{ order.orderDate | date: "longDate" }}</h3>
+
+      <div *ngFor="let item of order.items" class="order-item">
+        <img [src]="item.imageUrl" alt="{{ item.name }}" class="order-item-image" />
         <div class="order-item-details">
           <h4>{{ item.name }}</h4>
           <p>Quantity: {{ item.quantity }}</p>
           <p class="price">Total Price: ${{ item.totalPrice }}</p>
         </div>
       </div>
+
       <div class="order-total">
-        <p>Total Amount: ${{ totalAmount }}</p>
+        <p>Total Amount: ${{ order.totalAmount }}</p>
+      </div>
+
+      <div class="shipping-details">
+        <h4>Shipping Information</h4>
+        <p><strong>Name:</strong> {{ order.shippingInfo.name }}</p>
+        <p><strong>Address:</strong> {{ order.shippingInfo.address }}</p>
+        <p><strong>City:</strong> {{ order.shippingInfo.city }}</p>
+        <p><strong>State:</strong> {{ order.shippingInfo.state }}</p>
+        <p><strong>ZIP Code:</strong> {{ order.shippingInfo.zip }}</p>
       </div>
     </div>
-  
-    <div class="shipping-details">
-      <h3>Shipping Information</h3>
-      <p><strong>Name:</strong> {{ shippingInfo.name }}</p>
-      <p><strong>Address:</strong> {{ shippingInfo.address }}</p>
-      <p><strong>City:</strong> {{ shippingInfo.city }}</p>
-      <p><strong>State:</strong> {{ shippingInfo.state }}</p>
-      <p><strong>ZIP Code:</strong> {{ shippingInfo.zip }}</p>
-    </div>
-  
-    <!-- <button (click)="goHome()" class="home-button">Back to Home</button> -->
   </div>
-  
+</div>
