@@ -13,7 +13,7 @@
           <h3>{{ item.product.name }}</h3>
           <p>{{ item.product.description }}</p>
           <p>Quantity: {{ item.quantity }}</p>
-          <p class="price">Total Price: ${{ item.totalPrice }}</p>
+          <p class="price">Total Price: ZAR{{ item.totalPrice }}</p>
           <button (click)="removeFromCart(item.product)">Remove</button>
         </div>
       </div>
