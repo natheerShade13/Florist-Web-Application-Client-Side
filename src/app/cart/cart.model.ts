@@ -15,3 +15,10 @@ export interface CartProduct{
     unitPrice: number,
     totalPrice: number
 }
+
+export interface Order{
+    cartProduct: CartProduct[],
+    shippingInfo: any,
+    totalAmount: number,
+    orderDate: Date
+}

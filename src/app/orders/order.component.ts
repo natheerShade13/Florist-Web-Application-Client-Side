@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { CartService } from "../cart/cart.service";
 import { CommonModule, NgFor } from "@angular/common";
 import { HeaderComponent } from "../header/header.component";
+import { Order } from "../cart/cart.model";
 
 @Component({
     selector: 'app-order',
@@ -35,7 +36,7 @@ export class OrderComponent implements OnInit {
     //     }
     // }
 
-    orders: any[] = [];
+    orders: Order[] = [];
 
     constructor(private cartService: CartService) { }
 
