@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject } from "@angular/core";
 import { CustomerService } from "../../customer/customer.service";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Customer } from "../../customer/customer.model";
 
 @Component({
@@ -33,13 +33,13 @@ export class UpdateProfileComponent {
 
   form = new FormGroup({
     firstName: new FormControl(this.getCustomer()?.firstName || '', {
-      validators: []
+      validators: [Validators.required]
     }),
     lastName: new FormControl(this.getCustomer()?.lastName || '', {
-      validators: []
+      validators: [Validators.required]
     }),
-    email: new FormControl(this.getCustomer()?.email || '', {
-      validators: []
+    email: new FormControl(this.getCustomer()?.email || '', { //{value: this.getCustomer()?.email || '', disabled: true}
+      validators: [Validators.required, Validators.email]
     }),
     dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth || '', {
       validators: []

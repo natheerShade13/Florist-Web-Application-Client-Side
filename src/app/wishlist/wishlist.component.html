@@ -7,7 +7,7 @@
     <div class="plant-details">
       <h3>{{ item.name }}</h3>
       <p>{{ item.description }}</p>
-      <p class="price">ZAR{{ item.price }}</p>
+      <p class="price">${{ item.price }}</p>
       <button (click)="removeFromWishlist(item)" class="remove-button">Remove</button>
     </div>
   </div>

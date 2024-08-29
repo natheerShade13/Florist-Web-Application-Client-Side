@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CartProduct } from './cart.model';
+import { CartProduct, Order } from './cart.model';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
 import { Product } from '../catalog/product.model';
@@ -13,10 +13,9 @@ export class CartService {
   private cartProductSubject = new BehaviorSubject<CartProduct[]>([]);
   cartProduct$ = this.cartProductSubject.asObservable();
   private customerId: number | null | undefined = null;
-  //count = 0;
 
   private shippingInfo: any = {};
-  private orders: any[] = []; // Array to store multiple orders
+  private orders: Order[] = []; // Array to store multiple orders
 
   constructor(private httpClient: HttpClient, private customerService: CustomerService) {
     const customer = this.customerService.getCustomerLocal();
@@ -44,16 +43,6 @@ export class CartService {
       const customerId = this.customerId
       const currentCart = this.cartProductSubject.value;
       const existingProduct = currentCart.find(item => item.product.productId === product.productId);
-      // const existingItem = this.cartProductSubject.find(cartItem => cartItem.product.name === item.name);
-
-      // if (existingItem) {
-      //   // If the item already exists in the cart, increment the quantity and update the price
-      //   existingItem.quantity += 1;
-      //   existingItem.totalPrice = existingItem.quantity * item.price;
-      // } else {
-      //   // If the item does not exist, add it with an initial quantity of 1
-      //   this.cartItems.push({ ...item, quantity: 1, totalPrice: item.price });
-      // }
 
       this.httpClient.post<CartProduct>(`http://localhost:8080/cart/customerId/${customerId}/productId/${product.productId}`, {})
         .subscribe({
@@ -79,19 +68,6 @@ export class CartService {
   }
 
   removeFromCart(product: Product) {
-    // const existingItem = this.cartItems.find(cartItem => cartItem.product.name === item.name);
-
-    // if (existingItem) {
-    //   if (existingItem.quantity > 1) {
-    //     // Decrement the quantity and update the total price
-    //     existingItem.quantity -= 1;
-    //     existingItem.totalPrice = existingItem.quantity * item.price;
-    //   } else {
-    //     // Remove the item entirely if the quantity is 1
-    //     this.cartItems = this.cartItems.filter(cartItem => cartItem.product.name !== item.name);
-    //   }
-    // }
-
     if (this.customerId) {
       const customerId = this.customerId;
       const currentCart = this.cartProductSubject.value;
@@ -120,7 +96,7 @@ export class CartService {
   }
 
   clearCart() {
-    // this.cartItems = [];
+    this.cartProductSubject.next([]);
   }
 
   setShippingInfo(info: any) {
@@ -132,15 +108,19 @@ export class CartService {
   }
 
   completeOrder() {
-    // const order = {
-    //   items: [...this.cartItems],
-    //   shippingInfo: this.shippingInfo,
-    //   totalAmount: this.cartItems.reduce((total, item) => total + item.totalPrice, 0),
-    //   orderDate: new Date()
-    // };
-    // this.orders.push(order);
-    // this.clearCart();
-    // return order;
+    const order: Order = {
+      cartProduct: [...this.cartProductSubject.value], // Get the current cart items
+      shippingInfo: this.shippingInfo,
+      totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
+      orderDate: new Date()
+    };
+  
+    this.orders.push(order); // Add the order to the orders array
+  
+    // Clear the cart after order completion
+    this.clearCart();
+  
+    return order;
   }
 
   getOrders() {
