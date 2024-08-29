@@ -42,10 +42,10 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    // if (this.cartItems.length > 0) {
-    //   this.router.navigate(['/checkout']); // Redirects to the checkout page
-    // } else {
-    //   alert('Your cart is empty.');
-    // }
+    if (this.cartProduct.length > 0) {
+      this.router.navigate(['/checkout']); // Redirects to the checkout page
+    } else {
+      alert('Your cart is empty.');
+    }
   }
 }

@@ -120,7 +120,7 @@ export class CartService {
   }
 
   clearCart() {
-    // this.cartItems = [];
+    // this.cartProductSubject = [];
   }
 
   setShippingInfo(info: any) {
