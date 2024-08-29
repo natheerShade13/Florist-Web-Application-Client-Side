@@ -4,6 +4,7 @@ import { CartService } from "../cart/cart.service";
 import { HeaderComponent } from "../header/header.component";
 import { FormsModule } from "@angular/forms";
 import { CommonModule, NgFor } from "@angular/common";
+import { CartProduct } from "../cart/cart.model";
 
 @Component({
     selector: 'app-checkout',
@@ -15,7 +16,7 @@ import { CommonModule, NgFor } from "@angular/common";
 
 export class CheckoutComponent {
 
-    cartItems: any[] = [];
+    cartProduct: CartProduct[] = [];
     totalAmount: number = 0;
     shippingInfo = {
         name: '',
@@ -28,12 +29,14 @@ export class CheckoutComponent {
     constructor(private cartService: CartService, private router: Router) { }
 
     ngOnInit(): void {
-        // this.cartItems = this.cartService.getCartItems();
-        // this.calculateTotal();
+        this.cartService.cartProduct$.subscribe(cartProducts =>{
+            this.cartProduct = cartProducts;
+          })
+        this.calculateTotal();
     }
 
     calculateTotal() {
-        this.totalAmount = this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
+        this.totalAmount = this.cartProduct.reduce((total, item) => total + item.totalPrice, 0);
     }
 
     completePurchase() {

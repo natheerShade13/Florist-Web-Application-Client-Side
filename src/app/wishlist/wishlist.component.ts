@@ -3,6 +3,7 @@ import { WishlistService } from './wishlist.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Product } from '../catalog/product.model';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -14,7 +15,7 @@ import { Product } from '../catalog/product.model';
 export class WishlistComponent implements OnInit {
   wishlist: Product[] = [];
 
-  constructor(private wishlistService: WishlistService) {}
+  constructor(private wishlistService: WishlistService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.wishlistService.wishlist$.subscribe(wishlist => {
@@ -24,5 +25,10 @@ export class WishlistComponent implements OnInit {
 
   removeFromWishlist(product: Product): void {
     this.wishlistService.removeFromWishlist(product);
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
+    //this.removeFromWishlist(product);
   }
 }

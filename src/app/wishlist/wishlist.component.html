@@ -7,8 +7,11 @@
     <div class="plant-details">
       <h3>{{ item.name }}</h3>
       <p>{{ item.description }}</p>
-      <p class="price">R{{ item.price }}</p>
-      <button (click)="removeFromWishlist(item)" class="remove-button">Remove</button>
+      <p class="price">${{ item.price }}</p>
+      <div class="button-group">
+        <button (click)="removeFromWishlist(item)" class="remove-button">Remove</button>
+        <button (click)="addToCart(item)" class="add-to-cart-button">Add to Cart</button>
+      </div>
     </div>
   </div>
 </div>

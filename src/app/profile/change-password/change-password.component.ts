@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CustomerService } from "../../customer/customer.service";
 import { Customer } from "../../customer/customer.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -16,14 +16,14 @@ export class ChangePasswordComponent {
 
   constructor(private customerService: CustomerService) { }
 
-  // customer: Customer | null = this.customerService.getCustomerLocal();
+   customerPassword = this.customerService.getCustomerLocal()?.password;
 
   form = new FormGroup({
     password: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     }),
     confirmPassword: new FormControl('', {
-      validators: []
+      validators: [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
     })
   });
 
@@ -31,6 +31,17 @@ export class ChangePasswordComponent {
 
     if (this.form.invalid) {
       return;
+    }
+
+    if (this.form.value.password !== this.form.value.confirmPassword) {
+      //alert('Passwords do not match!');
+      return;
+    }
+
+    if (this.form.value.password === this.customerService.getCustomerLocal()?.password
+      && this.form.value.confirmPassword === this.customerService.getCustomerLocal()?.password) {
+        alert('Can not use the same password'); // Use alternative to delete
+        return;
     }
 
     const customer: Customer = {
