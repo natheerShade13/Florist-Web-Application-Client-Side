@@ -7,6 +7,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import {OrderComponent} from "./orders/order.component";
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'catalog', component: CatalogComponent },
+  {path:'orders', component:OrderComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

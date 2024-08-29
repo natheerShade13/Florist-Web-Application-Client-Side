@@ -18,8 +18,8 @@ export class CatalogComponent {
 
   products: Product[] = [];
 
-  constructor(private router: Router, private cartService: CartService, private wishlistService: WishlistService, 
-    private productService: ProductService
+  constructor(private router: Router, private cartService: CartService, private wishlistService: WishlistService,
+              private productService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -28,15 +28,18 @@ export class CatalogComponent {
     });
   }
 
-  addToCart(product: Product) {
+  addToCart(product: any) {
     this.cartService.addToCart(product);
-    //alert(`${product.name} has been added to your cart.`);
+    // Optionally alert or show a message
   }
 
-  addToWishlist(product: Product) {
+  addToWishlist(product: any) {
     this.wishlistService.addToWishlist(product);
   }
 
+  isProductInWishlist(product: any): boolean {
+    return this.wishlistService.isInWishlist(product);
+  }
   // "https://m.media-amazon.com/images/I/61mMytOBsJL._AC_SL1024_.jpg"
   // "https://m.media-amazon.com/images/I/51vqAIkTbsL._AC_SL1024_.jpg"
   // "https://m.media-amazon.com/images/I/61QFtjVVy5L._AC_SL1024_.jpg"

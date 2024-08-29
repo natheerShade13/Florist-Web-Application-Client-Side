@@ -31,59 +31,33 @@ export class LoginComponent {
   //saveEmail: string = '';
 
   onLogin() {
-
-    // if (this.password === '') {
-    //   this.empty = true;
-    // } else{
-    //   this.empty = false
-    // }
-
-    if (this.form().invalid) { // Check with the previous
-      return
+    if (this.form().invalid) {
+      return;
     }
 
     this.email = this.form().form.value.email;
     this.password = this.form().form.value.password;
 
-    // Using validation which returns boolean
-    const subscription = this.customerservice.verifyCustomer(this.email, this.password).subscribe({
+    this.customerservice.verifyCustomer(this.email, this.password).subscribe({
       next: (data: boolean) => {
         if (data) {
-          
           this.customerservice.getCustomer(this.email).subscribe({
             next: (customer: Customer) => {
-              //this.customerservice.customer = customer;
               localStorage.setItem('customer', JSON.stringify(customer));
+              alert('Login successful');
+              this.router.navigate(['/home']).then(() => {
+                window.location.reload();
+              });
             }
           });
-          //this.customerservice.customer = data;
-          //localStorage.setItem('username', this.username)
-          //this.saveUsername = this.username;
-          //console.log(this.saveUsername);
-          // Handle login logic here
-          alert('Login successful');
-          //console.log(data)
-          this.router.navigate(['/home']).then(() => {
-            // Reload the page
-            window.location.reload();
-          });
-          //} else {
-          //  alert('Login failed')
-          //console.log(data)
-          //this.form.form.reset;
         } else {
-          alert('Incorrect details')
+          alert('Incorrect details');
         }
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
-        //this.form.form.reset;
       }
-    }
-    )
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
     });
-
   }
+
 }

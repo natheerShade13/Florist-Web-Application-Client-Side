@@ -25,24 +25,22 @@
   align-items: center;
 }
 
-.nav-button {
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 1em;
+}
+
+.nav-link:hover {
   background-color: #fff;
   color: #28a745;
-  border: 1px solid #28a745;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
 }
 
-.nav-button:hover {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.profile-button {
-  background-color: transparent;
-  border: none;
+.profile-link {
+  padding: 0; /* Remove padding for the profile icon link */
 }
 
 .profile-icon {

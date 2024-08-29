@@ -1,0 +1,23 @@
+<div *ngIf="productId" class="review-container">
+  <h3>Write a Review for Product ID: {{ productId }}</h3>
+  <form class="review-form" (ngSubmit)="submitReview()">
+    <label for="rating">Rating:</label>
+    <select id="rating" [(ngModel)]="review.rating" name="rating" required>
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="5">5 Stars</option>
+    </select>
+
+    <label for="comment">Comment:</label>
+    <textarea id="comment" [(ngModel)]="review.comment" name="comment" rows="4" required></textarea>
+
+    <button type="submit">Submit Review</button>
+  </form>
+
+  <!-- Notification message -->
+  <div *ngIf="notificationMessage" class="notification">
+    {{ notificationMessage }}
+  </div>
+</div>
