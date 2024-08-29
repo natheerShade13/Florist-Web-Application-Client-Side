@@ -70,3 +70,17 @@
 .remove-button:hover {
   background-color: #c0392b;
 }
+
+.add-to-cart-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #218838;
+}
