@@ -38,7 +38,7 @@ export class UpdateProfileComponent {
     lastName: new FormControl(this.getCustomer()?.lastName || '', {
       validators: [Validators.required]
     }),
-    email: new FormControl({value: this.getCustomer()?.email || '', disabled: true}, {
+    email: new FormControl(this.getCustomer()?.email || '', { //{value: this.getCustomer()?.email || '', disabled: true}
       validators: [Validators.required, Validators.email]
     }),
     dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth || '', {
