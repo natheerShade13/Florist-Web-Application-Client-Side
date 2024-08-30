@@ -1,42 +1,57 @@
-<app-header/>
+<app-header></app-header>
 <div class="checkout-container">
-    <h2>Checkout</h2>
+  <h2 class="checkout-title">Checkout</h2>
   
+  <!-- Empty cart message -->
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>Your cart is empty.</p>
+    <button (click)="continueShopping()" class="continue-shopping-button">Continue Shopping</button>
+  </div>
+  
+  <!-- Order review section -->
+  <div *ngIf="cartItems.length > 0">
     <div class="order-review">
       <h3>Order Review</h3>
-      <div *ngFor="let item of cartProduct" class="checkout-item">
+      <div *ngFor="let item of cartItems" class="checkout-item">
         <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="checkout-item-image" />
         <div class="checkout-item-details">
           <h4>{{ item.product.name }}</h4>
           <p>Quantity: {{ item.quantity }}</p>
-          <p class="price">Total Price: ${{ item.totalPrice }}</p>
+          <p class="price">Total Price: R{{ item.totalPrice }}</p>
         </div>
       </div>
       <div class="order-total">
-        <p>Total: ${{ totalAmount }}</p>
+        <p>Total Amount: R{{ totalAmount }}</p>
       </div>
     </div>
-  
+    
+    <!-- Shipping information section -->
     <div class="shipping-info">
       <h3>Shipping Information</h3>
-      <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" [(ngModel)]="shippingInfo.name" name="name" required />
-  
-        <label for="address">Address:</label>
-        <input type="text" id="address" [(ngModel)]="shippingInfo.address" name="address" required />
-  
-        <label for="city">City:</label>
-        <input type="text" id="city" [(ngModel)]="shippingInfo.city" name="city" required />
-  
-        <label for="state">State:</label>
-        <input type="text" id="state" [(ngModel)]="shippingInfo.state" name="state" required />
-  
-        <label for="zip">ZIP Code:</label>
-        <input type="text" id="zip" [(ngModel)]="shippingInfo.zip" name="zip" required />
+      <form (ngSubmit)="completePurchase()" class="shipping-form">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="shippingInfo.name" name="name" required>
+        </div>
+        <div>
+          <label for="address">Address:</label>
+          <input type="text" id="address" [(ngModel)]="shippingInfo.address" name="address" required>
+        </div>
+        <div>
+          <label for="city">City:</label>
+          <input type="text" id="city" [(ngModel)]="shippingInfo.city" name="city" required>
+        </div>
+        <div>
+          <label for="state">State:</label>
+          <input type="text" id="state" [(ngModel)]="shippingInfo.state" name="state" required>
+        </div>
+        <div>
+          <label for="zip">Zip Code:</label>
+          <input type="text" id="zip" [(ngModel)]="shippingInfo.zip" name="zip" required>
+        </div>
+        <button type="submit" class="complete-purchase-button">Complete Purchase</button>
       </form>
     </div>
-  
-    <button (click)="completePurchase()" class="complete-purchase-button">Complete Purchase</button>
   </div>
-  
+</div>
+<footer></footer>

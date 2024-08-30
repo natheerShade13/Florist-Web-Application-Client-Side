@@ -1,79 +1,146 @@
+/* Container for the checkout page */
 .checkout-container {
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
-  .order-review, .shipping-info {
-    margin-bottom: 20px;
-  }
-  
-  .checkout-item {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-  }
-  
-  .checkout-item-image {
-    width: 80px;
-    height: auto;
-    border-radius: 10px;
-    margin-right: 20px;
-  }
-  
-  .checkout-item-details h4 {
-    margin: 0;
-    font-size: 1.1em;
-  }
-  
-  .checkout-item-details p {
-    margin: 5px 0;
-  }
-  
-  .order-total {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .shipping-info h3 {
-    margin-bottom: 15px;
-  }
-  
-  .shipping-info form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    
-    gap: 10px;
-  }
-  
-  .shipping-info label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .shipping-info input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .complete-purchase-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-    font-size: 1em;
-  }
-  
-  .complete-purchase-button:hover {
-    background-color: #218838;
-  }
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Title for the checkout page */
+.checkout-title {
+  text-align: center;
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Styles for empty cart message */
+.empty-cart {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Order review section */
+.order-review, 
+.shipping-info {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+}
+
+.checkout-item {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-item-image {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.checkout-item-details {
+  flex: 1;
+}
+
+.checkout-item-details h4 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.checkout-item-details p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #555;
+}
+
+.price {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.order-total {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #333;
+  margin-top: 15px;
+  text-align: right;
+}
+
+/* Shipping information styles */
+.shipping-info h3 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.shipping-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.shipping-info label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: #555;
+}
+
+.shipping-info input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.shipping-info input:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+/* Complete purchase button */
+.complete-purchase-button {
+  grid-column: 1 / -1;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 1.1em;
+}
+
+.complete-purchase-button:hover {
+  background-color: #218838;
+}
+
+/* Continue shopping button */
+.continue-shopping-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 1.1em;
+}
+
+.continue-shopping-button:hover {
+  background-color: #0056b3;
+}

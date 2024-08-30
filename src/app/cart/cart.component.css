@@ -53,6 +53,7 @@
   padding: 8px 16px;
   border-radius: 5px;
   cursor: pointer;
+  margin: 20px 10px 0 0; 
   transition: background-color 0.3s ease;
 }
 
@@ -68,14 +69,15 @@
 }
 
 .home-button {
-  background-color: #007bff;
+  background-color: #28a745;
   color: #fff;
   border: none;
   padding: 12px 24px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
+  margin-left: 80%; 
 }
 
 .home-button:hover {
@@ -94,5 +96,5 @@
 }
 
 .checkout-button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }

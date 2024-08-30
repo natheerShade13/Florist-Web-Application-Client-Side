@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CartProduct, Order } from './cart.model';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { CartProduct } from './cart.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
 import { Product } from '../catalog/product.model';
 
@@ -15,7 +15,7 @@ export class CartService {
   private customerId: number | null | undefined = null;
 
   private shippingInfo: any = {};
-  private orders: Order[] = []; // Array to store multiple orders
+  private orders: any[] = []; 
 
   constructor(private httpClient: HttpClient, private customerService: CustomerService) {
     const customer = this.customerService.getCustomerLocal();
@@ -29,9 +29,8 @@ export class CartService {
     if (this.customerId) {
       this.httpClient.get<CartProduct[]>(`http://localhost:8080/cart/customer/${this.customerId}`)
         .subscribe(cartProducts => {
-          // Calculate the total price for each cart product
           cartProducts.forEach(cartProduct => {
-            cartProduct.totalPrice = cartProduct.quantity * cartProduct.product.price;
+            cartProduct.totalPrice = cartProduct.quantity * cartProduct.unitPrice;
           });
           this.cartProductSubject.next(cartProducts);
         });
@@ -40,7 +39,7 @@ export class CartService {
 
   public addToCart(product: Product) {
     if (this.customerId) {
-      const customerId = this.customerId
+      const customerId = this.customerId;
       const currentCart = this.cartProductSubject.value;
       const existingProduct = currentCart.find(item => item.product.productId === product.productId);
 
@@ -49,15 +48,16 @@ export class CartService {
           next: (cartProduct: CartProduct) => {
             if (existingProduct) {
               existingProduct.quantity += 1;
-              existingProduct.totalPrice = existingProduct.quantity * product.price;
+              existingProduct.totalPrice = existingProduct.quantity * existingProduct.unitPrice;
             } else {
-              cartProduct.totalPrice = product.price;
+              cartProduct.totalPrice = cartProduct.quantity * cartProduct.unitPrice;
               currentCart.push(cartProduct);
             }
             this.cartProductSubject.next([...currentCart]);
           },
           error: (error: HttpErrorResponse) => {
-            alert(error);
+            const errorMessage = error.error.message || 'An error occurred while adding the product to the cart.';
+            alert(errorMessage);
           }
         });
     }
@@ -67,7 +67,7 @@ export class CartService {
     return this.cartProductSubject.value.reduce((total, item) => total + item.totalPrice, 0);
   }
 
-  removeFromCart(product: Product) {
+  public removeFromCart(product: Product) {
     if (this.customerId) {
       const customerId = this.customerId;
       const currentCart = this.cartProductSubject.value;
@@ -75,24 +75,24 @@ export class CartService {
 
       this.httpClient.delete<boolean>(`http://localhost:8080/cart/delete/customerId/${customerId}/productId/${product.productId}`)
         .subscribe({
-          next: (cart: boolean) => {
-            if (cart) {
-              if (existingProduct) {
-                existingProduct.quantity -= 1;
-                existingProduct.totalPrice = existingProduct.quantity * product.price;
+          next: (success: boolean) => {
+            if (success && existingProduct) {
+              existingProduct.quantity -= 1;
+              if (existingProduct.quantity <= 0) {
+                const updatedCart = currentCart.filter(item => item.product.productId !== product.productId);
+                this.cartProductSubject.next(updatedCart);
+              } else {
+                existingProduct.totalPrice = existingProduct.quantity * existingProduct.unitPrice;
+                this.cartProductSubject.next([...currentCart]);
               }
-             }else{
-              const removeProduct = this.cartProductSubject.value.filter((item) => item.product.productId !== product.productId)
-              this.cartProductSubject.next(removeProduct);
-             }
+            }
           },
           error: (error: HttpErrorResponse) => {
-            alert(error);
+            const errorMessage = error.error.message || 'An error occurred while removing the product from the cart.';
+            alert(errorMessage);
           }
-        })
-
+        });
     }
-
   }
 
   clearCart() {
@@ -108,18 +108,14 @@ export class CartService {
   }
 
   completeOrder() {
-    const order: Order = {
-      cartProduct: [...this.cartProductSubject.value], // Get the current cart items
+    const order = {
+      items: [...this.cartProductSubject.value],
       shippingInfo: this.shippingInfo,
-      totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
+      totalAmount: this.cartProductSubject.value.reduce((total, item) => total + item.totalPrice, 0),
       orderDate: new Date()
     };
-  
-    this.orders.push(order); // Add the order to the orders array
-  
-    // Clear the cart after order completion
+    this.orders.push(order);
     this.clearCart();
-  
     return order;
   }
 
@@ -127,4 +123,8 @@ export class CartService {
     return this.orders;
   }
 
+  // Public getter for customerId
+  public getCustomerId(): number | null | undefined {
+    return this.customerId;
+  }
 }
