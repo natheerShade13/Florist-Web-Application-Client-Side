@@ -1,47 +1,64 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { CartService } from "../cart/cart.service";
-import { CommonModule, NgFor } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { OrderService } from './order.service';
+import { Order } from './order.model';
+import { DatePipe } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
-import { Order } from "../cart/cart.model";
+import {Customer} from "../customer/customer.model";
 
 @Component({
-    selector: 'app-order',
-    standalone: true,
-    imports: [CommonModule, NgFor, HeaderComponent],
-    templateUrl: './order.component.html',
-    styleUrls: ['./order.component.css']
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DatePipe,
+    HeaderComponent,
+  ],
+  styleUrls: ['./order.component.css']
 })
-
 export class OrderComponent implements OnInit {
+  order: Order | null = null;
+  customerId: number = 0;
 
-    // cartItems: any[] = [];
-    // totalAmount: number = 0;
-    // shippingInfo: any = {};
+  constructor(
+    private orderService: OrderService,
+  ) {}
 
-    // constructor(private cartService: CartService, private router: Router) { }
+  ngOnInit(): void {
+    this.loadCustomerAndOrders();
+  }
 
-    // ngOnInit(): void {
-    //     // Retrieve the last order details
-    //     const lastOrder = this.cartService.getLastOrder();
-
-    //     if (lastOrder) {
-    //         this.cartItems = lastOrder.cartItems;
-    //         this.totalAmount = lastOrder.totalAmount;
-    //         this.shippingInfo = lastOrder.shippingInfo;
-    //     } else {
-    //         // Handle case where there is no last order (e.g., user navigated to this page directly)
-    //         //alert("No previous orders found.");
-    //         //this.router.navigate(['/home']);
-    //     }
-    // }
-
-    orders: Order[] = [];
-
-    constructor(private cartService: CartService) { }
-
-    ngOnInit(): void {
-        this.orders = this.cartService.getOrders();
+  loadCustomerAndOrders(): void {
+    const customer = this.getCustomerFromLocalStorage();
+    if (customer) {
+      this.customerId = customer.customerId || 0;
+      this.loadOrderByCustomer(this.customerId);
+    } else {
+      console.error('No customer information found');
     }
+  }
 
+  getCustomerFromLocalStorage(): Customer | null {
+    const storedCustomer = localStorage.getItem('customer');
+    if (storedCustomer) {
+      return JSON.parse(storedCustomer);
+    }
+    return null;
+  }
+
+  loadOrderByCustomer(customerId: number): void {
+    this.orderService.getOrdersByCustomer(customerId).subscribe({
+      next: (orders) => {
+        if (orders.length > 0) {
+          this.order = orders[0];
+        } else {
+          console.log('No orders found for customer:', customerId);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching order:', error);
+      }
+    });
+  }
 }
