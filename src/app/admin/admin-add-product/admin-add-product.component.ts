@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './product.service'; 
 import { Product } from './product.model'; 
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../header/header.component";
 import { FooterComponent } from "../../footer/footer.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-add-product',
@@ -26,7 +26,11 @@ export class AdminAddProductComponent implements OnInit {
   isEditMode = false;
   currentProductId: number | null = null;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private productService: ProductService,
+    private router: Router 
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -117,5 +121,11 @@ export class AdminAddProductComponent implements OnInit {
     this.productForm.reset();
     this.isEditMode = false;
     this.currentProductId = null;
+  }
+
+  Logout(): void {
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
   }
 }
