@@ -9,7 +9,7 @@
     <div class="plant-details">
       <h3>{{ item.name }}</h3>
       <p>{{ item.description }}</p>
-      <p class="price">${{ item.price }}</p>
+      <p class="price">R{{ item.price }}</p>
       <div class="button-group">
         <button (click)="removeFromWishlist(item)" class="remove-button">
           Remove
