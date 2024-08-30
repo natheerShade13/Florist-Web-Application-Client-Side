@@ -52,7 +52,7 @@
 }
 
 .product-card p {
-  color: #666;
+  color: #333;
   flex-grow: 1; /* Allows the description to grow and take up available space */
 }
 

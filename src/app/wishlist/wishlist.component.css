@@ -12,12 +12,12 @@
 .wishlist-container h2 {
   margin-bottom: 20px;
   font-size: 2em;
-  color: #28a745;
+  color: #333;
 }
 
 .empty-message {
   font-size: 1.2em;
-  color: #555;
+  color: #333;
 }
 
 .plant-item {
@@ -50,12 +50,12 @@
 
 .plant-details p {
   margin: 5px 0;
-  color: #777;
+  color: #333;
 }
 
 .price {
   font-weight: bold;
-  color: #28a745;
+  color: #333;
 }
 
 .remove-button {
