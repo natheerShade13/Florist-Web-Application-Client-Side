@@ -31,6 +31,8 @@ export class UpdateProfileComponent {
     return null;
   }
 
+  customer: Customer | undefined | null = this.getCustomer();
+
   form = new FormGroup({
     firstName: new FormControl(this.getCustomer()?.firstName || '', {
       validators: [Validators.required]
@@ -45,7 +47,7 @@ export class UpdateProfileComponent {
       validators: []
     }),
     mobileNumber: new FormControl(this.getCustomer()?.mobileNumber || '', {
-      validators: []
+      validators: [Validators.minLength(10), Validators.maxLength(10)]
     }),
   });
 
