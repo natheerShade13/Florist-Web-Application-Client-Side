@@ -19,6 +19,11 @@ export class CustomerService implements OnInit {
         return this.httpClient.get<Customer>(`http://localhost:8080/customer/login/${email}`);
     }
 
+    // Get customer by email
+    public getCustomerByMobileNumber(mobileNumber: string | undefined | null): Observable<Customer> {
+        return this.httpClient.get<Customer>(`http://localhost:8080/customer/update/${mobileNumber}`);
+    }
+
     // Verify customer credentials
     public verifyCustomer(email: string, password: string): Observable<boolean> {
         return this.httpClient.get<boolean>(`http://localhost:8080/customer/login/${email}/${password}`);

@@ -31,4 +31,5 @@ export class WishlistComponent implements OnInit {
     this.cartService.addToCart(product);
     //this.removeFromWishlist(product);
   }
+  
 }

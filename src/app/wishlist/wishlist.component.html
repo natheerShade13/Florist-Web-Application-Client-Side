@@ -1,16 +1,22 @@
 <app-header></app-header>
 <div class="wishlist-container">
   <h2>Wishlist</h2>
-  <div *ngIf="wishlist.length === 0" class="empty-message">Your wishlist is empty.</div>
+  <div *ngIf="wishlist.length === 0" class="empty-message">
+    Your wishlist is empty.
+  </div>
   <div *ngFor="let item of wishlist" class="plant-item">
-    <img [src]="item.imageUrl" alt="{{ item.name }}" class="plant-image"/>
+    <img [src]="item.imageUrl" alt="{{ item.name }}" class="plant-image" />
     <div class="plant-details">
       <h3>{{ item.name }}</h3>
       <p>{{ item.description }}</p>
       <p class="price">${{ item.price }}</p>
       <div class="button-group">
-        <button (click)="removeFromWishlist(item)" class="remove-button">Remove</button>
-        <button (click)="addToCart(item)" class="add-to-cart-button">Add to Cart</button>
+        <button (click)="removeFromWishlist(item)" class="remove-button">
+          Remove
+        </button>
+        <button (click)="addToCart(item)" class="add-to-cart-button">
+          Add to Cart
+        </button>
       </div>
     </div>
   </div>

@@ -1,21 +1,33 @@
 <app-header/>
-<div class="container catalog-container">
-  <h1>Discover Our Diverse Plant Collection</h1>
-  <p>Find the perfect plants, flowers, and gardening essentials to bring your space to life.</p>
+<!--<nav class="navbar">
+  <div class="navbar-container">
+    <a class="navbar-brand" routerLink="/home">Nursery E-Commerce</a>
+    <div>
+      <button (click)="onCart()" class="cart-button">Cart</button>
+      <button (click)="onSignOut()" class="signout-button">Sign Out</button>
+    </div>
+  </div>
+</nav> -->
+<div class="container home-container">
+  <h1>Welcome to Our Florist Catalog</h1>
+  <p>Explore our diverse collection of flowers, plants, and gardening supplies. Find the perfect addition to your garden or home.</p>
   <div class="products">
     <div class="product-card" *ngFor="let product of products">
       <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
-      <p class="price">${{ product.price }}</p>
-      
-      <div class="button-group">
-        <button (click)="addToCart(product)" class="cart-button">
-          <span class="cart-icon">🛒</span> Add to Cart
-        </button>
-        <button (click)="addToWishlist(product)" class="wishlist-button">
-          <span class="wishlist-icon">❤️</span>
-        </button>
+
+      <!-- Grouping price and buttons into one div -->
+      <div class="price-and-buttons">
+        <p class="price">R{{ product.price }}</p>
+        <div class="button-group">
+          <button (click)="addToCart(product)" class="cart-button">
+            <span class="cart-icon">🛒</span> Add to Cart
+          </button>
+          <button (click)="addToWishlist(product)" class="wishlist-button">
+            <span class="wishlist-icon">❤️</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

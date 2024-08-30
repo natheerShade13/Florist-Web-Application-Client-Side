@@ -40,7 +40,10 @@ export class CatalogComponent {
   // "https://m.media-amazon.com/images/I/61mMytOBsJL._AC_SL1024_.jpg"
   // "https://m.media-amazon.com/images/I/51vqAIkTbsL._AC_SL1024_.jpg"
   // "https://m.media-amazon.com/images/I/61QFtjVVy5L._AC_SL1024_.jpg"
-  // "https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  // "https://media.istockphoto.com/id/2111424340/photo/orange-gerbera-flower-head-macro-top-view.jpg?s=1024x1024&w=is&k=20&c=bI_KOI2yzxVD8r9CILC9v1aCmI5VatA-aoVLR7xqsQU="
-
+  // "https://www.interflora.co.za/wp-content/uploads/2023/01/Red-and-White-Roses-Bunch-12-Stems-238BU12.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/09/Red-Pink-Roses-Bunch-24-roses%E2%80%93162BU24.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Aria-1.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Garnet.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Enchanted-PR.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Dolce-Vita.jpg"
 }

@@ -6,22 +6,36 @@
       <div class="form-group">
         <label for="name">First Name:</label>
         <input type="text" id="name" formControlName="firstName" required>
+        @if (form.controls.firstName.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
+          <p>Enter First Name</p>
+        }
       </div>
       <div class="form-group">
         <label for="name">Last Name:</label>
         <input type="text" id="name" formControlName="lastName" required>
+        @if (form.controls.lastName.touched && form.controls.lastName.dirty && form.controls.lastName.invalid ) {
+          <p>Enter Last Name</p>
+        }
       </div>
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" id="email" formControlName="email">
+        <input type="email" id="email" formControlName="email" required>
+        @if (form.controls.email.touched && form.controls.email.dirty && form.controls.email.invalid ) {
+          <p>Enter a valid email</p>
+        }@else if (customerEmail === form.value.email && form.controls.email.touched) {
+          <p>Email already exist</p>
+        }
       </div>
       <div class="form-group">
         <label for="date-of-birth">Date of birth:</label>
-        <input type="date" id="date-of-birth" formControlName="dateOfBirth">
+        <input type="date" id="date-of-birth" formControlName="dateOfBirth" >
       </div>
       <div class="form-group">
         <label for="mobile-number">Contact Number:</label>
-        <input type="text" id="mobile-number" formControlName="mobileNumber">
+        <input type="text" id="mobile-number" formControlName="mobileNumber" minlength="10" maxlength="10">
+        @if (customerNumber === form.value.mobileNumber && form.controls.email.touched) {
+          <p>Mobile Number already exist</p>
+        }
       </div>
 
       <button type="submit" class="save-button" (click)="onUpdate()">Save Changes</button>
