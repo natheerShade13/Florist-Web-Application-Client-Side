@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartProduct, Order } from './cart.model';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
 import { Product } from '../catalog/product.model';
 
@@ -40,7 +40,7 @@ export class CartService {
 
   public addToCart(product: Product) {
     if (this.customerId) {
-      const customerId = this.customerId
+      const customerId = this.customerId;
       const currentCart = this.cartProductSubject.value;
       const existingProduct = currentCart.find(item => item.product.productId === product.productId);
 
@@ -81,18 +81,16 @@ export class CartService {
                 existingProduct.quantity -= 1;
                 existingProduct.totalPrice = existingProduct.quantity * product.price;
               }
-             }else{
-              const removeProduct = this.cartProductSubject.value.filter((item) => item.product.productId !== product.productId)
-              this.cartProductSubject.next(removeProduct);
-             }
+            } else {
+              const updatedCart = this.cartProductSubject.value.filter(item => item.product.productId !== product.productId);
+              this.cartProductSubject.next(updatedCart);
+            }
           },
           error: (error: HttpErrorResponse) => {
             alert(error);
           }
-        })
-
+        });
     }
-
   }
 
   clearCart() {
@@ -107,24 +105,32 @@ export class CartService {
     return this.shippingInfo;
   }
 
-  completeOrder() {
+  public completeOrder(): Observable<Order> {
     const order: Order = {
-      cartProduct: [...this.cartProductSubject.value], // Get the current cart items
+      cartProduct: [...this.cartProductSubject.value],  // Current cart items
       shippingInfo: this.shippingInfo,
-      totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
+      totalAmount: this.getTotalCartPrice(),
       orderDate: new Date()
     };
-  
-    this.orders.push(order); // Add the order to the orders array
-  
-    // Clear the cart after order completion
-    this.clearCart();
-  
-    return order;
+
+    return this.httpClient.post<Order>('http://localhost:8080/orders/create', order)
+      .pipe(
+        tap(savedOrder => {
+          console.log('Order completed and saved:', savedOrder);
+          this.orders.push(savedOrder);  // Add the order to the orders list
+          this.clearCart();  // Clear the cart after the order is completed
+        }),
+        catchError(this.handleError)  // Handle errors
+      );
+  }
+
+  // Error handling method
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error.message);
+    throw new Error('Error completing the order: ' + error.message);
   }
 
   getOrders() {
     return this.orders;
   }
-
 }

@@ -17,7 +17,7 @@ import { Product } from '../catalog/product.model';
 
 
 export class CartComponent implements OnInit {
-  
+
   cartProduct: CartProduct[] = [];
 
   constructor(private cartService: CartService, private router: Router) { }
