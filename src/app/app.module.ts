@@ -14,6 +14,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {ReviewComponent} from "./Review/review.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { CatalogComponent } from './catalog/catalog.component';
     //CatalogComponent,
     //HeaderComponent,
     //FooterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,8 @@ import { CatalogComponent } from './catalog/catalog.component';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
+    ReviewComponent,
+    ReactiveFormsModule,
   ],
   providers: [provideHttpClient(), LoginComponent],
   //bootstrap: [AppComponent]

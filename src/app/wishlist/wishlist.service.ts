@@ -18,7 +18,6 @@ export class WishlistService {
     private httpClient: HttpClient
   ) {
     const customer = this.customerService.getCustomerLocal();
-
     if (customer) {
       this.customerId = customer.customerId;
       this.loadWishlistFromServer();
@@ -28,21 +27,24 @@ export class WishlistService {
   public loadWishlistFromServer() {
     if (this.customerId) {
       this.httpClient.get<Product[]>(`http://localhost:8080/wishlist/customer/${this.customerId}/products`)
-        .subscribe(wishlist => {
-          this.wishlistSource.next(wishlist);
+        .subscribe({
+          next: (wishlist) => {
+            this.wishlistSource.next(wishlist);
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
         });
     }
   }
 
-  addToWishlist(product: Product) {
+  public addToWishlist(product: Product) {
     if (this.customerId) {
-      const customerId = this.customerId;
       const currentWishlist = this.wishlistSource.value;
       const existingProduct = currentWishlist.find(item => item.productId === product.productId);
 
       if (!existingProduct) {
-        // Save to server
-        this.httpClient.post<any>(`http://localhost:8080/wishlist/${customerId}/addProduct`, product)
+        this.httpClient.post<any>(`http://localhost:8080/wishlist/${this.customerId}/addProduct`, product)
           .subscribe({
             next: () => {
               currentWishlist.push(product);
@@ -58,16 +60,13 @@ export class WishlistService {
     }
   }
 
-  removeFromWishlist(product: Product) {
+  public removeFromWishlist(product: Product) {
     if (this.customerId) {
-      const customerId = this.customerId;
-
-      // Save to server
-      this.httpClient.delete<boolean>(`http://localhost:8080/wishlist/${customerId}/removeProduct/${product.productId}`)
+      this.httpClient.delete<boolean>(`http://localhost:8080/wishlist/${this.customerId}/removeProduct/${product.productId}`)
         .subscribe({
           next: () => {
-            const currentWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
-            this.wishlistSource.next(currentWishlist);
+            const updatedWishlist = this.wishlistSource.value.filter(p => p.productId !== product.productId);
+            this.wishlistSource.next(updatedWishlist);
           },
           error: (error: HttpErrorResponse) => {
             alert(error.message);
@@ -76,14 +75,21 @@ export class WishlistService {
     }
   }
 
-  // clearWishlist() {
-  //   if (this.customerId) {
-  //     this.wishlistSource.next([]);
-  //     localStorage.removeItem(`wishlist_${this.customerId}`);
+  public clearWishlist() {
+    if (this.customerId) {
+      this.wishlistSource.next([]);
+      this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
+        .subscribe({
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        });
+    }
+  }
 
-  //     // Clear from server
-  //     this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
-  //       .subscribe();
-  //   }
-  // }
+  // New method to check if a product is in the wishlist
+  public isInWishlist(product: Product): boolean {
+    const currentWishlist = this.wishlistSource.value;
+    return currentWishlist.some(item => item.productId === product.productId);
+  }
 }

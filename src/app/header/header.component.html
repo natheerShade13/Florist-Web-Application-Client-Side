@@ -2,15 +2,15 @@
   <div class="navbar-container">
     <a class="navbar-brand" routerLink="/home">Floral Bliss</a>
     <div class="navbar-links">
-      <button (click)="onHome()" class="nav-button">Home</button>
-      <button (click)="onCatalog()" class="nav-button">Catalog</button>
-      <button (click)="onWishList()" class="nav-button">Wishlist</button>
-      <button (click)="onCart()" class="nav-button">Cart</button>
-      <button (click)="onOrder()" class="nav-button">Orders</button>
-      <button (click)="onSignOut()" class="nav-button">Sign Out</button>
-      <button (click)="onProfile()" class="nav-button profile-button">
-        <img src="assets/profile-icon.jpg" alt="Profile" class="profile-icon" />
-      </button>
+      <a (click)="onHome()" class="nav-link">Home</a>
+      <a (click)="onCatalog()" class="nav-link">Catalog</a>
+      <a (click)="onWishList()" class="nav-link">Wishlist</a>
+      <a (click)="onCart()" class="nav-link">Cart</a>
+      <a (click)="onOrder()" class="nav-link">Orders</a>
+      <a (click)="onSignOut()" class="nav-link">Sign Out</a>
+      <a (click)="onProfile()" class="nav-link profile-link">
+        <img src="assets/profile-icon.png" alt="Profile" class="profile-icon" />
+      </a>
     </div>
   </div>
 </nav>

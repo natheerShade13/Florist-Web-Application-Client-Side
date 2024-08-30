@@ -16,14 +16,14 @@
       <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
-      <p class="price">${{ product.price }}</p>
-      
+      <p class="price">R{{ product.price }}</p>
+
       <div class="button-group">
         <button (click)="addToCart(product)" class="cart-button">
           <span class="cart-icon">🛒</span> Add to Cart
         </button>
         <button (click)="addToWishlist(product)" class="wishlist-button">
-          <span class="wishlist-icon">❤️</span>
+          <span [ngClass]="{'wishlist-icon': true, 'filled': isProductInWishlist(product)}">❤</span>
         </button>
       </div>
     </div>
