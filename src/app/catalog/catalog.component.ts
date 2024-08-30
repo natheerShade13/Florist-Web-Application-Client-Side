@@ -44,4 +44,6 @@ export class CatalogComponent {
   // "https://www.interflora.co.za/wp-content/uploads/2022/09/Red-Pink-Roses-Bunch-24-roses%E2%80%93162BU24.jpg"
   // "https://www.interflora.co.za/wp-content/uploads/2022/04/Aria-1.jpg"
   // "https://www.interflora.co.za/wp-content/uploads/2022/04/Garnet.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Enchanted-PR.jpg"
+  // "https://www.interflora.co.za/wp-content/uploads/2022/04/Dolce-Vita.jpg"
 }
