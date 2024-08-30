@@ -1,5 +1,18 @@
 <div class="admin-container">
-  <h2>{{ isEditMode ? 'Edit Flower' : 'Add Flower' }}</h2>
+  <div class="sidebar">
+    <ul class="sidebar-menu">
+      <li><a routerLink="/admin">Add Products</a></li>
+      <li><a routerLink="/admin">View Orders</a></li>
+      <!-- next up orders -->
+    </ul>
+  </div>
+
+  <div class="admin-header">
+    <h2>{{ isEditMode ? 'Edit Flower' : 'Add Flower' }}</h2>
+    <button class="btn btn-danger logout-btn" (click)="Logout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
 
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="admin-form">
     <div class="form-group">
@@ -90,7 +103,6 @@
     </button>
   </form>
 
-  <h2>Manage Flowers</h2>
   <table class="table">
     <thead>
       <tr>
@@ -111,7 +123,6 @@
         <td>{{ product.category }}</td>
         <td>
           <div style="display: flex; gap: 10px;"> 
-            <!-- use inline for now -->
             <button class="btn btn-warning" (click)="onEditProduct(product)">Edit</button>
             <button class="btn btn-danger" (click)="onDeleteProduct(product.productId)">Delete</button>
           </div>
