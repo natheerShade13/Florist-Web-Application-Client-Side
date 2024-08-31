@@ -2,35 +2,35 @@
 <div class="order-confirmation-container">
   <h2>Order History</h2>
 
-  <div *ngIf="orders.length === 0">
+  <div *ngIf="order.length === 0">
     <p>No previous orders found.</p>
   </div>
 
-  <div *ngIf="orders.length > 0">
-    <div *ngFor="let order of orders" class="order-summary">
-      <h3>Order placed on {{ order.orderDate | date: "longDate" }}</h3>
+  <div *ngIf="order.length > 0">
+    <div *ngFor="let orders of order" class="order-summary">
+      <h3>Order placed on {{ orders.orderDate| date: "longDate" }}</h3>
 
-      <div *ngFor="let item of order.cartProduct" class="order-item">
+      <div *ngFor="let item of orders.orderLines" class="order-item">
         <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="order-item-image" />
         <div class="order-item-details">
           <h4>{{ item.product.name }}</h4>
           <p>Quantity: {{ item.quantity }}</p>
-          <p class="price">Total Price: R{{ item.totalPrice }}</p>
+          <p class="price">Total Price: R{{ item.quotedPrice}}</p>
         </div>
       </div>
 
       <div class="order-total">
-        <p>Total Amount: R{{ order.totalAmount }}</p>
+        <p>Total Amount: R{{ orders.amount }}</p>
       </div>
 
-      <div class="shipping-details">
+      <!-- <div class="shipping-details">
         <h4>Shipping Information</h4>
         <p><strong>Street Number:</strong> {{ order.shippingInfo.name }}</p>
         <p><strong>Street Name:</strong> {{ order.shippingInfo.address }}</p>
         <p><strong>Suburb:</strong> {{ order.shippingInfo.city }}</p>
         <p><strong>City:</strong> {{ order.shippingInfo.state }}</p>
         <p><strong>Postal Code:</strong> {{ order.shippingInfo.zip }}</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
