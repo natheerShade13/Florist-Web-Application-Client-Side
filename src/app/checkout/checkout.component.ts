@@ -40,10 +40,11 @@ export class CheckoutComponent {
     }
 
     completePurchase() {
-        console.log('Processing payment...');
+        
+        //console.log('Processing payment...');
 
         // Save shipping info
-        this.cartService.setShippingInfo(this.shippingInfo);
+        //this.cartService.setShippingInfo(this.shippingInfo);
 
         // Save the order details before clearing the cart
         this.cartService.completeOrder();

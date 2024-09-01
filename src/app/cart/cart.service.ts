@@ -4,6 +4,7 @@ import { CartProduct, Order } from './cart.model';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CustomerService } from '../customer/customer.service';
 import { Product } from '../catalog/product.model';
+import { OrderService } from '../orders/order.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CartService {
   private shippingInfo: any = {};
   private orders: Order[] = []; // Array to store multiple orders
 
-  constructor(private httpClient: HttpClient, private customerService: CustomerService) {
+  constructor(private httpClient: HttpClient, private customerService: CustomerService, private ordersService: OrderService) {
     const customer = this.customerService.getCustomerLocal();
     if (customer) {
       this.customerId = customer.customerId;
@@ -57,7 +58,7 @@ export class CartService {
             this.cartProductSubject.next([...currentCart]);
           },
           error: (error: HttpErrorResponse) => {
-            alert(error);
+            alert(error.message);
           }
         });
     }
@@ -87,7 +88,7 @@ export class CartService {
              }
           },
           error: (error: HttpErrorResponse) => {
-            alert(error);
+            alert(error.message);
           }
         })
     }
@@ -106,19 +107,21 @@ export class CartService {
   }
 
   completeOrder() {
-    const order: Order = {
-      cartProduct: [...this.cartProductSubject.value], // Get the current cart items
-      shippingInfo: this.shippingInfo,
-      totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
-      orderDate: new Date()
-    };
+    // const order: Order = {
+    //   cartProduct: [...this.cartProductSubject.value], // Get the current cart items
+    //   shippingInfo: this.shippingInfo,
+    //   totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
+    //   orderDate: new Date()
+    // };
   
-    this.orders.push(order); // Add the order to the orders array
+    // this.orders.push(order); // Add the order to the orders array
+
+    this.ordersService.addOrder();
   
     // Clear the cart after order completion
     this.clearCart();
   
-    return order;
+    // return order;
   }
 
   getOrders() {

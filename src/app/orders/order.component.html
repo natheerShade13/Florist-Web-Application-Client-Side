@@ -1,9 +1,9 @@
 <app-header />
 <div class="order-confirmation-container">
-  <h2>Order History</h2>
+  <h2 class="h2">Order History</h2>
 
   <div *ngIf="order.length === 0">
-    <p>No previous orders found.</p>
+    <p class="empty">No previous orders found.</p>
   </div>
 
   <div *ngIf="order.length > 0">

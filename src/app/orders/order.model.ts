@@ -7,6 +7,7 @@ export interface Orders{
     orderDate: Date,
     status: string,
     customer: Customer,
+    coupon: Coupon,
     orderLines: OrderLine[]
 }
 
@@ -16,4 +17,8 @@ export interface OrderLine{
     product: Product,
     quantity: number,
     quotedPrice: number
+}
+
+export interface Coupon{
+
 }
