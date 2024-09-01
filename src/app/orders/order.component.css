@@ -78,6 +78,10 @@
   color: #777;
 }
 
-h2{
+.h2{
+  text-align: center;
+}
+
+.empty{
   text-align: center;
 }
