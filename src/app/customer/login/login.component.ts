@@ -63,7 +63,7 @@ export class LoginComponent {
                 if (success) {
                   console.log('Navigation to /home successful');
                   // There is no need to reload the page here
-                   window.location.reload();
+                   window.location.reload(); //Insurance @Thabo
                 } else {
                   console.log('Navigation to /home failed');
                 }

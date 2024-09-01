@@ -7,10 +7,17 @@
       <button (click)="onWishList()" class="nav-button">Wishlist</button>
       <button (click)="onCart()" class="nav-button">Cart</button>
       <button (click)="onOrder()" class="nav-button">Orders</button>
-      <button (click)="onSignOut()" class="nav-button">Sign Out</button>
-      <button (click)="onProfile()" class="nav-button profile-button">
-        <img src="assets/profile-icon.jpg" alt="Profile" class="profile-icon" />
-      </button>
+      
+      <!-- Profile Icon with Dropdown -->
+      <div class="profile-dropdown">
+        <button class="profile-button" (click)="toggleDropdown()">
+          <img src="assets/profile-icon.jpg" alt="Profile" class="profile-icon" />
+        </button>
+        <div class="dropdown-content" *ngIf="dropdownVisible">
+          <button (click)="onProfile()">Profile</button>
+          <button (click)="onSignOut()">Sign Out</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

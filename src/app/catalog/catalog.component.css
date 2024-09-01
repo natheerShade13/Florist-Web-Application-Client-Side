@@ -52,7 +52,7 @@
 }
 
 .product-card p {
-  color: #666;
+  color: #333;
   flex-grow: 1; /* Allows the description to grow and take up available space */
 }
 
@@ -102,4 +102,20 @@
 
 .wishlist-button:hover .wishlist-icon {
   color: #c0392b;
+}
+
+.catalog-container {
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.catalog-container h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #2e7d32; /* Matching the green theme */
+}
+
+.catalog-container p {
+  font-size: 18px;
+  color: #555; /* Subtle color for readability */
 }

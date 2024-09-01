@@ -1,14 +1,17 @@
+import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  dropdownVisible = false; // To control dropdown visibility
   
   constructor(private router: Router) { }
 
@@ -43,4 +46,9 @@ export class HeaderComponent {
   onHome() {
     this.router.navigate(['/home']);
   }
+
+  toggleDropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
+
 }

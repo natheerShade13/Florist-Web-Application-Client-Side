@@ -18,7 +18,6 @@ export class WishlistService {
     private httpClient: HttpClient
   ) {
     const customer = this.customerService.getCustomerLocal();
-
     if (customer) {
       this.customerId = customer.customerId;
       this.loadWishlistFromServer();
@@ -75,15 +74,4 @@ export class WishlistService {
         });
     }
   }
-
-  // clearWishlist() {
-  //   if (this.customerId) {
-  //     this.wishlistSource.next([]);
-  //     localStorage.removeItem(`wishlist_${this.customerId}`);
-
-  //     // Clear from server
-  //     this.httpClient.delete(`http://localhost:8080/wishlist/${this.customerId}/clear`)
-  //       .subscribe();
-  //   }
-  // }
 }

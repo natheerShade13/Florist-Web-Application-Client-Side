@@ -90,9 +90,7 @@ export class CartService {
             alert(error);
           }
         })
-
     }
-
   }
 
   clearCart() {

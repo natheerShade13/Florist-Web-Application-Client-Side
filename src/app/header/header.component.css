@@ -1,10 +1,12 @@
+/* Header Styling */
 .navbar {
-  background-color: #28a745;
-  padding: 10px 20px;
-  color: #fff;
+  background-color: #28a745; /* Fresh green, resembling foliage */
+  padding: 15px 30px;
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
@@ -15,9 +17,11 @@
 }
 
 .navbar-brand {
-  font-size: 1.5em;
-  color: #fff;
+  font-size: 1.75em;
+  color: #ffffff;
   text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
 
 .navbar-links {
@@ -26,26 +30,92 @@
 }
 
 .nav-button {
-  background-color: #fff;
-  color: #28a745;
-  border: 1px solid #28a745;
+  background-color: #ffffff;
+  color: #8bc34a;
+  border: 2px solid #8bc34a;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
 }
 
 .nav-button:hover {
-  background-color: #28a745;
-  color: #fff;
+  background-color: #c5e1a5; /* Light green for a softer hover effect */
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 .profile-button {
   background-color: transparent;
   border: none;
+  padding: 0;
+  margin-left: 15px;
+  cursor: pointer;
+  position: relative;
 }
 
 .profile-icon {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+  border-color: #d4e157; /* Bright green for hover effect */
+}
+
+.dropdown-content {
+  display: none; /* Hide initially */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 160px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.profile-dropdown:hover .dropdown-content,
+.profile-dropdown:focus-within .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-content button {
+  background: #ffffff;
+  border: none;
+  color: #333;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+.dropdown-content button:last-child {
+  border-bottom: none;
 }
