@@ -1,45 +1,57 @@
 <app-header></app-header>
 
 <div class="homepage">
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-overlay">
-      <div class="hero-content">
-        <h2>Welcome to Floral Bliss</h2>
-        <p>Bringing joy and color into your life with the freshest flowers and vibrant plants.</p>
-        <a href="#" class="btn">Explore Our Collection</a>
-      </div>
+    <div class="hero-content">
+      <h2>Elevate Your Moments with Floral Bliss</h2>
+      <p>Discover our exquisite range of flowers and plants perfect for any occasion.</p>
+      <a routerLink="/catalog" class="btn btn-secondary">Our Collections</a>
     </div>
   </section>
 
+  <!-- Featured Products Section -->
   <section class="featured-products">
     <h2>Our Top Picks</h2>
     <div class="product-grid">
-      <div class="product">
+      <div class="product-card">
         <img src="https://m.media-amazon.com/images/I/61mMytOBsJL._AC_SL1024_.jpg" alt="Rose Bouquet" />
         <h3>Rose Bouquet</h3>
-        <p>R30</p>
+        <p class="price">R30</p>
+        <a routerLink="/catalog" class="btn btn-primary">Shop Now</a>
       </div>
-      <div class="product">
+      <div class="product-card">
         <img src="https://m.media-amazon.com/images/I/51vqAIkTbsL._AC_SL1024_.jpg" alt="Succulent Plant" />
         <h3>Succulent Plant</h3>
-        <p>R15</p>
+        <p class="price">R15</p>
+        <a routerLink="/catalog" class="btn btn-primary">Shop Now</a>
       </div>
-      <div class="product">
+      <div class="product-card">
         <img src="https://m.media-amazon.com/images/I/61QFtjVVy5L._AC_SL1024_.jpg" alt="Orchid" />
         <h3>Orchid</h3>
-        <p>R35</p>
+        <p class="price">R35</p>
+        <a routerLink="/catalog" class="btn btn-primary">Shop Now</a>
       </div>
     </div>
   </section>
 
+  <!-- About Us Section -->
   <section class="about">
-    <h2>About Us</h2>
-    <p>At Floral Bliss, we are passionate about creating meaningful connections through nature's beauty. Whether it's a stunning bouquet to celebrate a special occasion or a unique plant to brighten your living space, our goal is to infuse your life with elegance and joy.</p>
-    <p>With years of experience in floral design and a commitment to quality, we hand-pick every flower and plant, ensuring that only the freshest and most vibrant selections make it to your doorstep. Discover the Floral Bliss difference today.</p>
-    <a href="#" class="btn">Learn More</a>
+    <div class="about-content">
+      <img src="https://www.interflora.co.za/wp-content/uploads/2022/04/interflora-flower-delivery.jpg" alt="About Us" class="about-image" />
+      <div class="about-text">
+        <h2>About Floral Bliss</h2>
+        <p>At Floral Bliss, we are passionate about creating meaningful connections through nature's beauty. Whether it's a stunning bouquet to celebrate a special occasion or a unique plant to brighten your living space, our goal is to infuse your life with elegance and joy.</p>
+        <p>With years of experience in floral design and a commitment to quality, we hand-pick every flower and plant, ensuring that only the freshest and most vibrant selections make it to your doorstep. Discover the Floral Bliss difference today.</p>
+        <a routerLink="/about" class="btn btn-primary">Learn More</a>
+      </div>
+    </div>
   </section>
 
+  <!-- Footer Section -->
   <footer>
-    <p>&copy; 2024 Floral Bliss. All rights reserved.</p>
+    <div class="footer-content">
+      <p>&copy; 2024 Floral Bliss. All rights reserved.</p>
+    </div>
   </footer>
 </div>
