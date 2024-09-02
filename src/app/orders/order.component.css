@@ -14,17 +14,6 @@
   text-align: left;
 }
 
-.order-summary:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.order-summary h3 {
-  color: #333;
-  font-size: 1.5em;
-  margin-bottom: 15px;
-}
-
 .order-item {
   display: flex;
   align-items: center;
@@ -36,52 +25,75 @@
 }
 
 .order-item-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-right: 20px;
+  width: 100px; /* Adjust the size as needed */
+  height: auto;
+  margin-right: 15px; /* Space between image and text */
 }
 
-.order-item-details h4 {
-  margin: 0;
-  font-size: 1.2em;
-  color: #444;
-}
-
-.order-item-details p {
-  margin: 4px 0;
-  color: #666;
+.order-item-details {
+  flex: 1; /* Take up remaining space */
 }
 
 .order-total {
-  font-size: 1.3em;
+  margin-top: 20px; /* Space above total amount */
+}
+
+.review-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #28a745;
+}
+
+.review-container h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #343a40;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-form label {
+  margin-top: 10px;
   font-weight: bold;
-  margin-top: 15px;
-  text-align: right;
 }
 
-.shipping-details {
-  background-color: #f1f1f1;
-  padding: 15px;
-  border-radius: 8px;
+.review-form input,
+.review-form textarea,
+.review-form select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+.review-form button {
   margin-top: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.shipping-details h4 {
-  margin-bottom: 10px;
-  color: #555;
+.review-form button:hover {
+  background-color: #218838; /* Slightly darker green for hover effect */
 }
 
-.shipping-details p {
-  margin: 5px 0;
-  color: #777;
-}
-
-.h2{
-  text-align: center;
-}
-
-.empty{
-  text-align: center;
+/* Styles for the notification message */
+.notification {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }

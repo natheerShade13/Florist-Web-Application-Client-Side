@@ -8,7 +8,7 @@
 
   <div *ngIf="order.length > 0">
     <div *ngFor="let orders of order" class="order-summary">
-      <h3>Order placed on {{ orders.orderDate| date: "longDate" }}</h3>
+      <h3>Order placed on {{ orders.orderDate | date: "longDate" }}</h3>
 
       <div *ngFor="let item of orders.orderLines" class="order-item">
         <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="order-item-image" />
@@ -17,20 +17,16 @@
           <p>Quantity: {{ item.quantity }}</p>
           <p class="price">Total Price: R{{ item.quotedPrice}}</p>
         </div>
+
+        <app-review
+          [productId]="item.product.productId"
+          [customerId]="orders.customer?.customerId ?? 0"> <!-- Use safe navigation and default to 0 -->
+        </app-review>
       </div>
 
       <div class="order-total">
         <p>Total Amount: R{{ orders.amount }}</p>
       </div>
-
-      <!-- <div class="shipping-details">
-        <h4>Shipping Information</h4>
-        <p><strong>Street Number:</strong> {{ order.shippingInfo.name }}</p>
-        <p><strong>Street Name:</strong> {{ order.shippingInfo.address }}</p>
-        <p><strong>Suburb:</strong> {{ order.shippingInfo.city }}</p>
-        <p><strong>City:</strong> {{ order.shippingInfo.state }}</p>
-        <p><strong>Postal Code:</strong> {{ order.shippingInfo.zip }}</p>
-      </div> -->
     </div>
   </div>
 </div>

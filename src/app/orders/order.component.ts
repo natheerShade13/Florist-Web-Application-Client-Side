@@ -1,29 +1,27 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { CartService } from "../cart/cart.service";
 import { CommonModule, NgFor } from "@angular/common";
 import { HeaderComponent } from "../header/header.component";
-import { Order } from "../cart/cart.model";
-import { Orders } from "./order.model";
 import { OrderService } from "./order.service";
+import { Orders } from "./order.model";
+import { ReviewComponent } from "../review/review.component";
 
 @Component({
-    selector: 'app-order',
-    standalone: true,
-    imports: [CommonModule, NgFor, HeaderComponent],
-    templateUrl: './order.component.html',
-    styleUrls: ['./order.component.css']
+  selector: 'app-order',
+  standalone: true,
+  imports: [CommonModule, NgFor, HeaderComponent, ReviewComponent],
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.css']
 })
 
 export class OrderComponent implements OnInit {
 
-    order: Orders[] = [];
+  order: Orders[] = [];
 
-    constructor(private ordersService: OrderService) { }
+  constructor(private ordersService: OrderService) { }
 
-    ngOnInit(): void {
-        this.ordersService.orders$.subscribe(orders => {
-            this.order = orders;
-        })
-    }
+  ngOnInit(): void {
+    this.ordersService.orders$.subscribe(orders => {
+      this.order = orders;
+    });
+  }
 }
