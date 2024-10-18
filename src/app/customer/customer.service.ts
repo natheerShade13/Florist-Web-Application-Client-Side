@@ -11,7 +11,7 @@ export class CustomerService implements OnInit {
     private httpClient = inject(HttpClient);
 
     ngOnInit() {
-        
+
     }
 
     // Get customer by email
@@ -25,8 +25,8 @@ export class CustomerService implements OnInit {
     }
 
     // Verify customer credentials
-    public verifyCustomer(email: string, password: string): Observable<boolean> {
-        return this.httpClient.get<boolean>(`http://localhost:8080/customer/login/${email}/${password}`);
+    public verifyCustomer(email: string, password: string): Observable<Customer> {
+        return this.httpClient.get<Customer>(`http://localhost:8080/customer/login/${email}/${password}`);
     }
 
     // Register a new customer
@@ -44,12 +44,12 @@ export class CustomerService implements OnInit {
         return this.httpClient.get<boolean>(`http://localhost:8080/admin/login/${email}/${password}`);
     }
 
-   
+
     public getAdmin(email: string): Observable<any> {
         return this.httpClient.get<Customer>(`http://localhost:8080/admin/login/${email}`);
     }
 
-   
+
     public authenticate(email: string, password: string): Observable<string> {
         let params = new HttpParams()
             .set('email', email)

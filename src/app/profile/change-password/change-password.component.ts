@@ -51,7 +51,8 @@ export class ChangePasswordComponent {
       email: this.customerService.getCustomerLocal()?.email ?? null,
       password: this.form.value.password,
       mobileNumber: this.customerService.getCustomerLocal()?.mobileNumber ?? null,
-      dateOfBirth: this.customerService.getCustomerLocal()?.dateOfBirth ?? null
+      dateOfBirth: this.customerService.getCustomerLocal()?.dateOfBirth ?? null,
+      token: null
     }
 
     const confirmPassword = this.form.value.confirmPassword;
