@@ -39,6 +39,11 @@ export class CustomerService implements OnInit {
         return this.httpClient.put<Customer>(`http://localhost:8080/customer/update`, customer);
     }
 
+  // Update existing customer password
+  public updateCustomerPassword(customer: Customer): Observable<Customer> {
+    return this.httpClient.put<Customer>(`http://localhost:8080/customer/update/password`, customer);
+  }
+
     // Admin Methods
     public verifyAdmin(email: string, password: string): Observable<boolean> {
         return this.httpClient.get<boolean>(`http://localhost:8080/admin/login/${email}/${password}`);

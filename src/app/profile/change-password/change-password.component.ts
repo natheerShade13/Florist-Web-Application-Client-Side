@@ -61,7 +61,7 @@ export class ChangePasswordComponent {
       alert('Passwords do not match!');
       this.form.reset();
     } else {
-      this.customerService.updateCustomer(customer).subscribe({
+      this.customerService.updateCustomerPassword(customer).subscribe({
         next: (customer: Customer) => {
           //console.log(customer);
           localStorage.setItem('customer', JSON.stringify(customer));
