@@ -25,7 +25,7 @@ export class HeaderComponent {
 
   onSignOut() {
     localStorage.removeItem('customer');
-    localStorage.removeItem('authToken')
+    localStorage.removeItem('authToken');
     this.router.navigate(['/login']).then(() => {
       // Reload the page
       window.location.reload();

@@ -1,0 +1,42 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Login</h2>
+
+      <form (ngSubmit)="onLogin()" #form="ngForm">
+
+        <div class="form-group">
+          <label for="email" >Email:</label>
+          <input
+            type="email"
+            id="username"
+            ngModel
+            name="email"
+            required
+            email
+            #email="ngModel"
+          />
+          <p *ngIf="email.touched && email.dirty && email.invalid">Invalid email</p>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            ngModel
+            name="password"
+            required
+            minlength="3"
+            maxlength="12"
+            #password="ngModel"
+          />
+          <!-- <p *ngIf="password.touched"> Enter password</p> -->
+          <p *ngIf="password.touched && password.dirty && password.invalid"> Invalid password - must be at least 3 characters</p>
+        </div>
+
+        <button type="submit" class="auth-button">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

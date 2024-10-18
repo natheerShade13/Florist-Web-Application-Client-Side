@@ -13,10 +13,12 @@ import { AddAddressComponent } from './profile/add-address/add-address.compnent'
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './orders/order.component';
 import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
+import {AdminLoginComponent} from "./admin/login/admin-login";
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/admin', component: AdminLoginComponent},
   { path: 'home', component: HomeComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'wishlist', component: WishlistComponent },
