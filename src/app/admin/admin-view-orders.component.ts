@@ -40,7 +40,6 @@ export class AdminViewOrdersComponent implements OnInit {
       }
     );
   }
-
   toggleOrderDetails(order: Orders & { showDetails: boolean }): void {
     order.showDetails = !order.showDetails;
   }

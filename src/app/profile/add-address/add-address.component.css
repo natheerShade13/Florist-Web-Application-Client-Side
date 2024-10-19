@@ -38,10 +38,10 @@
     background-color: #28a745;
     color: #fff;
     border: none;
-    padding: 12px 24px; /* Adjust padding for a larger button */
+    padding: 12px 24px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em; /* Larger font size for better readability */
+    font-size: 1em;
   }
 
   .save-button:hover {

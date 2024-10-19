@@ -10,6 +10,7 @@ import { Customer } from '../customer/customer.model';
     providedIn: 'root'
 })
 export class OrderService {
+
     private customerId: number | null | undefined = null;
     customer: Customer | null | undefined = null;
 

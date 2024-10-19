@@ -36,6 +36,7 @@ export class ProductService {
   deleteProduct(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.apiUrl}/delete/${id}`);
   }
+
   getOrders(): Observable<Orders[]> {
     console.log('Calling API to get orders');
     return this.httpClient.get<Orders[]>(`${this.apiUrl}/orders/getAll`);

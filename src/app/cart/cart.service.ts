@@ -137,6 +137,7 @@ export class CartService {
 public updateCartQuantity(product: Product, newQuantity: number) {
   const currentCart = this.cartProductSubject.value;
   const existingProduct = currentCart.find(item => item.product.productId === product.productId);
+
   if (existingProduct) {
     existingProduct.quantity = newQuantity;
     existingProduct.totalPrice = existingProduct.quantity * product.price;

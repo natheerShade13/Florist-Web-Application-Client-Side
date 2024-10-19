@@ -94,7 +94,7 @@ export class CustomerService implements OnInit {
               throw error;
             })
           );
-      }
+    }
     public addAddress(address: Address): Observable<Address> {
         return this.httpClient.post<Address>(`http://localhost:8080/address/add`, address);
     }

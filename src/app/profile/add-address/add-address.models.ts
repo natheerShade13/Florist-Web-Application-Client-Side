@@ -6,4 +6,3 @@ export interface Address {
     postalCode: number | undefined | null,
     customerId?: number;
 }
-

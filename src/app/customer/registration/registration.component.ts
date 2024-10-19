@@ -4,14 +4,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
-import * as bcrypt from 'bcryptjs'; 
-import { CommonModule } from '@angular/common'; 
+import * as bcrypt from 'bcryptjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, CommonModule], 
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, CommonModule],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
@@ -27,8 +27,8 @@ export class RegistrationComponent {
 
   // Regular expressions for validation
   private nameRegex: RegExp = /^[a-zA-Z]+$/;
-  private mobileNumberRegex: RegExp = /^[0-9]{10}$/; 
-  private passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,12}$/; 
+  private mobileNumberRegex: RegExp = /^[0-9]{10}$/;
+  private passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,12}$/;
 
   form = new FormGroup({
     firstName: new FormControl('', {
@@ -61,7 +61,7 @@ export class RegistrationComponent {
     if (this.form.invalid) {
       return;
     }
-  
+
     const password = this.form.get('password')?.value;
     const confirmPassword = this.form.get('confirmPassword')?.value;
 
@@ -80,13 +80,12 @@ export class RegistrationComponent {
       mobileNumber: this.form.get('mobileNumber')?.value || null,
       dateOfBirth: null,
     };
-
     this.customerService.getCustomer(customer.email).subscribe({
       next: (customerExist: Customer) => {
         if (customerExist) {
-          this.emailExists = true; 
+          this.emailExists = true;
         } else {
-          this.emailExists = false; 
+          this.emailExists = false;
           this.customerService.registerCustomer(customer).subscribe({
             next: (customer: Customer) => {
               console.log(customer);

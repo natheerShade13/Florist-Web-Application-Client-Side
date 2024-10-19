@@ -98,6 +98,7 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
+
   private updateCustomerProfile(customer: Customer) {
     this.customerService.updateCustomer(customer).subscribe({
       next: (updatedCustomer: Customer) => {

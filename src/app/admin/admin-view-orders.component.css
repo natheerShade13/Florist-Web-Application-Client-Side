@@ -176,6 +176,7 @@
   font-weight: bold;
 }
 
+.table th:first-child,
 .table td {
   background-color: #ffffff;
 }

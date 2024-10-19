@@ -6,6 +6,7 @@
     <div>Your cart is empty.</div>
     <button (click)="checkout()" class="checkout-button">Checkout</button>
   </div>
+  
   <div *ngIf="cartProduct.length > 0">
     <div class="cart-item" *ngFor="let item of cartProduct">
       <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image" />

@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DeleteAccountComponent {
   customer: Customer | null;
+
   constructor(private customerService: CustomerService, public router: Router) {
     this.customer = this.customerService.getCustomerLocal();
   }

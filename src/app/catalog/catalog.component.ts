@@ -30,7 +30,6 @@ export class CatalogComponent {
             console.log('Available products:', this.products);
     });
   }
-
   addToCart(product: Product) {
     if (product.stockQuantity && product.stockQuantity > 0) {
       const currentQuantityInCart = this.cartService.getCartItemQuantity(product.productId);

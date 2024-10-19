@@ -34,6 +34,7 @@ export class CartComponent implements OnInit {
       this.removeFromCart(product);
     }
   }
+
   increaseQuantity(product: Product) {
     const currentQuantity = this.cartService.getCartItemQuantity(product.productId);
     const availableStock = product.stockQuantity;
