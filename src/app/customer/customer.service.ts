@@ -14,7 +14,7 @@ export class CustomerService implements OnInit {
 
 
     ngOnInit() {
-        
+
     }
 
     // Get customer by email
@@ -47,12 +47,12 @@ export class CustomerService implements OnInit {
         return this.httpClient.get<boolean>(`http://localhost:8080/admin/login/${email}/${password}`);
     }
 
-   
+
     public getAdmin(email: string): Observable<any> {
         return this.httpClient.get<Customer>(`http://localhost:8080/admin/login/${email}`);
     }
 
-   
+
     public authenticate(email: string, password: string): Observable<string> {
         let params = new HttpParams()
             .set('email', email)
@@ -74,18 +74,18 @@ export class CustomerService implements OnInit {
         }
         return null;
     }
-    
+
     public deleteCustomer(customerId: number): Observable<boolean> {
         const url = `${this.apiUrl}/customer/delete/${customerId}`;
         console.log(`Sending delete request to: ${url}`);
-        
+
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         });
-    
+
         const params = new HttpParams().set('customerId', customerId.toString());
-    
+
         return this.httpClient.delete<boolean>(url, { headers, params })
           .pipe(
             tap((response: boolean) => console.log('Delete response:', response)),
@@ -97,5 +97,5 @@ export class CustomerService implements OnInit {
       }
     public addAddress(address: Address): Observable<Address> {
         return this.httpClient.post<Address>(`http://localhost:8080/address/add`, address);
-      }
+    }
 }

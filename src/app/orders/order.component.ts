@@ -15,7 +15,6 @@ import { OrderService } from "./order.service";
     styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-
     order: Orders[] = [];
 
     constructor(private ordersService: OrderService) { }

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from './product.model'; 
+import { Product } from './product.model';
 import { Orders } from '../../orders/order.model';
 
 @Injectable({
@@ -10,11 +10,11 @@ import { Orders } from '../../orders/order.model';
 export class ProductService {
 
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/products'; 
+  private apiUrl = 'http://localhost:8080/products';
 
   // Create
   createProduct(product: Product): Observable<Product> {
-    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product); 
+    return this.httpClient.post<Product>(`${this.apiUrl}/create`, product);
   }
 
   // Read Product by ID
@@ -27,16 +27,15 @@ export class ProductService {
     return this.httpClient.get<Product[]>(`${this.apiUrl}/getAll`);
   }
 
-  // Update 
+  // Update
   updateProduct(product: Product): Observable<Product> {
     return this.httpClient.put<Product>(`${this.apiUrl}/update`, product);
   }
 
-  // Delete 
+  // Delete
   deleteProduct(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.apiUrl}/delete/${id}`);
   }
-  
   getOrders(): Observable<Orders[]> {
     console.log('Calling API to get orders');
     return this.httpClient.get<Orders[]>(`${this.apiUrl}/orders/getAll`);

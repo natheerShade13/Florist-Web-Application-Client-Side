@@ -12,16 +12,15 @@ import { ProductService } from './product.service';
   standalone: true,
   imports: [HeaderComponent, CommonModule, NgFor],
   templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css'] 
+  styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent {
-
   products: Product[] = [];
 
   constructor(
     private router: Router,
     private cartService: CartService,
-    private wishlistService: WishlistService, 
+    private wishlistService: WishlistService,
     private productService: ProductService
   ) { }
 
@@ -31,11 +30,11 @@ export class CatalogComponent {
             console.log('Available products:', this.products);
     });
   }
-  
+
   addToCart(product: Product) {
     if (product.stockQuantity && product.stockQuantity > 0) {
       const currentQuantityInCart = this.cartService.getCartItemQuantity(product.productId);
-    
+
       if (currentQuantityInCart < product.stockQuantity) {
         this.cartService.addToCart(product);
         alert(`${product.name} has been added to your cart.`);
@@ -45,7 +44,7 @@ export class CatalogComponent {
     } else {
       alert(`${product.name} is out of stock.`);
     }
-  }  
+  }
 
   addToWishlist(product: Product) {
     if (product.stockQuantity && product.stockQuantity > 0) {

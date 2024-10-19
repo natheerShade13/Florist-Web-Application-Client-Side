@@ -113,14 +113,14 @@ export class CartService {
     //   totalAmount: this.cartProductSubject.value.reduce((total, cartProduct) => total + cartProduct.totalPrice, 0),
     //   orderDate: new Date()
     // };
-  
+
     // this.orders.push(order); // Add the order to the orders array
 
     this.ordersService.addOrder();
-  
+
     // Clear the cart after order completion
     this.clearCart();
-  
+
     // return order;
   }
 
@@ -131,17 +131,16 @@ export class CartService {
   public getCartItemQuantity(productId: number): number {
   const currentCart = this.cartProductSubject.value;
   const existingProduct = currentCart.find(item => item.product.productId === productId);
-  return existingProduct ? existingProduct.quantity : 0; 
+  return existingProduct ? existingProduct.quantity : 0;
 }
 
 public updateCartQuantity(product: Product, newQuantity: number) {
   const currentCart = this.cartProductSubject.value;
   const existingProduct = currentCart.find(item => item.product.productId === product.productId);
-
   if (existingProduct) {
     existingProduct.quantity = newQuantity;
     existingProduct.totalPrice = existingProduct.quantity * product.price;
-    this.cartProductSubject.next([...currentCart]); 
+    this.cartProductSubject.next([...currentCart]);
   }
 }
 }

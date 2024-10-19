@@ -34,7 +34,7 @@ export class AdminViewOrdersComponent implements OnInit {
           showDetails: false
         }));
       },
-      (error: any) => {  // Explicitly typed 'error'
+      (error: any) => {
         console.error('Error loading orders:', error);
         alert('Failed to load orders. Please try again later.');
       }

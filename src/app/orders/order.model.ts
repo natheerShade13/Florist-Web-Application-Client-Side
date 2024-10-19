@@ -18,7 +18,6 @@ export interface OrderLine {
     quantity: number;
     quotedPrice: number;
 }
-
 export interface Coupon {
     code: string;
     discount: number;

@@ -39,5 +39,6 @@ export const routes: Routes = [
       { path: 'delete-account', component: DeleteAccountComponent }
     ]
   },
+
   // Other routes
 ];

@@ -74,9 +74,8 @@ export class WishlistService {
         });
     }
   }
-  
   isProductInWishlist(productId: number): boolean {
     const currentWishlist = this.wishlistSource.value;
     return currentWishlist.some(item => item.productId === productId);
-  }  
+  }
 }

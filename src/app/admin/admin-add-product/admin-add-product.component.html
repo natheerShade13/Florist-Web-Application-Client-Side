@@ -5,6 +5,7 @@
       <li><a routerLink="/admin/view-orders">View Orders</a></li>
     </ul>
   </div>
+
   <div class="admin-header">
     <h2>{{ isEditMode ? 'Edit Flower' : 'Add Flower' }}</h2>
     <button class="btn btn-danger logout-btn" (click)="Logout()">
@@ -120,7 +121,7 @@
         <td>{{ product.stockQuantity }}</td>
         <td>{{ product.category }}</td>
         <td>
-          <div style="display: flex; gap: 10px;"> 
+          <div style="display: flex; gap: 10px;">
             <button class="btn btn-warning" (click)="onEditProduct(product)">Edit</button>
             <button class="btn btn-danger" (click)="onDeleteProduct(product.productId)">Delete</button>
           </div>

@@ -10,7 +10,6 @@ import { Customer } from '../customer/customer.model';
     providedIn: 'root'
 })
 export class OrderService {
-
     private customerId: number | null | undefined = null;
     customer: Customer | null | undefined = null;
 
@@ -33,11 +32,11 @@ export class OrderService {
                     orders.sort((a, b) => {
                         return new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime();
                     });
-                    this.ordersSubject.next(orders); 
+                    this.ordersSubject.next(orders);
                 })
             );
         } else {
-            return this.ordersSubject.asObservable(); 
+            return this.ordersSubject.asObservable();
         }
     }
 
@@ -48,11 +47,11 @@ export class OrderService {
             this.httpClient.post<Orders>(`http://localhost:8080/checkout/add`, this.customer)
                 .subscribe({
                     next: (order: Orders) => {
-                        currentOrder.push(order); 
-                        this.ordersSubject.next(currentOrder); 
+                        currentOrder.push(order);
+                        this.ordersSubject.next(currentOrder);
                     },
                     error: (error: HttpErrorResponse) => {
-                        alert(error.message); 
+                        alert(error.message);
                     }
                 });
         }

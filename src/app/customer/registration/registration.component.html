@@ -1,6 +1,5 @@
 <div class="registration-container">
   <h2>Register</h2>
-  
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="form-group">
       <label for="firstName">First Name:</label>
@@ -18,8 +17,8 @@
       <p *ngIf="form.controls.email.touched && form.controls.email.invalid" class="error-message">
         Enter a valid email
       </p>
-      <p *ngIf="emailExists" class="error-message">Email already exists</p> 
-    </div>      
+      <p *ngIf="emailExists" class="error-message">Email already exists</p>
+    </div>
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password" required>

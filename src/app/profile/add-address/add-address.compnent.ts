@@ -33,7 +33,6 @@ export class AddAddressComponent {
         const customer = JSON.parse(customerString);
         newAddress.customerId = customer.customerId;
       }
-
       this.customerService.addAddress(newAddress).subscribe({
         next: (createdAddress: Address) => {
           console.log('Address added successfully:', createdAddress);
@@ -55,4 +54,4 @@ export class AddAddressComponent {
       alert('Please fill out all required fields correctly.');
     }
   }
-} 
+}
