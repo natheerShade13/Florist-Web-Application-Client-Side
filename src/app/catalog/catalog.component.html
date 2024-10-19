@@ -1,32 +1,34 @@
-<app-header/>
-<!--<nav class="navbar">
-  <div class="navbar-container">
-    <a class="navbar-brand" routerLink="/home">Nursery E-Commerce</a>
-    <div>
-      <button (click)="onCart()" class="cart-button">Cart</button>
-      <button (click)="onSignOut()" class="signout-button">Sign Out</button>
-    </div>
-  </div>
-</nav> -->
+<app-header></app-header>
 <div class="container home-container">
   <h1>Welcome to Our Florist Catalog</h1>
-  <p>Explore our diverse collection of flowers, plants, and gardening supplies. Find the perfect addition to your garden or home.</p>
-  <div class="products">
-    <div class="product-card" *ngFor="let product of products">
-      <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
-      <h2>{{ product.name }}</h2>
-      <p>{{ product.description }}</p>
+  <!-- Flex container for filter and products -->
+  <div class="flex-container">
+    <!-- Category Filter -->
+    <div class="filter-container">
+      <label class="filter-label">Filter by Category:</label>
+      <select class="filter-select" [(ngModel)]="selectedCategory" (change)="filterByCategory(selectedCategory || '')">
+        <option value="">All</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+      <button class="clear-filter-btn" (click)="clearCategoryFilter()">Clear Filter</button>
+    </div>  
 
-      <!-- Grouping price and buttons into one div -->
-      <div class="price-and-buttons">
-        <p class="price">R{{ product.price }}</p>
-        <div class="button-group">
-          <button (click)="addToCart(product)" class="cart-button">
-            <span class="cart-icon">🛒</span> Add to Cart
-          </button>
-          <button (click)="addToWishlist(product)" class="wishlist-button">
-            <span class="wishlist-icon">❤️</span>
-          </button>
+    <div class="products">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+
+        <div class="price-and-buttons">
+          <p class="price">R{{ product.price }}</p>
+          <div class="button-group">
+            <button (click)="addToCart(product)" class="cart-button">
+              <span class="cart-icon">🛒</span> Add to Cart
+            </button>
+            <button (click)="addToWishlist(product)" class="wishlist-button">
+              <span class="wishlist-icon">❤️</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

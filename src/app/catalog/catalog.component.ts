@@ -4,19 +4,23 @@ import { CartService } from '../cart/cart.service';
 import { WishlistService } from '../wishlist/wishlist.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';  // Import FormsModule
 import { Product } from './product.model';
 import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, NgFor],
+  imports: [HeaderComponent, CommonModule, NgFor, FormsModule],  // Add FormsModule here
   templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css'] 
+  styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent {
 
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: string[] = [];
+  selectedCategory: string | null = null;
 
   constructor(
     private router: Router,
@@ -26,12 +30,40 @@ export class CatalogComponent {
   ) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(products => {
-      this.products = products.filter(product => product.stockQuantity && product.stockQuantity > 0);
-            console.log('Available products:', this.products);
+    this.fetchProducts();
+  }
+
+  fetchProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        this.products = products.filter(product => product.stockQuantity && product.stockQuantity > 0);
+        this.filteredProducts = this.products;
+        this.extractCategories();
+        console.log('Available products:', this.filteredProducts);
+      },
+      error: (err) => {
+        console.error('Failed to fetch products', err);
+      }
     });
   }
   
+  extractCategories(): void {
+    this.categories = Array.from(new Set(this.products.map(product => product.category)));
+  }
+
+  filterByCategory(category: string | null): void {
+    if (category === null || category === '') {
+      this.clearCategoryFilter();
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category === category);
+    }
+  }
+
+  clearCategoryFilter(): void {
+    this.selectedCategory = null;
+    this.filteredProducts = this.products;
+  }
+
   addToCart(product: Product) {
     if (product.stockQuantity && product.stockQuantity > 0) {
       const currentQuantityInCart = this.cartService.getCartItemQuantity(product.productId);
