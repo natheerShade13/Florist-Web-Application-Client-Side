@@ -14,31 +14,44 @@ import { Product } from '../catalog/product.model';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-
-
 export class CartComponent implements OnInit {
-  
+
   cartProduct: CartProduct[] = [];
 
   constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
-    this.cartService.cartProduct$.subscribe(cartProducts =>{
+    this.cartService.cartProduct$.subscribe(cartProducts => {
       this.cartProduct = cartProducts;
-    })
+    });
+  }
+
+  reduceQuantity(product: Product) {
+    const quantity = this.cartService.getCartItemQuantity(product.productId);
+    if (quantity > 1) {
+      this.cartService.updateCartQuantity(product, quantity - 1);
+    } else {
+      this.removeFromCart(product); // If quantity is 1, remove from cart
+    }
+  }
+
+  increaseQuantity(product: Product) {
+    const currentQuantity = this.cartService.getCartItemQuantity(product.productId);
+    const availableStock = product.stockQuantity; // Assume availableStock is a property of the Product model
+
+    if (currentQuantity < availableStock) {
+      this.cartService.updateCartQuantity(product, currentQuantity + 1);
+    } else {
+      alert(`Cannot increase quantity. Only ${availableStock} items available in stock.`);
+    }
   }
 
   removeFromCart(product: Product) {
-     this.cartService.removeFromCart(product);
-    // this.cartItems = this.cartService.getCartItems();
+    this.cartService.removeFromCart(product);
   }
 
   getTotalPrice(): number {
     return this.cartService.getTotalCartPrice();
-  }
-
-  goToHome() {
-    this.router.navigate(['/home']);
   }
 
   checkout() {

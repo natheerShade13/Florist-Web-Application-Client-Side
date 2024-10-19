@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { CustomerService } from '../customer/customer.service';
 import { Orders } from './order.model';
 import { Customer } from '../customer/customer.model';
@@ -15,41 +16,51 @@ export class OrderService {
 
     private ordersSubject = new BehaviorSubject<Orders[]>([]);
     orders$ = this.ordersSubject.asObservable();
-    //private orders: Orders[] = []; // Array to store multiple orders
 
     constructor(private httpClient: HttpClient, private customerService: CustomerService) {
         const customer = this.customerService.getCustomerLocal();
         if (customer) {
             this.customerId = customer.customerId;
             this.customer = customer;
-            this.getOrders();
+            this.loadOrders(); // Load orders on service initialization
         }
     }
 
-    public getOrders() {
+    // Method to return the orders observable so that the component can subscribe to it
+    public getOrders(): Observable<Orders[]> {
         if (this.customerId) {
-            this.httpClient.get<Orders[]>(`http://localhost:8080/checkout/history/${this.customerId}`)
-            .subscribe(orders => {
-                this.ordersSubject.next(orders);
-            });
+            return this.httpClient.get<Orders[]>(`http://localhost:8080/checkout/history/${this.customerId}`).pipe(
+                tap(orders => {
+                    orders.sort((a, b) => {
+                        return new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime();
+                    });
+                    this.ordersSubject.next(orders); // Update the BehaviorSubject
+                })
+            );
+        } else {
+            return this.ordersSubject.asObservable(); // If no customerId, return the current state
         }
     }
 
-    public addOrder() {
+    public addOrder(): void {
         if (this.customerId) {
             const currentOrder = this.ordersSubject.value;
 
-          this.httpClient.post<Orders>(`http://localhost:8080/checkout/add`, this.customer)
-            .subscribe({
-              next: (order: Orders) => {
-                currentOrder.push(order);
-                this.ordersSubject.next(currentOrder);
-              },
-              error: (error: HttpErrorResponse) => {
-                alert(error.message);
-              }
-            });
+            this.httpClient.post<Orders>(`http://localhost:8080/checkout/add`, this.customer)
+                .subscribe({
+                    next: (order: Orders) => {
+                        currentOrder.push(order); // Add new order to the current list
+                        this.ordersSubject.next(currentOrder); // Update the BehaviorSubject
+                    },
+                    error: (error: HttpErrorResponse) => {
+                        alert(error.message); // Display error message
+                    }
+                });
         }
-      }
+    }
 
+    // Optionally, a method to load orders initially
+    private loadOrders(): void {
+        this.getOrders().subscribe();
+    }
 }

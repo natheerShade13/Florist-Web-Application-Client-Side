@@ -4,44 +4,31 @@
     <div class="form-group">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" formControlName="firstName" required>
-      @if (form.controls.firstName.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
-        <p>Enter First Name</p>
-      }
+      <p *ngIf="form.controls.firstName.touched && form.controls.firstName.invalid" class="error-message">Enter First Name</p>
     </div>
     <div class="form-group">
       <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" name="lastName" formControlName="lastName" required>
-      @if (form.controls.lastName.touched && form.controls.lastName.dirty && form.controls.lastName.invalid ) {
-        <p>Enter Last Name</p>
-      }
+      <input type="text" id="lastName" formControlName="lastName" required>
+      <p *ngIf="form.controls.lastName.touched && form.controls.lastName.invalid" class="error-message">Enter Last Name</p>
     </div>
-    <!-- <div class="form-group">
-      <label for="mobileNumber">Mobile Number:</label>
-      <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="customer.mobileNumber" required>
-    </div> -->
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" formControlName="email" email required>
-      @if (form.controls.email.touched && form.controls.email.dirty && form.controls.email.invalid ) {
-        <p>Enter a valid email</p>
-      }@else if (customerEmail === form.value.email && form.controls.email.touched) {
-        <p>Email already exist</p>
-      }
-    </div>
+      <input type="email" id="email" formControlName="email" required>
+      <p *ngIf="form.controls.email.touched && form.controls.email.invalid" class="error-message">
+        Enter a valid email
+      </p>
+      <p *ngIf="emailExists" class="error-message">Email already exists</p> 
+    </div>      
     <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" formControlName="password" minlength="3" maxlength="12" required>
-      @if (form.controls.password.touched && form.controls.password.dirty && form.controls.password.invalid ) {
-        <p>Enter a valid password (must be 3 characters long) </p>
-      }
+      <input type="password" id="password" formControlName="password" required>
+      <p *ngIf="form.controls.password.touched && form.controls.password.invalid" class="error-message">Enter a valid password (must be 3 characters long)</p>
     </div>
     <div class="form-group">
       <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" maxlength="12" required>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+      <p *ngIf="form.value.password !== form.value.confirmPassword && form.controls.confirmPassword.touched" class="error-message">Passwords do not match</p>
     </div>
-    @if (form.value.password !== form.value.confirmPassword && form.controls.confirmPassword.touched) {
-      <p>Passwords do not match</p>
-    }
     <button type="submit" class="register-button">Register</button>
   </form>
   <p class="login-link">

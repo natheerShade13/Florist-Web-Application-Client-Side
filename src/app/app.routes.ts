@@ -10,9 +10,11 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { UpdateProfileComponent } from './profile/update-profile/update-profile.component.';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { AddAddressComponent } from './profile/add-address/add-address.compnent';
+import { DeleteAccountComponent } from './profile/delete-account/delete-account.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './orders/order.component';
 import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
+import { AdminViewOrdersComponent } from './admin/admin-view-orders.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -24,6 +26,7 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'order', component: OrderComponent},
   { path: 'admin', component: AdminAddProductComponent},
+  { path: 'admin/view-orders', component: AdminViewOrdersComponent },
   //{ path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   //{path: '**', component: LoginComponent}, // Wildcard route for a 404 page
@@ -34,6 +37,7 @@ export const routes: Routes = [
       { path: 'update-profile', component: UpdateProfileComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'add-address', component: AddAddressComponent },
+      { path: 'delete-account', component: DeleteAccountComponent }
     ]
   },
   // Other routes

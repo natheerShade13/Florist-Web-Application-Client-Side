@@ -54,3 +54,15 @@
     margin: 0 auto 20px auto; /* Center image horizontally */
     border-radius: 50%; /* Circular profile image */
   }
+
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }

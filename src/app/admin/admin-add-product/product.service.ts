@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from './product.model'; 
+import { Orders } from '../../orders/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,10 @@ export class ProductService {
   // Delete 
   deleteProduct(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.apiUrl}/delete/${id}`);
+  }
+  
+  getOrders(): Observable<Orders[]> {
+    console.log('Calling API to get orders');
+    return this.httpClient.get<Orders[]>(`${this.apiUrl}/orders/getAll`);
   }
 }
