@@ -11,6 +11,7 @@ import { OrderService } from '../orders/order.service';
   templateUrl: './admin-view-orders.component.html',
   styleUrls: ['./admin-view-orders.component.css']
 })
+
 export class AdminViewOrdersComponent implements OnInit {
   orders: (Orders & { showDetails: boolean })[] = [];
   private orderService = inject(OrderService);

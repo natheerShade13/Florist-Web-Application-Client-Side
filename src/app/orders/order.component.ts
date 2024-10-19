@@ -14,7 +14,6 @@ import { OrderService } from "./order.service";
     templateUrl: './order.component.html',
     styleUrls: ['./order.component.css']
 })
-
 export class OrderComponent implements OnInit {
 
     order: Orders[] = [];

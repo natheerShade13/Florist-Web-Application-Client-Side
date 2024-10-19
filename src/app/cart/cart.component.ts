@@ -31,13 +31,13 @@ export class CartComponent implements OnInit {
     if (quantity > 1) {
       this.cartService.updateCartQuantity(product, quantity - 1);
     } else {
-      this.removeFromCart(product); // If quantity is 1, remove from cart
+      this.removeFromCart(product); 
     }
   }
 
   increaseQuantity(product: Product) {
     const currentQuantity = this.cartService.getCartItemQuantity(product.productId);
-    const availableStock = product.stockQuantity; // Assume availableStock is a property of the Product model
+    const availableStock = product.stockQuantity; 
 
     if (currentQuantity < availableStock) {
       this.cartService.updateCartQuantity(product, currentQuantity + 1);
@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
 
   checkout() {
     if (this.cartProduct.length > 0) {
-      this.router.navigate(['/checkout']); // Redirects to the checkout page
+      this.router.navigate(['/checkout']); 
     } else {
       alert('Your cart is empty.');
     }

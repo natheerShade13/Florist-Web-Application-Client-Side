@@ -8,7 +8,6 @@
         First Name is required
       </p>
     </div>
-
     <div class="form-group">
       <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" formControlName="lastName" required>
@@ -16,7 +15,6 @@
         Last Name is required
       </p>
     </div>
-
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName="email" required>
@@ -27,12 +25,10 @@
         Email already exists
       </p>
     </div>
-
     <div class="form-group">
       <label for="date-of-birth">Date of Birth:</label>
       <input type="date" id="date-of-birth" formControlName="dateOfBirth">
     </div>
-
     <div class="form-group">
       <label for="mobileNumber">Contact Number:</label>
       <input type="text" id="mobileNumber" formControlName="mobileNumber" pattern="[0-9]{10}" required>
@@ -46,7 +42,6 @@
         Mobile Number already exists
       </p>
     </div>
-
     <button type="submit" class="save-button" (click)="onUpdate()">Save Changes</button>
   </form>
 </div>

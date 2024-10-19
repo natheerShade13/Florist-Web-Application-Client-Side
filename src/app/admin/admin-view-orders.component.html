@@ -39,7 +39,6 @@
           </button>
         </td>
       </tr>
-      <!-- Separate *ngFor and *ngIf using ng-container -->
       <ng-container *ngFor="let order of orders">
         <tr *ngIf="order.showDetails">
           <td colspan="6">

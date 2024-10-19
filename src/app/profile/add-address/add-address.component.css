@@ -56,7 +56,7 @@
   }
 
   .error-message {
-    color: red; /* Set the text color to red for error messages */
-    font-size: 0.9em; /* Adjust font size as needed */
-    margin-top: 5px; /* Space above the message */
+    color: red; 
+    font-size: 0.9em; 
+    margin-top: 5px;
 }

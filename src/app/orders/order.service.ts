@@ -22,11 +22,10 @@ export class OrderService {
         if (customer) {
             this.customerId = customer.customerId;
             this.customer = customer;
-            this.loadOrders(); // Load orders on service initialization
+            this.loadOrders();
         }
     }
 
-    // Method to return the orders observable so that the component can subscribe to it
     public getOrders(): Observable<Orders[]> {
         if (this.customerId) {
             return this.httpClient.get<Orders[]>(`http://localhost:8080/checkout/history/${this.customerId}`).pipe(
@@ -34,11 +33,11 @@ export class OrderService {
                     orders.sort((a, b) => {
                         return new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime();
                     });
-                    this.ordersSubject.next(orders); // Update the BehaviorSubject
+                    this.ordersSubject.next(orders); 
                 })
             );
         } else {
-            return this.ordersSubject.asObservable(); // If no customerId, return the current state
+            return this.ordersSubject.asObservable(); 
         }
     }
 
@@ -49,17 +48,16 @@ export class OrderService {
             this.httpClient.post<Orders>(`http://localhost:8080/checkout/add`, this.customer)
                 .subscribe({
                     next: (order: Orders) => {
-                        currentOrder.push(order); // Add new order to the current list
-                        this.ordersSubject.next(currentOrder); // Update the BehaviorSubject
+                        currentOrder.push(order); 
+                        this.ordersSubject.next(currentOrder); 
                     },
                     error: (error: HttpErrorResponse) => {
-                        alert(error.message); // Display error message
+                        alert(error.message); 
                     }
                 });
         }
     }
 
-    // Optionally, a method to load orders initially
     private loadOrders(): void {
         this.getOrders().subscribe();
     }

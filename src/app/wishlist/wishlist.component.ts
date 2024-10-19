@@ -35,6 +35,4 @@ export class WishlistComponent implements OnInit {
   isProductInWishlist(productId: number): boolean {
     return this.wishlistService.isProductInWishlist(productId);
   }
-  
-  
 }

@@ -30,7 +30,6 @@ export const routes: Routes = [
   //{ path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   //{path: '**', component: LoginComponent}, // Wildcard route for a 404 page
-
   {
     path: 'profile', component: ProfileComponent, children: [
       { path: '', redirectTo: 'update-profile', pathMatch: 'full' },

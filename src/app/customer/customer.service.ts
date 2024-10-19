@@ -84,7 +84,6 @@ export class CustomerService implements OnInit {
           'Accept': 'application/json'
         });
     
-        // Try with HttpParams
         const params = new HttpParams().set('customerId', customerId.toString());
     
         return this.httpClient.delete<boolean>(url, { headers, params })

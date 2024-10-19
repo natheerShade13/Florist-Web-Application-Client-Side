@@ -26,9 +26,9 @@ export class RegistrationComponent {
   emailExists: boolean = false;
 
   // Regular expressions for validation
-  private nameRegex: RegExp = /^[a-zA-Z]+$/; // Only letters
-  private mobileNumberRegex: RegExp = /^[0-9]{10}$/; // 10-digit number
-  private passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,12}$/; // At least 3 characters, letters and numbers
+  private nameRegex: RegExp = /^[a-zA-Z]+$/;
+  private mobileNumberRegex: RegExp = /^[0-9]{10}$/; 
+  private passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,12}$/; 
 
   form = new FormGroup({
     firstName: new FormControl('', {
@@ -62,7 +62,6 @@ export class RegistrationComponent {
       return;
     }
   
-    // Compare plain text password and confirmPassword
     const password = this.form.get('password')?.value;
     const confirmPassword = this.form.get('confirmPassword')?.value;
 
@@ -82,13 +81,12 @@ export class RegistrationComponent {
       dateOfBirth: null,
     };
 
-    // Check if email already exists
     this.customerService.getCustomer(customer.email).subscribe({
       next: (customerExist: Customer) => {
         if (customerExist) {
-          this.emailExists = true; // Set emailExists to true if the email exists
+          this.emailExists = true; 
         } else {
-          this.emailExists = false; // Reset emailExists if the email does not exist
+          this.emailExists = false; 
           this.customerService.registerCustomer(customer).subscribe({
             next: (customer: Customer) => {
               console.log(customer);

@@ -1,47 +1,26 @@
 <div class="form-container">
   <h2>Add Address</h2>
   <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-
-    <div class="form-group">
-      <label for="streetName">Street Name:</label>
-      <input type="text" id="streetName" formControlName="streetName" />
-      <small *ngIf="addressForm.get('streetName')?.invalid && addressForm.get('streetName')?.touched" class="error-message">
-        Street name is required.
-      </small>
-    </div>
-
     <div class="form-group">
       <label for="streetNumber">Street Number:</label>
       <input type="text" id="streetNumber" formControlName="streetNumber" />
-      <small *ngIf="addressForm.get('streetNumber')?.invalid && addressForm.get('streetNumber')?.touched" class="error-message">
-        Street number is required and must be a number.
-      </small>
     </div>
-
+    <div class="form-group">
+      <label for="streetName">Street name:</label>
+      <input type="text" id="streetName" formControlName="streetName" />
+    </div>
     <div class="form-group">
       <label for="suburb">Suburb:</label>
       <input type="text" id="suburb" formControlName="suburb" />
-      <small *ngIf="addressForm.get('suburb')?.invalid && addressForm.get('suburb')?.touched" class="error-message">
-        Suburb is required.
-      </small>
     </div>
-
     <div class="form-group">
       <label for="city">City:</label>
       <input type="text" id="city" formControlName="city" />
-      <small *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched" class="error-message">
-        City is required.
-      </small>
     </div>
-
     <div class="form-group">
-      <label for="postalCode">Postal Code:</label>
+      <label for="postalCode">Postal code:</label>
       <input type="text" id="postalCode" formControlName="postalCode" />
-      <small *ngIf="addressForm.get('postalCode')?.invalid && addressForm.get('postalCode')?.touched" class="error-message">
-        Postal code is required and must be 5 digits.
-      </small>
     </div>
-
-    <button type="submit" class="save-button">Add address</button>
+    <button type="submit" class="save-button" [disabled]="!addressForm.valid">Add address</button>
   </form>
 </div>

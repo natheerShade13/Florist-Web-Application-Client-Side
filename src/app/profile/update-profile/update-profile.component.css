@@ -38,10 +38,10 @@
     background-color: #28a745;
     color: #fff;
     border: none;
-    padding: 12px 24px; /* Adjust padding for a larger button */
+    padding: 12px 24px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em; /* Larger font size for better readability */
+    font-size: 1em;
   }
   
   .save-button:hover {
@@ -50,9 +50,9 @@
   
   .profile-container img {
     display: block;
-    max-width: 150px; /* Restrict maximum image width */
-    margin: 0 auto 20px auto; /* Center image horizontally */
-    border-radius: 50%; /* Circular profile image */
+    max-width: 150px; 
+    margin: 0 auto 20px auto;
+    border-radius: 50%; 
   }
 
   .error-message {

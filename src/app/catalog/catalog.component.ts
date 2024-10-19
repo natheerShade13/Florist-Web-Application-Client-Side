@@ -46,7 +46,6 @@ export class CatalogComponent {
       alert(`${product.name} is out of stock.`);
     }
   }  
-  
 
   addToWishlist(product: Product) {
     if (product.stockQuantity && product.stockQuantity > 0) {

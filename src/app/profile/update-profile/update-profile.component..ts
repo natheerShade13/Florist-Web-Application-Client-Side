@@ -29,7 +29,6 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Additional initialization if needed
   }
 
   private initForm(): FormGroup {

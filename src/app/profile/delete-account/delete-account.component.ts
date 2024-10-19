@@ -39,10 +39,8 @@ export class DeleteAccountComponent {
       error: (err: HttpErrorResponse) => {
         console.error('Error during delete operation:', err);
         if (err.error instanceof Error) {
-          // A client-side or network error occurred
           console.error('An error occurred:', err.error.message);
         } else {
-          // The backend returned an unsuccessful response code
           console.error(`Backend returned code ${err.status}, body was:`, err.error);
         }
         alert(`There was an error deleting your account: ${err.message}`);

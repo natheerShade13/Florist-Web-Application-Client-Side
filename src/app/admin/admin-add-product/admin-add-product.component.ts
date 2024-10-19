@@ -20,6 +20,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './admin-add-product.component.html',
   styleUrls: ['./admin-add-product.component.css']
 })
+
 export class AdminAddProductComponent implements OnInit {
   productForm!: FormGroup;
   products: Product[] = [];
