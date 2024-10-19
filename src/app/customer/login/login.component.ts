@@ -29,83 +29,61 @@ export class LoginComponent {
 
   onLogin() {
     if (this.form.invalid) {
-      this.empty = true;
+      this.empty = true; 
       console.log('Form is invalid');
       return;
     }
-
+  
     this.email = this.form.form.value.email;
     this.password = this.form.form.value.password;
-
-    // No longer using customerAuth
-    // const subscription = this.customerService.authenticate(this.email, this.password).subscribe({
-    //   next: (userType: string) => {
-    //     console.log('Login verification response:', userType); // Debug log
-    //
-    //     if (userType === 'Admin') {
-    //       this.router.navigate(['/admin']).then(success => {
-    //         if (success) {
-    //           console.log('Navigation to /admin successful');
-    //
-    //         } else {
-    //           console.log('Navigation to /admin failed');
-    //         }
-    //       });
-    //     } else if (userType === 'Customer') {
-    //       this.customerService.getCustomer(this.email).subscribe({
-    //         next: (customer: Customer) => {
-    //           console.log('Customer retrieved:', customer); // Debug log
-    //           localStorage.setItem('customer', JSON.stringify(customer));
-    //
-    //
-    //           alert('Login successful');
-    //           this.router.navigate(['/home']).then(success => {
-    //             if (success) {
-    //               console.log('Navigation to /home successful');
-    //               // There is no need to reload the page here
-    //                window.location.reload(); //Insurance @Thabo
-    //             } else {
-    //               console.log('Navigation to /home failed');
-    //             }
-    //           });
-    //         },
-    //         error: (error: HttpErrorResponse) => {
-    //           alert('Failed to retrieve customer details');
-    //           console.error('Customer retrieval error:', error);//debug code
-    //         }
-    //       });
-    //     } else {
-    //       alert('Incorrect details'); // Use an alternatice to alert
-    //     }
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     alert('Incorrect details');
-    //     console.error('Login error:', error); // Debug log
-    //   }
-    // });
-
-    const subscription = this.customerService.verifyCustomer(this.email, this.password).subscribe({
-      next:(customer: Customer)=>{
-        localStorage.setItem('customer', JSON.stringify(customer));
-        if (typeof customer.token === "string") {
-          localStorage.setItem('authToken', customer.token)
+  
+    // No longer using customerAuth 
+    const subscription = this.customerService.authenticate(this.email, this.password).subscribe({
+      next: (userType: string) => {
+        console.log('Login verification response:', userType); // Debug log
+  
+        if (userType === 'Admin') {
+          this.router.navigate(['/admin']).then(success => {
+            if (success) {
+              console.log('Navigation to /admin successful');
+          
+            } else {
+              console.log('Navigation to /admin failed');
+            }
+          });
+        } else if (userType === 'Customer') {
+          this.customerService.getCustomer(this.email).subscribe({
+            next: (customer: Customer) => {
+              console.log('Customer retrieved:', customer); // Debug log
+              localStorage.setItem('customer', JSON.stringify(customer));
+  
+              
+              alert('Login successful');
+              this.router.navigate(['/home']).then(success => {
+                if (success) {
+                  console.log('Navigation to /home successful');
+                  // There is no need to reload the page here
+                   window.location.reload(); //Insurance @Thabo
+                } else {
+                  console.log('Navigation to /home failed');
+                }
+              });
+            },
+            error: (error: HttpErrorResponse) => {
+              alert('Failed to retrieve customer details');
+              console.error('Customer retrieval error:', error);//debug code
+            }
+          });
+        } else {
+          alert('Incorrect details'); // Use an alternatice to alert
         }
-        alert('Login successful');
-        this.router.navigate(['/home']).then(success => {
-          if (success) {
-            console.log('Navigation to /home successful');
-            // There is no need to reload the page here
-            window.location.reload(); //Insurance @Thabo
-          } else {
-            console.log('Navigation to /home failed');
-          }
-        });
       },
       error: (error: HttpErrorResponse) => {
         alert('Incorrect details');
+        console.error('Login error:', error); // Debug log
       }
     });
-
+  
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });

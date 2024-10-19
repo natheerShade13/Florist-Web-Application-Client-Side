@@ -4,7 +4,9 @@
   <div *ngIf="wishlist.length === 0" class="empty-message">
     Your wishlist is empty.
   </div>
-  <div *ngFor="let item of wishlist" class="plant-item">
+  <div *ngFor="let item of wishlist" 
+       class="plant-item" 
+       [ngClass]="{'in-wishlist': isProductInWishlist(item.productId)}">
     <img [src]="item.imageUrl" alt="{{ item.name }}" class="plant-image" />
     <div class="plant-details">
       <h3>{{ item.name }}</h3>

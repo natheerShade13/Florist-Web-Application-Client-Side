@@ -12,29 +12,48 @@ import { ProductService } from './product.service';
   standalone: true,
   imports: [HeaderComponent, CommonModule, NgFor],
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styleUrls: ['./catalog.component.css'] 
 })
 export class CatalogComponent {
 
   products: Product[] = [];
 
-  constructor(private router: Router, private cartService: CartService, private wishlistService: WishlistService, 
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    private wishlistService: WishlistService, 
     private productService: ProductService
   ) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(products => {
-      this.products = products;
+      this.products = products.filter(product => product.stockQuantity && product.stockQuantity > 0);
+            console.log('Available products:', this.products);
     });
   }
-
+  
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    //alert(`${product.name} has been added to your cart.`);
-  }
+    if (product.stockQuantity && product.stockQuantity > 0) {
+      const currentQuantityInCart = this.cartService.getCartItemQuantity(product.productId);
+    
+      if (currentQuantityInCart < product.stockQuantity) {
+        this.cartService.addToCart(product);
+        alert(`${product.name} has been added to your cart.`);
+      } else {
+        alert(`${product.name} is out of stock`);
+      }
+    } else {
+      alert(`${product.name} is out of stock.`);
+    }
+  }  
+  
 
   addToWishlist(product: Product) {
-    this.wishlistService.addToWishlist(product);
+    if (product.stockQuantity && product.stockQuantity > 0) {
+      this.wishlistService.addToWishlist(product);
+    } else {
+      alert(`${product.name} is out of stock.`);
+    }
   }
 
   // "https://m.media-amazon.com/images/I/61mMytOBsJL._AC_SL1024_.jpg"

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProductService } from './product.service';
-import { Product } from './product.model';
+import { ProductService } from './product.service'; 
+import { Product } from './product.model'; 
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../header/header.component";
 import { FooterComponent } from "../../footer/footer.component";
@@ -11,10 +11,10 @@ import { Router, RouterLink } from '@angular/router';
   selector: 'app-admin-add-product',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterLink,
-    HeaderComponent,
+    CommonModule, 
+    ReactiveFormsModule, 
+    RouterLink, 
+    HeaderComponent, 
     FooterComponent
   ],
   templateUrl: './admin-add-product.component.html',
@@ -27,9 +27,9 @@ export class AdminAddProductComponent implements OnInit {
   currentProductId: number | null = null;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, 
     private productService: ProductService,
-    private router: Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -124,9 +124,7 @@ export class AdminAddProductComponent implements OnInit {
   }
 
   Logout(): void {
-    localStorage.removeItem('customer');
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/login/admin']).then(() => {
+    this.router.navigate(['/login']).then(() => {
       window.location.reload();
     });
   }

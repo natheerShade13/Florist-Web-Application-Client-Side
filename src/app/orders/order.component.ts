@@ -23,7 +23,9 @@ export class OrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.ordersService.orders$.subscribe(orders => {
-            this.order = orders;
-        })
-    }
+          this.order = orders.sort(
+            (a, b) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime()
+          );
+        })
+    }
 }

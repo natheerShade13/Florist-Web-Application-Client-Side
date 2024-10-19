@@ -13,12 +13,13 @@ import { AddAddressComponent } from './profile/add-address/add-address.compnent'
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './orders/order.component';
 import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
-import {AdminLoginComponent} from "./admin/login/admin-login";
+import { DeleteAccountComponent } from './profile/delete-account/delete-account.component';
+import { AdminViewOrdersComponent } from './admin/admin-view-orders.component';
+
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'login/admin', component: AdminLoginComponent},
   { path: 'home', component: HomeComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'wishlist', component: WishlistComponent },
@@ -26,16 +27,19 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'order', component: OrderComponent},
   { path: 'admin', component: AdminAddProductComponent},
+  { path: 'admin/view-orders', component: AdminViewOrdersComponent },
   //{ path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  //{path: '**', component: LoginComponent}, // Wildcard route for a 404 page
+
   {
     path: 'profile', component: ProfileComponent, children: [
       { path: '', redirectTo: 'update-profile', pathMatch: 'full' },
       { path: 'update-profile', component: UpdateProfileComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'add-address', component: AddAddressComponent },
+      { path: 'delete-account', component: DeleteAccountComponent }
     ]
   },
-  {path: '**', component: LoginComponent}, // Wildcard route for a 404 page
   // Other routes
 ];

@@ -1,121 +1,114 @@
-import { Component, DestroyRef, inject } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { CustomerService } from "../../customer/customer.service";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Customer } from "../../customer/customer.model";
-import { HttpErrorResponse } from "@angular/common/http";
+import { CommonModule } from '@angular/common';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-update-profile',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './update-profile.component.html',
   styleUrls: ['../profile.component.css', './update-profile.component.css']
 })
-
-export class UpdateProfileComponent {
-
-  constructor(private customerService: CustomerService) { }
-
+export class UpdateProfileComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
+  customerEmail: string | null = null;
+  customerNumber: string | null = null;
+  customer: Customer | null;
+  form: FormGroup;
 
-  customerEmail: string | undefined | null;
-  customerNumber: string | undefined | null;
-
-  // customer: Customer = this.customerservice.customer;
-  // customer = this.customerService.getCustomerLocal();
-
-  getCustomer(): Customer | null {
-    const storedCustomer = localStorage.getItem('customer');
-    if (storedCustomer) {
-      // Parse the JSON string to a Customer object
-      const customer: Customer = JSON.parse(storedCustomer);
-      //console.log(customer);
-      return (customer)
-    }
-    return null;
+  constructor(
+    private customerService: CustomerService,
+    private fb: FormBuilder
+  ) {
+    this.customer = this.customerService.getCustomerLocal();
+    this.form = this.initForm();
   }
 
-  customer: Customer | undefined | null = this.getCustomer();
+  ngOnInit() {
+    // Additional initialization if needed
+  }
 
-  form = new FormGroup({
-    firstName: new FormControl(this.getCustomer()?.firstName || '', {
-      validators: [Validators.required]
-    }),
-    lastName: new FormControl(this.getCustomer()?.lastName || '', {
-      validators: [Validators.required]
-    }),
-    email: new FormControl(this.getCustomer()?.email || '', { //{value: this.getCustomer()?.email || '', disabled: true}
-      validators: [Validators.required, Validators.email]
-    }),
-    dateOfBirth: new FormControl(this.getCustomer()?.dateOfBirth || '', {
-      validators: []
-    }),
-    mobileNumber: new FormControl(this.getCustomer()?.mobileNumber || '', {
-      validators: [Validators.minLength(10), Validators.maxLength(10)]
-    }),
-  });
+  private initForm(): FormGroup {
+    return this.fb.group({
+      firstName: [this.customer?.firstName || '', Validators.required],
+      lastName: [this.customer?.lastName || '', Validators.required],
+      email: [this.customer?.email || '', [Validators.required, Validators.email]],
+      dateOfBirth: [this.customer?.dateOfBirth || ''],
+      mobileNumber: [this.customer?.mobileNumber || '', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+    });
+  }
 
   onUpdate() {
-
     if (this.form.invalid) {
       return;
     }
 
-    const customer: Customer = {
-      customerId: this.getCustomer()?.customerId ?? null,
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      email: this.form.value.email,
-      password: this.getCustomer()?.password ?? null,
-      mobileNumber: this.form.value.mobileNumber,
-      dateOfBirth: this.form.value.dateOfBirth,
-      token: null
-    }
+    const updatedCustomer: Customer = {
+      customerId: this.customer?.customerId ?? null,
+      firstName: this.form.value.firstName!,
+      lastName: this.form.value.lastName!,
+      email: this.form.value.email!,
+      password: this.customer?.password ?? null,
+      mobileNumber: this.form.value.mobileNumber!,
+      dateOfBirth: this.form.value.dateOfBirth!
+    };
 
+    const emailCheck$ = this.customerService.getCustomer(this.form.value.email!).pipe(
+      map(customer => customer || null),
+      catchError(() => of(null))
+    );
+    const mobileCheck$ = this.customerService.getCustomerByMobileNumber(this.form.value.mobileNumber!).pipe(
+      map(customer => customer || null),
+      catchError(() => of(null))
+    );
 
-    const subscription = this.customerService.getCustomer(this.form.value.email).subscribe({
-      next: (customerExist: Customer) => {
-        if (customerExist) {
-          //alert('Email already taken');
-          if (customerExist.email === this.getCustomer()?.email) {
-            this.customerEmail = null;
-          } else {
-            this.customerEmail = customerExist.email;
-            return;
-          }
+    const subscription = forkJoin([emailCheck$, mobileCheck$]).subscribe({
+      next: ([emailCustomer, mobileCustomer]) => {
+        let canUpdate = true;
+
+        if (emailCustomer && emailCustomer.email && emailCustomer.email !== this.customer?.email) {
+          this.customerEmail = emailCustomer.email;
+          canUpdate = false;
+        } else {
+          this.customerEmail = null;
         }
-        // if (this.form.value.mobileNumber !== null) {
-        //   this.customerService.getCustomerByMobileNumber(this.form.value.mobileNumber).subscribe({
-        //     next: (customerNew: Customer) => {
-        //       if (customerNew) {
-        //         //alert('Email already taken');
-        //         if (customerNew.mobileNumber === this.getCustomer()?.mobileNumber) {
-        //           this.customerNumber = null;
-        //         } else {
-        //           this.customerNumber = customerNew.mobileNumber;
-        //           return;
-        //         }
-        //       }
-        //     }
-        //   });
-        // }
-        this.customerService.updateCustomer(customer).subscribe({
-          next: (customer: Customer) => {
-            //this.customerservice.customer = customer;
-            localStorage.setItem('customer', JSON.stringify(customer));
-            alert('Successful Update');
-          },
-          error: () => {
-            alert('Error');
-          }
-        })
+
+        if (mobileCustomer && mobileCustomer.mobileNumber && mobileCustomer.mobileNumber !== this.customer?.mobileNumber) {
+          this.customerNumber = mobileCustomer.mobileNumber ?? null;
+          canUpdate = false;
+        } else {
+          this.customerNumber = null;
+        }
+
+        if (canUpdate) {
+          this.updateCustomerProfile(updatedCustomer);
+        }
+      },
+      error: (error) => {
+        console.error('Error checking existing customer details:', error);
+        alert('Error checking existing customer details');
       }
     });
 
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
-
   }
 
+  private updateCustomerProfile(customer: Customer) {
+    this.customerService.updateCustomer(customer).subscribe({
+      next: (updatedCustomer: Customer) => {
+        localStorage.setItem('customer', JSON.stringify(updatedCustomer));
+        alert('Profile updated successfully');
+      },
+      error: (error) => {
+        console.error('Error updating customer:', error);
+        alert('Error updating profile');
+      }
+    });
+  }
 }

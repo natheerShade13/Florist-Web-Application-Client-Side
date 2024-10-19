@@ -5,6 +5,5 @@ export interface Customer {
     email: string | undefined | null,
     password: string | undefined | null,
     mobileNumber: string| undefined | null ,
-    dateOfBirth: string | undefined | null,
-    token: string | undefined | null
+    dateOfBirth: string | undefined | null
 };

@@ -1,26 +1,36 @@
 <app-header/>
 <div class="cart-container">
   <h2>Your Cart</h2>
-  @if (cartProduct.length === 0) {
-    <div >Your cart is empty.</div>
+
+  <div *ngIf="cartProduct.length === 0">
+    <div>Your cart is empty.</div>
     <button (click)="checkout()" class="checkout-button">Checkout</button>
-  }
-  @else {
-    <div *ngIf="cartProduct.length > 0">
-      <div class="cart-item" *ngFor="let item of cartProduct">
-        <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image" />
-        <div class="cart-item-details">
-          <h3>{{ item.product.name }}</h3>
-          <p>{{ item.product.description }}</p>
-          <p>Quantity: {{ item.quantity }}</p>
-          <p class="price">Total Price: R{{ item.totalPrice }}</p>
-          <button (click)="removeFromCart(item.product)">Remove</button>
+  </div>
+
+  <div *ngIf="cartProduct.length > 0">
+    <div class="cart-item" *ngFor="let item of cartProduct">
+      <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image" />
+      
+      <div class="cart-item-details">
+        <h3>{{ item.product.name }}</h3>
+        <p>{{ item.product.description }}</p>
+        
+        <div class="quantity-control">
+          <button (click)="reduceQuantity(item.product)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item.product)">+</button>
         </div>
+        
+        <p class="price">Total Price: R{{ item.totalPrice }}</p>
+        
+        <button (click)="removeFromCart(item.product)" class="delete-button"> Remove</button>
       </div>
-      <div class="cart-total">
-        <p>Total: R{{ getTotalPrice() }}</p>
-      </div>
-      <button (click)="checkout()" class="checkout-button">Checkout</button>
     </div>
-  }
+
+    <div class="cart-total">
+      <p>Total: R{{ getTotalPrice() }}</p>
+    </div>
+    
+    <button (click)="checkout()" class="checkout-button">Checkout</button>
+  </div>
 </div>
