@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
 export class HeaderComponent {
 
   dropdownVisible = false; // To control dropdown visibility
-  
+
   constructor(private router: Router) { }
 
   onCart() {
@@ -25,6 +25,7 @@ export class HeaderComponent {
 
   onSignOut() {
     localStorage.removeItem('customer');
+    localStorage.removeItem('authToken');
     this.router.navigate(['/login']).then(() => {
       // Reload the page
       window.location.reload();

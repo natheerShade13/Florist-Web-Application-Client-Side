@@ -4,14 +4,14 @@
     <div class="form-group">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" formControlName="firstName" required>
-      @if (form.controls.firstName.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
+      @if (form.get('firstName')?.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
         <p>Enter First Name</p>
       }
     </div>
     <div class="form-group">
       <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" name="lastName" formControlName="lastName" required>
-      @if (form.controls.lastName.touched && form.controls.lastName.dirty && form.controls.lastName.invalid ) {
+      @if (form.get('lastName')?.touched && form.controls.lastName.dirty && form.controls.lastName.invalid ) {
         <p>Enter Last Name</p>
       }
     </div>
@@ -22,16 +22,16 @@
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" formControlName="email" email required>
-      @if (form.controls.email.touched && form.controls.email.dirty && form.controls.email.invalid ) {
+      @if (form.get('email')?.touched && form.controls.email.dirty && form.controls.email.invalid ) {
         <p>Enter a valid email</p>
-      }@else if (customerEmail === form.value.email && form.controls.email.touched) {
+      }@else if (customerEmail === form.value.email && form.get('email')?.touched) {
         <p>Email already exist</p>
       }
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" formControlName="password" minlength="3" maxlength="12" required>
-      @if (form.controls.password.touched && form.controls.password.dirty && form.controls.password.invalid ) {
+      @if (form.get('password')?.touched && form.controls.password.dirty && form.controls.password.invalid ) {
         <p>Enter a valid password (must be 3 characters long) </p>
       }
     </div>
@@ -39,7 +39,7 @@
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" maxlength="12" required>
     </div>
-    @if (form.value.password !== form.value.confirmPassword && form.controls.confirmPassword.touched) {
+    @if (form.value.password !== form.value.confirmPassword && form.get('confirmPassword')?.touched) {
       <p>Passwords do not match</p>
     }
     <button type="submit" class="register-button">Register</button>

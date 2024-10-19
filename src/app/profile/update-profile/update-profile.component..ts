@@ -68,7 +68,8 @@ export class UpdateProfileComponent {
       email: this.form.value.email,
       password: this.getCustomer()?.password ?? null,
       mobileNumber: this.form.value.mobileNumber,
-      dateOfBirth: this.form.value.dateOfBirth
+      dateOfBirth: this.form.value.dateOfBirth,
+      token: null
     }
 
 

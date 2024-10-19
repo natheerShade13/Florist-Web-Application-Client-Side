@@ -1,10 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component} from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { Customer } from '../customer.model';
-import { DatePipe } from '@angular/common';
 import { CustomerService } from '../customer.service';
 
 @Component({
@@ -21,7 +19,7 @@ export class RegistrationComponent {
 
   customerEmail: string | undefined | null;
 
-  form = new FormGroup({
+  public form = new FormGroup({
     firstName: new FormControl('', {    // this.customerService.customer.firstName
       validators: [Validators.required]
     }),
@@ -52,7 +50,8 @@ export class RegistrationComponent {
       email: this.form.value.email,
       password: this.form.value.password,
       mobileNumber: null,
-      dateOfBirth: null
+      dateOfBirth: null,
+      token: null
     };
 
     const confirmPassword = this.form.value.confirmPassword;

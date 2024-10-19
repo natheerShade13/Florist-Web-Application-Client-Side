@@ -4,15 +4,15 @@
       <!-- Add input fields for updating profile details -->
 
       <div class="form-group">
-        <label for="name">First Name:</label>
-        <input type="text" id="name" formControlName="firstName" required>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="firstName" required>
         @if (form.controls.firstName.touched && form.controls.firstName.dirty && form.controls.firstName.invalid ) {
           <p>Enter First Name</p>
         }
       </div>
       <div class="form-group">
-        <label for="name">Last Name:</label>
-        <input type="text" id="name" formControlName="lastName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" required>
         @if (form.controls.lastName.touched && form.controls.lastName.dirty && form.controls.lastName.invalid ) {
           <p>Enter Last Name</p>
         }
