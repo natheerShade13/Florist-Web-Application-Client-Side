@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Orders } from '../orders/order.model';
 import { Router, RouterLink } from '@angular/router';
 import { OrderService } from '../orders/order.service';
+import {ProductService} from "./admin-add-product/product.service";
 
 @Component({
   selector: 'app-admin-view-orders',
@@ -13,7 +14,7 @@ import { OrderService } from '../orders/order.service';
 })
 export class AdminViewOrdersComponent implements OnInit {
   orders: (Orders & { showDetails: boolean })[] = [];
-  private orderService = inject(OrderService);
+  private orderService = inject(ProductService);
 
   constructor(
     private router: Router
@@ -45,7 +46,9 @@ export class AdminViewOrdersComponent implements OnInit {
   }
 
   Logout(): void {
-    this.router.navigate(['/login']).then(() => {
+    localStorage.removeItem('customer');
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login/admin']).then(() => {
       window.location.reload();
     });
   }

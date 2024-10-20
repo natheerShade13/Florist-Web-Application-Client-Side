@@ -14,6 +14,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './orders/order.component';
 import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
 import {AdminLoginComponent} from "./admin/login/admin-login";
+import {AdminViewOrdersComponent} from "./admin/admin-view-orders.component";
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'order', component: OrderComponent},
   { path: 'admin', component: AdminAddProductComponent},
+  { path: 'admin/view-orders', component: AdminViewOrdersComponent},
   //{ path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -36,6 +38,6 @@ export const routes: Routes = [
       { path: 'add-address', component: AddAddressComponent },
     ]
   },
-  {path: '**', component: LoginComponent}, // Wildcard route for a 404 page
+  {path: '**', component: LoginComponent} // Wildcard route for a 404 page
   // Other routes
 ];
