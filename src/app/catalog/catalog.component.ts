@@ -4,37 +4,88 @@ import { CartService } from '../cart/cart.service';
 import { WishlistService } from '../wishlist/wishlist.service';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';  // Import FormsModule
 import { Product } from './product.model';
 import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, NgFor],
+  imports: [HeaderComponent, CommonModule, NgFor, FormsModule],  // Add FormsModule here
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent {
 
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: string[] = [];
+  selectedCategory: string | null = null;
 
-  constructor(private router: Router, private cartService: CartService, private wishlistService: WishlistService, 
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    private wishlistService: WishlistService, 
     private productService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(products => {
-      this.products = products;
+    this.fetchProducts();
+  }
+
+  fetchProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        this.products = products.filter(product => product.stockQuantity && product.stockQuantity > 0);
+        this.filteredProducts = this.products;
+        this.extractCategories();
+        console.log('Available products:', this.filteredProducts);
+      },
+      error: (err) => {
+        console.error('Failed to fetch products', err);
+      }
     });
+  }
+  
+  extractCategories(): void {
+    this.categories = Array.from(new Set(this.products.map(product => product.category)));
+  }
+
+  filterByCategory(category: string | null): void {
+    if (category === null || category === '') {
+      this.clearCategoryFilter();
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category === category);
+    }
+  }
+
+  clearCategoryFilter(): void {
+    this.selectedCategory = null;
+    this.filteredProducts = this.products;
   }
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    //alert(`${product.name} has been added to your cart.`);
-  }
+    if (product.stockQuantity && product.stockQuantity > 0) {
+      const currentQuantityInCart = this.cartService.getCartItemQuantity(product.productId);
+    
+      if (currentQuantityInCart < product.stockQuantity) {
+        this.cartService.addToCart(product);
+        alert(`${product.name} has been added to your cart.`);
+      } else {
+        alert(`${product.name} is out of stock`);
+      }
+    } else {
+      alert(`${product.name} is out of stock.`);
+    }
+  }  
+  
 
   addToWishlist(product: Product) {
-    this.wishlistService.addToWishlist(product);
+    if (product.stockQuantity && product.stockQuantity > 0) {
+      this.wishlistService.addToWishlist(product);
+    } else {
+      alert(`${product.name} is out of stock.`);
+    }
   }
 
   // "https://m.media-amazon.com/images/I/61mMytOBsJL._AC_SL1024_.jpg"

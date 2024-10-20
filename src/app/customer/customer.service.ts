@@ -1,7 +1,8 @@
 import { inject, Injectable, OnInit } from "@angular/core";
 import { Customer } from "./customer.model";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpParams,HttpHeaders } from "@angular/common/http";
+import { Address } from "../profile/add-address/add-address.models";
+import { Observable, catchError, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +10,7 @@ import { Observable } from "rxjs";
 export class CustomerService implements OnInit {
 
     private httpClient = inject(HttpClient);
+    private apiUrl = 'http://localhost:8080';
 
     ngOnInit() {
 
@@ -81,4 +83,29 @@ export class CustomerService implements OnInit {
         }
         return null;
     }
+
+    public deleteCustomer(customerId: number): Observable<boolean> {
+        const url = `${this.apiUrl}/customer/delete/${customerId}`;
+        console.log(`Sending delete request to: ${url}`);
+        
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
+    
+        // Try with HttpParams
+        const params = new HttpParams().set('customerId', customerId.toString());
+    
+        return this.httpClient.delete<boolean>(url, { headers, params })
+          .pipe(
+            tap((response: boolean) => console.log('Delete response:', response)),
+            catchError((error: any) => {
+              console.error('Delete error:', error);
+              throw error;
+            })
+          );
+      }
+    public addAddress(address: Address): Observable<Address> {
+        return this.httpClient.post<Address>(`http://localhost:8080/address/add`, address);
+      }
 }

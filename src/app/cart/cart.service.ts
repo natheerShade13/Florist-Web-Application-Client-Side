@@ -128,4 +128,21 @@ export class CartService {
     return this.orders;
   }
 
+  public getCartItemQuantity(productId: number): number {
+    const currentCart = this.cartProductSubject.value;
+    const existingProduct = currentCart.find(item => item.product.productId === productId);
+    return existingProduct ? existingProduct.quantity : 0; // Return the quantity or 0 if not found
+  }
+  
+  public updateCartQuantity(product: Product, newQuantity: number) {
+    const currentCart = this.cartProductSubject.value;
+    const existingProduct = currentCart.find(item => item.product.productId === product.productId);
+  
+    if (existingProduct) {
+      existingProduct.quantity = newQuantity;
+      existingProduct.totalPrice = existingProduct.quantity * product.price;
+      this.cartProductSubject.next([...currentCart]); // Update the observable
+    }
+  }
+
 }

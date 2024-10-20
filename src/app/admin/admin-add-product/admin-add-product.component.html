@@ -2,7 +2,7 @@
   <div class="sidebar">
     <ul class="sidebar-menu">
       <li><a routerLink="/admin">Add Products</a></li>
-      <li><a routerLink="/admin">View Orders</a></li>
+      <li><a routerLink="/admin/view-orders">View Orders</a></li>
       <!-- next up orders screen -->
     </ul>
   </div>
@@ -85,15 +85,20 @@
     <div class="form-group">
       <label for="category">Category:</label>
       <div class="input-wrapper">
-        <input
+        <select
           id="category"
           formControlName="category"
           class="form-control"
-          placeholder="Enter flower category"
-        />
+        >
+          <option value="" disabled>Select a category</option>
+          <option value="Wedding">Weddings</option>
+          <option value="Birthday">Birthdays</option>
+          <option value="Baby Shower">Baby Showers</option>
+        </select>
         <span *ngIf="productForm.controls['category'].invalid && productForm.controls['category'].touched" class="error-msg">Category is required</span>
       </div>
     </div>
+    
 
     <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
       <i class="fas fa-plus-circle"></i> {{ isEditMode ? 'Update Flower' : 'Add Flower' }}
