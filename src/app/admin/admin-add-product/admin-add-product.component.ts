@@ -124,7 +124,9 @@ export class AdminAddProductComponent implements OnInit {
   }
 
   Logout(): void {
-    this.router.navigate(['/login']).then(() => {
+    localStorage.removeItem('customer');
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login/admin']).then(() => {
       window.location.reload();
     });
   }
