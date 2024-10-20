@@ -15,6 +15,7 @@ import { OrderComponent } from './orders/order.component';
 import { AdminAddProductComponent } from './admin/admin-add-product/admin-add-product.component';
 import {AdminLoginComponent} from "./admin/login/admin-login";
 import {AdminViewOrdersComponent} from "./admin/admin-view-orders.component";
+import {DeleteAccountComponent} from "./profile/delete-account/delete-account.component";
 
 export const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'update-profile', component: UpdateProfileComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'add-address', component: AddAddressComponent },
+      { path: 'delete-account', component: DeleteAccountComponent }
     ]
   },
   {path: '**', component: LoginComponent} // Wildcard route for a 404 page

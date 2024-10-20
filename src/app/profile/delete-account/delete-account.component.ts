@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-delete-account',
   templateUrl: './delete-account.component.html',
+  standalone: true,
   styleUrls: ['./delete-account.component.css']
 })
 export class DeleteAccountComponent {
