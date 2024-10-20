@@ -1,0 +1,76 @@
+<div class="admin-container">
+  <div class="sidebar">
+    <ul class="sidebar-menu">
+      <li><a routerLink="/admin">Add Products</a></li>
+      <li><a routerLink="/admin/view-orders">View Orders</a></li>
+    </ul>
+  </div>
+
+  <div class="admin-header">
+    <h2>View Orders</h2>
+    <button class="btn btn-danger logout-btn" (click)="Logout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer Name</th>
+        <th>Order Date</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Iterate over the orders -->
+      <tr *ngFor="let order of orders">
+        <td>{{ order.orderId }}</td>
+        <td>{{ order.customer.firstName }} {{ order.customer.lastName }}</td>
+        <td>{{ order.orderDate | date:'medium' }}</td>
+        <td>{{ order.amount | currency:'R':'symbol':'1.2-2' }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+          <!-- Toggle order details -->
+          <button class="btn btn-info" (click)="toggleOrderDetails(order)">
+            {{ order.showDetails ? 'Hide Details' : 'Show Details' }}
+          </button>
+        </td>
+      </tr>
+      <!-- Separate *ngFor and *ngIf using ng-container -->
+      <ng-container *ngFor="let order of orders">
+        <tr *ngIf="order.showDetails">
+          <td colspan="6">
+            <div class="order-details">
+              <h4>Order Lines</h4>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Quoted Price</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let line of order.orderLines">
+                    <td>{{ line.product.name }}</td>
+                    <td>{{ line.quantity }}</td>
+                    <td>{{ line.quotedPrice | currency:'R':'symbol':'1.2-2' }}</td>
+                    <td>{{ line.quantity * line.quotedPrice | currency:'R':'symbol':'1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="order.coupon">
+                <h4>Applied Coupon</h4>
+                <p>{{ order.coupon.code }} - {{ order.coupon.discount }}% off</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

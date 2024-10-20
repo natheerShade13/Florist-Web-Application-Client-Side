@@ -112,10 +112,65 @@
 .catalog-container h1 {
   font-size: 36px;
   margin-bottom: 20px;
-  color: #2e7d32; /* Matching the green theme */
+  color: #2e7d32;
 }
 
 .catalog-container p {
   font-size: 18px;
-  color: #555; /* Subtle color for readability */
+  color: #555; 
+}
+
+/* Style the container for filter section */
+.filter-container {
+  margin-left: 70%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+  justify-content: flex-start; /* Align the filter to the left */
+}
+
+/* Style the label for the filter */
+.filter-label {
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style the select dropdown */
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  margin-right: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+  border-color: #218838;
+  outline: none;
+}
+
+/* Style the clear filter button */
+.clear-filter-btn {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-filter-btn:hover {
+  background-color: #218838;
+}
+
+.clear-filter-btn:focus {
+  outline: none;
 }
